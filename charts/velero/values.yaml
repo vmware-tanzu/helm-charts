@@ -47,7 +47,7 @@ metrics:
 
   # Pod annotations for Prometheus
   podAnnotations:
-    prometheus.io/scrape: "true"
+    prometheus.io/scrape: "false"
     prometheus.io/port: "8085"
     prometheus.io/path: "/metrics"
 
