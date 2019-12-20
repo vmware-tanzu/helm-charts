@@ -86,6 +86,8 @@ configuration:
     #  s3Url:
     #  kmsKeyId:
     #  resourceGroup:
+    #  The ID of the subscription containing the storage account, if different from the cluster’s subscription. (Azure only)
+    #  subscriptionId:
     #  storageAccount:
     #  publicUrl:
 
@@ -101,6 +103,8 @@ configuration:
   #    region:
   #    apitimeout:
   #    resourceGroup:
+  #    The ID of the subscription where volume snapshots should be stored, if different from the cluster’s subscription. If specified, also requires `configuration.volumeSnapshotLocation.config.resourceGroup`to be set. (Azure only)
+  #    subscriptionId:
   #    snapshotLocation:
   #    project:
 
