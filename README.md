@@ -10,7 +10,6 @@ Please refer to Helm's [documentation](https://helm.sh/docs/) to get started.
 
 Once Helm is set up properly, add the repo as follows:
 
-// TODO: check the DNS name for the hosting
 ```console
 $ helm repo add vmware-tanzu https://vmware-tanzu.github.io/helm-charts
 ```
