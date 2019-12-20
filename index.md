@@ -8,7 +8,11 @@ Add VMware Tanzu repository to Helm repos:
 helm repo add vmware-tanzu https://vmware-tanzu.github.io/helm-charts
 ```
 
-## Install Velero
+## Charts
+
+### Velero
+
+To install Velero:
 
 ```bash
 helm install --namespace <YOUR NAMESPACE> \
