@@ -100,13 +100,15 @@ spec:
                 fieldRef:
                   apiVersion: v1
                   fieldPath: metadata.namespace
-          {{- if and .Values.credentials.useSecret (or (eq $provider "aws") (or (eq $provider "gcp") (eq $provider "azure"))) }}
+          {{- if and .Values.credentials.useSecret (or (eq $provider "aws") (or (eq $provider "gcp") (eq $provider "azure")) (eq $provider "alibabacloud")) }}
             {{- if eq $provider "aws" }}
             - name: AWS_SHARED_CREDENTIALS_FILE
             {{- else if eq $provider "gcp"}}
             - name: GOOGLE_APPLICATION_CREDENTIALS
-            {{- else }}
+            {{- else if eq $provider "azure" }}
             - name: AZURE_CREDENTIALS_FILE
+            {{- else }}
+            - name: ALIBABA_CLOUD_CREDENTIALS_FILE
             {{- end }}
               value: /credentials/cloud
           {{- end }}
