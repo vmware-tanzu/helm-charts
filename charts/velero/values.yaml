@@ -151,6 +151,7 @@ serviceAccount:
   server:
     create: true
     name:
+    annotations:
 
 # Info about the secret to be used by the Velero deployment, which
 # should contain credentials for the cloud provider IAM account you've
