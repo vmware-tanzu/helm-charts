@@ -34,6 +34,6 @@ spec:
               kubectl delete backupstoragelocation --all;
               kubectl delete volumesnapshotlocation --all;
               kubectl delete podvolumerestore --all;
-              kubectl delete crd -l helm.sh/chart={{ include "velero.chart" . }}
+              kubectl delete crd -l app.kubernetes.io/name=velero;
       restartPolicy: OnFailure
 {{- end }}
