@@ -140,9 +140,11 @@ configuration:
 ## Settings for additional Velero resources.
 ##
 
-# Whether to create the Velero cluster role binding.
 rbac:
+  # Whether to create the Velero role and role binding to give all permissions to the namespace to Velero.
   create: true
+  # Whether to create the cluster role binding to give administrator permissions to Velero
+  clusterAdministrator: true
 
 # Information about the Kubernetes service account Velero uses.
 serviceAccount:
