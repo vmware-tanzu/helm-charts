@@ -9,8 +9,8 @@ metadata:
     helm.sh/chart: {{ include "velero.chart" . }}
 spec:
 {{- with .Values.configuration }}
+  provider: {{ .provider }}
 {{- with .backupStorageLocation }}
-  provider: {{ .name  }}
   objectStorage:
     bucket: {{ .bucket  }}
     {{- with .prefix }}
