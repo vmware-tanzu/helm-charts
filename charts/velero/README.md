@@ -2,7 +2,7 @@
 
 Velero is an open source tool to safely backup and restore, perform disaster recovery, and migrate Kubernetes cluster resources and persistent volumes.
 
-Velero has two main components: a CLI, and a server-side Kubernetes deployment. 
+Velero has two main components: a CLI, and a server-side Kubernetes deployment.
 
 ## Installing the Velero CLI
 
@@ -14,7 +14,7 @@ This helm chart installs Velero version v1.2.0 https://github.com/vmware-tanzu/v
 
 ### Prerequisites
 
-#### Tiller cluster-admin permissions
+#### If using Helm 2: Tiller cluster-admin permissions
 
 A service account and the role binding prerequisite must be added to Tiller when configuring Helm to install Velero:
 
