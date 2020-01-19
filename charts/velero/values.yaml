@@ -31,6 +31,9 @@ initContainers: []
 # Tolerations to use for the Velero deployment. Optional.
 tolerations: []
 
+# Security context to use for Velero deployment. Optional.
+securityContext: {}
+
 # Node selector to use for the Velero deployment. Optional.
 nodeSelector: {}
 
