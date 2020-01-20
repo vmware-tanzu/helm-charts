@@ -172,7 +172,9 @@ credentials:
   # of your IAM credentials file.
   secretContents: {}
 
-# Wheter to create volumesnapshotlocation crd, if false => disable snapshot feature
+# Whether to create backupstoragelocation crd, if false => do not create a default backup location
+backupsEnabled: true
+# Whether to create volumesnapshotlocation crd, if false => disable snapshot feature
 snapshotsEnabled: true
 
 # Whether to deploy the restic daemonset.
