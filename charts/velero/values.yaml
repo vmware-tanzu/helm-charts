@@ -207,6 +207,8 @@ restic:
 #       ttl: "240h"
 #       includedNamespaces:
 #        - foo
+#       excludedNamesapces:
+#        - boo
 schedules: {}
 
 # Velero ConfigMaps.
