@@ -86,7 +86,7 @@ spec:
                   fieldPath: spec.nodeName
             - name: VELERO_SCRATCH_DIR
               value: /scratch
-            {{- if and .Values.credentials.useSecret (or (eq $provider "aws") (eq $provider "gcp") (eq $provider "alibabacloud")) }}
+            {{- if and .Values.credentials.useSecret (or (eq $provider "aws") (eq $provider "gcp") (eq $provider "alibabacloud") (eq $provider "azure")) }}
             {{- if eq $provider "aws" }}
             - name: AWS_SHARED_CREDENTIALS_FILE
               value: /credentials/cloud
