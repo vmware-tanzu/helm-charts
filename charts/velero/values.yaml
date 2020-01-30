@@ -96,7 +96,7 @@ configuration:
   volumeSnapshotLocation:
     # Cloud provider where volume snapshots are being taken. Usually
     # should match `configuration.provider`. Required.,
-    name:
+    provider:
     # Additional provider-specific configuration. See link above
     # for details of required/optional fields for your provider.
     config: {}
@@ -169,6 +169,14 @@ credentials:
   # of your IAM credentials file.
   secretContents: {}
 
+# Other secrets to be exposed as environmental variables
+# environmentSecrets:
+#   - name: NAME_OF_THE_ENV_VALYUE
+#     secretKeyRef:
+#       key: KEY-INSIDE-SECRET
+#       name: SECRET-NAME
+
+
 # Wheter to create volumesnapshotlocation crd, if false => disable snapshot feature
 snapshotsEnabled: true
 
@@ -200,6 +208,9 @@ restic:
 #       ttl: "240h"
 #       includedNamespaces:
 #        - foo
+#       excludedNamespaces:
+#        - boo
+
 schedules: {}
 
 # Velero ConfigMaps.
