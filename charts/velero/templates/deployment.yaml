@@ -116,8 +116,8 @@ spec:
                           {{- range $key, $value := . }}
                       - name: {{ default "none" $key }}
                         value: {{ default "none" $value }}
-                              {{- end }}
-                              {{- end }}
+                          {{- end }}
+                          {{- end }}
                           {{- range .Values.environmentSecrets }}
                       - name: {{ .name }}
                         valueFrom:
