@@ -170,11 +170,12 @@ credentials:
   secretContents: {}
 
 # Additional environmental secretes
-#environmentSecrets:
+# environmentSecrets:
 #  - name:
 #    secretKeyRef:
 #      key:
 #      name:
+environmentSecrets: {}
 
 # Wheter to create volumesnapshotlocation crd, if false => disable snapshot feature
 snapshotsEnabled: true
