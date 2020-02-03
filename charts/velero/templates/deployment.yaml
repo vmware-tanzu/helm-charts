@@ -118,6 +118,13 @@ spec:
               value: {{ default "none" $value }}
           {{- end }}
           {{- end }}
+          {{- range .Values.environmentSecrets }}
+             - name: {{ .name }}
+               valueFrom:
+                 secretKeyRef:
+                   name: {{ .secretKeyRef.name }}
+                   key: {{ .secretKeyRef.key }}
+          {{- end }}
 {{- if .Values.initContainers }}
       initContainers:
         {{- toYaml .Values.initContainers | nindent 8 }}
