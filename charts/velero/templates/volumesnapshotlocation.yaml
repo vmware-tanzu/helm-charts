@@ -1,16 +1,15 @@
 {{- if .Values.snapshotsEnabled }}
+{{- range .Values.configuration.volumeSnapshotLocation }}
 apiVersion: velero.io/v1
 kind: VolumeSnapshotLocation
 metadata:
-  name: default
+  name: {{ .name }}
   labels:
     app.kubernetes.io/name: {{ include "velero.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    app.kubernetes.io/managed-by: {{ $.Release.Service }}
     helm.sh/chart: {{ include "velero.chart" . }}
 spec:
-{{- with .Values.configuration }}
-{{- with .volumeSnapshotLocation }}
   provider: {{ .provider }}
 {{ with .config }}
   config:
@@ -34,5 +33,5 @@ spec:
   {{- end}}
 {{- end }}
 {{- end }}
-{{- end }}
-{{- end }}
+---
+{{- end}}
