@@ -34,6 +34,8 @@ spec:
     {{- end }}
     spec:
       restartPolicy: Always
+      securityContext:
+        fsGroup: 65534
       serviceAccountName: {{ include "velero.serverServiceAccount" . }}
       {{- if .Values.priorityClassName }}
       priorityClassName: {{ include "velero.priorityClassName" . }}
