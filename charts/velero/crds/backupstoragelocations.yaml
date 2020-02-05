@@ -14,6 +14,7 @@ spec:
     listKind: BackupStorageLocationList
     plural: backupstoragelocations
     singular: backupstoragelocation
+  preserveUnknownFields: false
   scope: Namespaced
   validation:
     openAPIV3Schema:

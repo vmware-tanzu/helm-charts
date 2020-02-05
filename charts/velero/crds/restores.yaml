@@ -14,6 +14,7 @@ spec:
     listKind: RestoreList
     plural: restores
     singular: restore
+  preserveUnknownFields: false
   scope: Namespaced
   validation:
     openAPIV3Schema:
