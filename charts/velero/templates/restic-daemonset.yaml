@@ -49,7 +49,7 @@ spec:
         {{- toYaml .Values.restic.extraVolumes | nindent 8 }}
         {{- end }}
       containers:
-        - name: velero
+        - name: restic
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
