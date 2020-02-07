@@ -97,7 +97,7 @@ configuration:
   # https://velero.io/docs/v1.0.0/api-types/volumesnapshotlocation/
   volumeSnapshotLocation:
     # Name of the volume snapshot location. Use 'default' to create default snapshot location. Required.
-    - name:
+    - name: default
       # Cloud provider where volume snapshots are being taken. Usually
       # should match `configuration.provider`. Required.,
       provider:
