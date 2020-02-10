@@ -44,6 +44,11 @@ spec:
     publicUrl: {{ . }}
   {{- end }}
   {{- end }}
+  {{- if .serviceAccount }}
+  {{- with .serviceAccount }}
+    serviceAccount: {{ . }}
+  {{- end }}
+  {{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
