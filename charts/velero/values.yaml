@@ -9,6 +9,8 @@ image:
   tag: v1.2.0
   pullPolicy: IfNotPresent
 
+imagePullSecrets: []
+
 # Annotations to add to the Velero deployment's pod template. Optional.
 #
 # If using kube2iam or kiam, use the following annotation with your AWS_ACCOUNT_ID
