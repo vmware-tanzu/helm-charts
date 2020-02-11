@@ -9,6 +9,9 @@ image:
   tag: v1.2.0
   pullPolicy: IfNotPresent
 
+# imagePullSecrets are used in velero deployment pod template. Optional.
+# These are the list of secrets to use to pull image from in case of a private registry.
+# For example; custom plugin docker images could be hosted in a private registry.
 imagePullSecrets: []
 
 # Annotations to add to the Velero deployment's pod template. Optional.
