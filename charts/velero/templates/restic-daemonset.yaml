@@ -76,6 +76,12 @@ spec:
                 name: {{ include "velero.secretName" . }}
           {{- end }}
           env:
+            {{- with .Values.configuration.extraEnvVars }}
+            {{- range $key, $value := . }}
+            - name: {{ default "none" $key }}
+              value: {{ default "none" $value }}
+            {{- end }}
+            {{- end }}
             - name: VELERO_NAMESPACE
               valueFrom:
                 fieldRef:
