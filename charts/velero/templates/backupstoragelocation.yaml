@@ -1,3 +1,4 @@
+{{- if .Values.backupsEnabled }}
 apiVersion: velero.io/v1
 kind: BackupStorageLocation
 metadata:
@@ -49,6 +50,7 @@ spec:
     serviceAccount: {{ . }}
   {{- end }}
   {{- end }}
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
