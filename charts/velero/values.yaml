@@ -28,6 +28,12 @@ initContainers: []
   #     - mountPath: /target
   #       name: plugins
 
+# SecurityContext to use for the Velero deployment. Optional.
+# Set fsGroup for `AWS IAM Roles for Service Accounts`
+# see more informations at: https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html
+securityContext: {}
+  # fsGroup: 1337
+
 # Tolerations to use for the Velero deployment. Optional.
 tolerations: []
 
@@ -195,6 +201,12 @@ restic:
 
   # Extra volumeMounts for the Restic daemonset. Optional.
   extraVolumeMounts: []
+
+  # SecurityContext to use for the Velero deployment. Optional.
+  # Set fsGroup for `AWS IAM Roles for Service Accounts`
+  # see more informations at: https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html
+  securityContext: {}
+    # fsGroup: 1337
 
 # Backup schedules to create.
 # Eg:
