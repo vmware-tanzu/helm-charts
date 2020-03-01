@@ -54,7 +54,7 @@ helm install --namespace <YOUR NAMESPACE> \
 --set initContainers[0].image=velero/velero-plugin-for-aws:v1.0.0 \
 --set initContainers[0].volumeMounts[0].mountPath=/target \
 --set initContainers[0].volumeMounts[0].name=plugins \
-stable/velero
+vmware-tanzu/velero
 ```
 
 #### Option 2) YAML file

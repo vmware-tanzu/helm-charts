@@ -49,7 +49,7 @@ spec:
         {{- toYaml .Values.restic.extraVolumes | nindent 8 }}
         {{- end }}
       containers:
-        - name: velero
+        - name: restic
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
@@ -92,24 +92,21 @@ spec:
                   fieldPath: spec.nodeName
             - name: VELERO_SCRATCH_DIR
               value: /scratch
-            {{- if and .Values.credentials.useSecret (or (eq $provider "aws") (eq $provider "gcp") (eq $provider "alibabacloud")) }}
+          {{- if and .Values.credentials.useSecret (or (eq $provider "aws") (eq $provider "gcp") (eq $provider "alibabacloud")) }}
             {{- if eq $provider "aws" }}
             - name: AWS_SHARED_CREDENTIALS_FILE
-              value: /credentials/cloud
             {{- else if eq $provider "gcp" }}
             - name: GOOGLE_APPLICATION_CREDENTIALS
-              value: /credentials/cloud
             {{- else }}
             - name: ALIBABA_CLOUD_CREDENTIALS_FILE
+            {{- end }}
               value: /credentials/cloud
-            {{- end }}
-            {{- end }}
-            {{- if eq $provider "minio" }}
-            - name: AWS_SHARED_CREDENTIALS_FILE
-              value: /credentials/cloud
-            {{- end }}
+          {{- end }}
           securityContext:
             privileged: {{ .Values.restic.privileged }}
+            {{- with .Values.restic.securityContext }}
+              {{- toYaml . | nindent 12 }}
+            {{- end }}
           {{- with .Values.restic.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
