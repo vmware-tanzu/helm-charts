@@ -28,10 +28,10 @@ spec:
   {{- end }}
   {{- with .snapshotLocation }}
     snapshotLocation: {{ . }}
-  {{- end}}
+  {{- end }}
   {{- with .project }}
     project: {{ . }}
-  {{- end}}
+  {{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
