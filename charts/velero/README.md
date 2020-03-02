@@ -77,7 +77,7 @@ helm upgrade <RELEASE NAME> --set initContainers.backupStorageLocation.name=aws,
 
 ### Upgrading to v1.3.0
 
-The [instructions found here](https://velero.io/docs/v1.3.0/upgrade-to-1.3/) will assist you in upgrading from version v1.0.0 or v1.1.0 or v1.2.0 to v1.3.0.
+The [instructions found here](https://velero.io/docs/v1.3.0/upgrade-to-1.3/) will assist you in upgrading from version v1.2.0 to v1.3.0.
 
 ### Upgrading to v1.2.0
 
