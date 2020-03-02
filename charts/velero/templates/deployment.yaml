@@ -71,11 +71,6 @@ spec:
             - --log-format={{ . }}
             {{- end }}
           {{- end }}
-          {{- if eq $provider "azure" }}
-          envFrom:
-            - secretRef:
-                name: {{ include "velero.secretName" . }}
-          {{- end }}
           {{- with .Values.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
