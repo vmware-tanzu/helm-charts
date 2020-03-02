@@ -227,7 +227,7 @@ schedules: {}
 #       velero.io/plugin-config: ""
 #       velero.io/restic: RestoreItemAction
 #     data:
-#       image: gcr.io/heptio-images/velero-restic-restore-help
+#       image: velero/velero-restic-restore-helper:v1.3.1
 configMaps: {}
 
 ##
