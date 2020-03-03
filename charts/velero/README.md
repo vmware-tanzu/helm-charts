@@ -6,7 +6,7 @@ Velero has two main components: a CLI, and a server-side Kubernetes deployment.
 
 ## Installing the Velero CLI
 
-See the different options for installing the [Velero CLI](https://velero.io/docs/v1.3.0/install-overview/#install-the-cli).
+See the different options for installing the [Velero CLI](https://velero.io/docs/v1.3.0/basic-install/#install-the-cli).
 
 ## Installing the Velero server
 
@@ -32,7 +32,7 @@ When installing using the Helm chart, the provider's credential information will
 
 The default configuration values for this chart are listed in values.yaml.
 
-See Velero's full [official documentation](https://velero.io/docs/v1.3.0/install-overview/). More specifically, find your provider in the Velero list of [supported providers](https://velero.io/docs/v1.3.0/supported-providers/) for specific configuration information and examples.
+See Velero's full [official documentation](https://velero.io/docs/v1.3.0/basic-install/). More specifically, find your provider in the Velero list of [supported providers](https://velero.io/docs/v1.3.0/supported-providers/) for specific configuration information and examples.
 
 #### Option 1) CLI commands
 
