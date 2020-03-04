@@ -190,6 +190,16 @@ snapshotsEnabled: true
 deployRestic: false
 
 restic:
+  # Annotations to add to the Restic daemonset's pod template. Optional.
+  #
+  # If using kube2iam or kiam, use the following annotation with your AWS_ACCOUNT_ID
+  # and RESTIC_ROLE_NAME filled in:
+  #  iam.amazonaws.com/role: arn:aws:iam::<AWS_ACCOUNT_ID>:role/<RESTIC_ROLE_NAME>
+  podAnnotations: {}
+
+  # Labels to add to the Restic daemonset's pod template. Optional.
+  podLabels: {}
+
   podVolumePath: /var/lib/kubelet/pods
   privileged: false
   # Pod priority class name to use for the Restic daemonset. Optional.
