@@ -6,7 +6,7 @@
 # enabling restic). Required.
 image:
   repository: velero/velero
-  tag: v1.2.0
+  tag: v1.3.0
   pullPolicy: IfNotPresent
 
 # Annotations to add to the Velero deployment's pod template. Optional.
@@ -25,7 +25,7 @@ resources: {}
 # Init containers to add to the Velero deployment's pod spec. At least one plugin provider image is required.
 initContainers: []
   # - name: velero-plugin-for-aws
-  #   image: velero/velero-plugin-for-aws:v1.0.0
+  #   image: velero/velero-plugin-for-aws:v1.0.1
   #   imagePullPolicy: IfNotPresent
   #   volumeMounts:
   #     - mountPath: /target
