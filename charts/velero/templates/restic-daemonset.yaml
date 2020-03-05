@@ -94,7 +94,7 @@ spec:
             - name: GOOGLE_APPLICATION_CREDENTIALS
             {{- else if eq $provider "azure" }}
             - name: AZURE_CREDENTIALS_FILE
-            {{- else }}
+            {{- else if eq $provider "alibabacloud" }}
             - name: ALIBABA_CLOUD_CREDENTIALS_FILE
             {{- end }}
               value: /credentials/cloud
