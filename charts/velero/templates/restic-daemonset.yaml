@@ -90,14 +90,17 @@ spec:
           {{- if .Values.credentials.useSecret }}
             {{- if eq $provider "aws" }}
             - name: AWS_SHARED_CREDENTIALS_FILE
+              value: /credentials/cloud
             {{- else if eq $provider "gcp" }}
             - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /credentials/cloud
             {{- else if eq $provider "azure" }}
             - name: AZURE_CREDENTIALS_FILE
+              value: /credentials/cloud
             {{- else if eq $provider "alibabacloud" }}
             - name: ALIBABA_CLOUD_CREDENTIALS_FILE
-            {{- end }}
               value: /credentials/cloud
+            {{- end }}
           {{- end }}
           securityContext:
             privileged: {{ .Values.restic.privileged }}
