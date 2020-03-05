@@ -50,9 +50,9 @@ spec:
     serviceAccount: {{ . }}
   {{- end }}
   {{- end }}
-  {{- if .disableSSL }}
-  {{- with .disableSSL }}
-    disableSSL: {{ . }}
+  {{- if .insecureSkipTLSVerify }}
+  {{- with .insecureSkipTLSVerify }}
+    insecureSkipTLSVerify: {{ . }}
   {{- end }}
   {{- end }}
 {{- end }}
