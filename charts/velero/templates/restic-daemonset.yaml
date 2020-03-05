@@ -35,7 +35,7 @@ spec:
       priorityClassName: {{ include "velero.restic.priorityClassName" . }}
       {{- end }}
       volumes:
-        {{- if and .Values.credentials.useSecret (or (eq $provider "aws") (eq $provider "gcp") (eq $provider "alibabacloud")) }}
+        {{- if and .Values.credentials.useSecret (or (eq $provider "aws") (eq $provider "gcp") (eq $provider "azure") (eq $provider "alibabacloud")) }}
         - name: cloud-credentials
           secret:
             secretName: {{ include "velero.secretName" . }}
@@ -58,7 +58,7 @@ spec:
             - restic
             - server
           volumeMounts:
-            {{- if and .Values.credentials.useSecret (or (eq $provider "aws") (eq $provider "gcp") (eq $provider "alibabacloud")) }}
+            {{- if and .Values.credentials.useSecret (or (eq $provider "aws") (eq $provider "gcp") (eq $provider "azure") (eq $provider "alibabacloud")) }}
             - name: cloud-credentials
               mountPath: /credentials
             {{- end }}
