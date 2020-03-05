@@ -99,6 +99,8 @@ configuration:
     #  Name of the GCP service account to use for this backup storage location. Specify the
     #  service account here if you want to use workload identity instead of providing the key file.(GCP only)
     #  serviceAccount:
+    #  Set this to true if you are using Minio (or another local, S3-compatible storage service) and your deployment is not secured.
+    #  disableSSL:
 
   # Parameters for the `default` VolumeSnapshotLocation. See
   # https://velero.io/docs/v1.0.0/api-types/volumesnapshotlocation/
