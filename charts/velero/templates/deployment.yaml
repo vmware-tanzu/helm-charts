@@ -95,6 +95,8 @@ spec:
                 fieldRef:
                   apiVersion: v1
                   fieldPath: metadata.namespace
+            - name: LD_LIBRARY_PATH
+              value: /plugins
           {{- if .Values.credentials.useSecret }}
             {{- if eq $provider "aws" }}
             - name: AWS_SHARED_CREDENTIALS_FILE
