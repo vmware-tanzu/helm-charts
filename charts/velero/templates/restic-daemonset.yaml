@@ -77,8 +77,8 @@ spec:
           env:
             {{- with .Values.configuration.extraEnvVars }}
             {{- range $key, $value := . }}
-            - name: {{ default "none" $key }}
-              value: {{ default "none" $value }}
+            - name: {{ default "none" $key | quote }}
+              value: {{ default "none" $value | quote }}
             {{- end }}
             {{- end }}
             - name: VELERO_NAMESPACE
