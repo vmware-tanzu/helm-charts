@@ -28,6 +28,9 @@ spec:
   {{- with .s3Url }}
     s3Url: {{ . }}
   {{- end }}
+  {{- with .serverSideEncryption }}
+    serverSideEncryption: {{ . }}
+  {{- end }}
   {{- with .kmsKeyId }}
     kmsKeyId: {{ . }}
   {{- end }}

@@ -90,6 +90,7 @@ configuration:
     #  region:
     #  s3ForcePathStyle:
     #  s3Url:
+    #  serverSideEncryption:
     #  kmsKeyId:
     #  resourceGroup:
     #  The ID of the subscription containing the storage account, if different from the cluster’s subscription. (Azure only)
