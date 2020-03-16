@@ -16,7 +16,9 @@ spec:
     {{- with .prefix }}
     prefix: {{ . }}
     {{- end }}
+{{ with .config }}
   config:
-    {{ toYaml .config }}
+    {{ toYaml . }}
+{{- end }}
 {{- end }}
 {{- end }}

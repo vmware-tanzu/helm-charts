@@ -10,8 +10,8 @@ metadata:
     helm.sh/chart: {{ include "velero.chart" . }}
 spec:
   provider: {{ include "velero.volumeSnapshotLocation.provider" . }}
-{{- with .Values.configuration.volumeSnapshotLocation }}
+{{- with .Values.configuration.volumeSnapshotLocation.config }}
   config:
-    {{ toYaml .config }}
-{{- end }}
+  {{ toYaml .config }}
+{{- end -}}
 {{- end }}
