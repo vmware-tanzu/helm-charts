@@ -7,11 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
+
+      - name: Fetch history
+        run: git fetch --prune --unshallow
 
       - name: Run chart-testing (lint)
         id: lint
-        uses: helm/chart-testing-action@v1.0.0-alpha.3
+        uses: helm/chart-testing-action@v1.0.0-rc.1
         with:
           command: lint
 
@@ -23,6 +26,6 @@ jobs:
         if: steps.lint.outputs.changed == 'true'
 
       - name: Run chart-testing (install)
-        uses: helm/chart-testing-action@v1.0.0-alpha.3
+        uses: helm/chart-testing-action@v1.0.0-rc.1
         with:
           command: install
