@@ -1,3 +1,5 @@
+installCRDs: false
+
 # Set provider name and backup storage location bucket name
 configuration:
   provider: aws
