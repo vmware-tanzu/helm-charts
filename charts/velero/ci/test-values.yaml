@@ -5,6 +5,14 @@ configuration:
   provider: aws
   backupStorageLocation:
     bucket: velero
+    config:
+      region: us-west-1
+      profile: test
+  volumeSnapshotLocation:
+    provider: aws
+    config:
+      bucker: velero
+      region: us-west-1
 
 # Set a service account so that the CRD clean up job has proper permissions to delete CRDs
 serviceAccount:
