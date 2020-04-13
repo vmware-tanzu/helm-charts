@@ -7,6 +7,7 @@
 image:
   repository: velero/velero
   tag: v1.3.1
+  digest: sha256:0c74f1d552ef25a4227e582f4c0e6b3db3402abe196595ee9442ceeb43b99696
   pullPolicy: IfNotPresent
 
 # Annotations to add to the Velero deployment's pod template. Optional.

@@ -50,7 +50,11 @@ spec:
         {{- end }}
       containers:
         - name: restic
+        {{- if .Values.image.digest }}
+          image: "{{ .Values.image.repository }}@{{ .Values.image.digest }}"
+        {{- else }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
             - /velero
