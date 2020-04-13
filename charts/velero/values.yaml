@@ -84,6 +84,9 @@ configuration:
     # Cloud provider where backups should be stored. Usually should
     # match `configuration.provider`. Required.
     name:
+    # Provider for the backup storage location. If omitted
+    # `configuration.provider` will be used instead.
+    provider:
     # Bucket to store backups in. Required.
     bucket:
     # Prefix within bucket under which to store backups. Optional.
@@ -110,6 +113,9 @@ configuration:
     # Cloud provider where volume snapshots are being taken. Usually
     # should match `configuration.provider`. Required.,
     name:
+    # Provider for the backup storage location. If omitted
+    # `configuration.provider` will be used instead.
+    provider:
     # Additional provider-specific configuration. See link above
     # for details of required/optional fields for your provider.
     config: {}
