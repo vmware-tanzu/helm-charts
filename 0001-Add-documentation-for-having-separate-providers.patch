@@ -1,0 +1,43 @@
+From a91dcb3cfb78793298fd9573416c65bd9e93fa02 Mon Sep 17 00:00:00 2001
+From: Austin Vance <austin@focusedlabs.io>
+Date: Mon, 13 Apr 2020 13:31:57 -0600
+Subject: [PATCH] Add documentation for having separate providers
+
+Documentation in the `values.yaml` to make clear having
+separate providers for `volumeSnapshotLocation`,
+`backupStorageLocation`, and the `deployment.yaml`
+
+This fixes https://github.com/vmware-tanzu/helm-charts/pull/97#pullrequestreview-392313774
+
+Signed-off-by: Austin Vance <austin@focusedlabs.io>
+---
+ charts/velero/values.yaml | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/charts/velero/values.yaml b/charts/velero/values.yaml
+index ce1a000..1f124b8 100644
+--- a/charts/velero/values.yaml
++++ b/charts/velero/values.yaml
+@@ -84,6 +84,9 @@ configuration:
+     # Cloud provider where backups should be stored. Usually should
+     # match `configuration.provider`. Required.
+     name:
++    # Provider for the backup storage location. If omitted
++    # `configuration.provider` will be used instead.
++    provider:
+     # Bucket to store backups in. Required.
+     bucket:
+     # Prefix within bucket under which to store backups. Optional.
+@@ -110,6 +113,9 @@ configuration:
+     # Cloud provider where volume snapshots are being taken. Usually
+     # should match `configuration.provider`. Required.,
+     name:
++    # Provider for the backup storage location. If omitted
++    # `configuration.provider` will be used instead.
++    provider:
+     # Additional provider-specific configuration. See link above
+     # for details of required/optional fields for your provider.
+     config: {}
+-- 
+2.24.1 (Apple Git-126)
+
