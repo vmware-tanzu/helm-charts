@@ -12,6 +12,6 @@ spec:
   provider: {{ include "velero.volumeSnapshotLocation.provider" . }}
 {{- with .Values.configuration.volumeSnapshotLocation.config }}
   config:
-  {{ toYaml .config }}
+{{ toYaml . | indent 4 }}
 {{- end -}}
 {{- end }}

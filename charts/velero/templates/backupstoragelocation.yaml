@@ -16,9 +16,12 @@ spec:
     {{- with .prefix }}
     prefix: {{ . }}
     {{- end }}
-{{ with .config }}
+{{- with .config }}
   config:
-    {{ toYaml . }}
+{{ toYaml . | indent 4}}
+{{- if .s3ForcePathStyle }}
+    s3ForcePathStyle: {{ .s3ForcePathStyle | quote }}
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
