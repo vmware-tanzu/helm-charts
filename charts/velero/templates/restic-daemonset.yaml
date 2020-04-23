@@ -106,6 +106,21 @@ spec:
               value: /credentials/cloud
             {{- end }}
           {{- end }}
+          {{- with .Values.configuration.extraEnvVars }}
+          {{- range $key, $value := . }}
+            - name: {{ default "none" $key | quote }}
+              value: {{ default "none" $value | quote }}
+          {{- end }}
+          {{- end }}
+          {{- with .Values.credentials.extraEnvVars }}
+          {{- range $key, $value := . }}
+            - name: {{ default "none" $key }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "velero.fullname" $ }}
+                  key: {{ default "none" $key }}
+          {{- end }}
+          {{- end }}
           securityContext:
             privileged: {{ .Values.restic.privileged }}
             {{- with .Values.restic.securityContext }}

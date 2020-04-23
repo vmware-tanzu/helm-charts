@@ -187,6 +187,8 @@ credentials:
   # true and `existingSecret` is empty. This should be the contents
   # of your IAM credentials file.
   secretContents: {}
+  # additional key/value pairs to be used as environment variables such as "DIGITALOCEAN_TOKEN: <your-key>". Values will be stored in the secret.
+  extraEnvVars: {}
 
 # Whether to create backupstoragelocation crd, if false => do not create a default backup location
 backupsEnabled: true
