@@ -49,6 +49,7 @@ helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> \
 --set initContainers[0].image=velero/velero-plugin-for-aws:v1.0.1 \
 --set initContainers[0].volumeMounts[0].mountPath=/target \
 --set initContainers[0].volumeMounts[0].name=plugins \
+--set installCRDs=false \
 --generate-name
 ```
 
