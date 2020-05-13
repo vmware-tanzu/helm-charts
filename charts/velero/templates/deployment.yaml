@@ -68,6 +68,9 @@ spec:
             {{- with .restoreResourcePriorities }}
             - --restore-resource-priorities={{ . }}
             {{- end }}
+            {{- with .features }}
+            - --features={{ . }}
+            {{- end }}
             {{- with .logLevel }}
             - --log-level={{ . }}
             {{- end }}
