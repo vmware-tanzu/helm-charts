@@ -40,6 +40,9 @@ securityContext: {}
 # Tolerations to use for the Velero deployment. Optional.
 tolerations: []
 
+# Affinity to use for the Velero deployment. Optional.
+affinity: {}
+
 # Node selector to use for the Velero deployment. Optional.
 nodeSelector: {}
 
