@@ -61,6 +61,9 @@ spec:
           args:
             - restic
             - server
+            {{- with .Values.configuration.features }}
+            - --features={{ . }}
+            {{- end }}
           volumeMounts:
             {{- if .Values.credentials.useSecret }}
             - name: cloud-credentials

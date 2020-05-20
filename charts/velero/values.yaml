@@ -144,6 +144,9 @@ configuration:
   # additional key/value pairs to be used as environment variables such as "AWS_CLUSTER_NAME: 'yourcluster.domain.tld'"
   extraEnvVars: {}
 
+  # Comma separated list of velero feature flags. default: empty
+  features:
+
   # Set log-level for Velero pod. Default: info. Other options: debug, warning, error, fatal, panic.
   logLevel:
 
