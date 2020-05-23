@@ -5,6 +5,7 @@ metadata:
   labels:
     app.kubernetes.io/name: velero
   annotations:
+    "helm.sh/hook": pre-install
     "helm.sh/hook-delete-policy": "before-hook-creation"
 spec:
   group: velero.io
