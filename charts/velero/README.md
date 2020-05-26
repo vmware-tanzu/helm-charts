@@ -6,13 +6,13 @@ Velero has two main components: a CLI, and a server-side Kubernetes deployment.
 
 ## Installing the Velero CLI
 
-See the different options for installing the [Velero CLI](https://velero.io/docs/v1.3.1/basic-install/#install-the-cli).
+See the different options for installing the [Velero CLI](https://velero.io/docs/v1.4/basic-install/#install-the-cli).
 
 ## Installing the Velero server
 
 ### Velero version
 
-This helm chart installs Velero version v1.3.1 https://github.com/vmware-tanzu/velero/tree/v1.3.1. See the [#Upgrading](#upgrading) section for information on how to upgrade from other versions.
+This helm chart installs Velero version v1.4.0 https://github.com/vmware-tanzu/velero/tree/v1.4.0. See the [#Upgrading](#upgrading) section for information on how to upgrade from other versions.
 
 ### Provider credentials
 
@@ -22,7 +22,7 @@ When installing using the Helm chart, the provider's credential information will
 
 The default configuration values for this chart are listed in values.yaml.
 
-See Velero's full [official documentation](https://velero.io/docs/v1.3.1/basic-install/). More specifically, find your provider in the Velero list of [supported providers](https://velero.io/docs/v1.3.1/supported-providers/) for specific configuration information and examples.
+See Velero's full [official documentation](https://velero.io/docs/v1.4/basic-install/). More specifically, find your provider in the Velero list of [supported providers](https://velero.io/docs/v1.4/supported-providers/) for specific configuration information and examples.
 
 
 #### Using Helm 3
@@ -43,10 +43,10 @@ helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> \
 --set configuration.volumeSnapshotLocation.name=<PROVIDER NAME> \
 --set configuration.volumeSnapshotLocation.config.region=<REGION> \
 --set image.repository=velero/velero \
---set image.tag=v1.3.1 \
+--set image.tag=v1.4.0 \
 --set image.pullPolicy=IfNotPresent \
 --set initContainers[0].name=velero-plugin-for-aws \
---set initContainers[0].image=velero/velero-plugin-for-aws:v1.0.1 \
+--set initContainers[0].image=velero/velero-plugin-for-aws:v1.1.0 \
 --set initContainers[0].volumeMounts[0].mountPath=/target \
 --set initContainers[0].volumeMounts[0].name=plugins \
 --generate-name
@@ -93,10 +93,10 @@ helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> \
 --set configuration.volumeSnapshotLocation.name=<PROVIDER NAME> \
 --set configuration.volumeSnapshotLocation.config.region=<REGION> \
 --set image.repository=velero/velero \
---set image.tag=v1.3.1 \
+--set image.tag=v1.4.0 \
 --set image.pullPolicy=IfNotPresent \
 --set initContainers[0].name=velero-plugin-for-aws \
---set initContainers[0].image=velero/velero-plugin-for-aws:v1.0.1 \
+--set initContainers[0].image=velero/velero-plugin-for-aws:v1.1.0 \
 --set initContainers[0].volumeMounts[0].mountPath=/target \
 --set initContainers[0].volumeMounts[0].name=plugins 
 ```
@@ -118,6 +118,11 @@ helm upgrade vmware-tanzu/velero <RELEASE NAME> --reuse-values --set configurati
 ```
 
 ## Upgrading
+
+### Upgrading to v1.4.0
+
+The [instructions found here](https://velero.io/docs/v1.4/upgrade-to-1.4/) will assist you in upgrading from version v1.3.x to v1.4.0.
+
 
 ### Upgrading to v1.3.1
 
