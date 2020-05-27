@@ -8,10 +8,8 @@ icon: https://cdn-images-1.medium.com/max/1600/1*-9mb3AKnKdcL_QD3CMnthQ.png
 sources:
 - https://github.com/vmware-tanzu/velero
 maintainers:
-  - name: domcar
-    email: d-caruso@hotmail.it
-  - name: hectorj2f
-    email: hfernandez@mesosphere.com
+  - name: skriss
+    email: krisss@vmware.com
   - name: nrb
     email: brubakern@vmware.com
   - name: carlisia
