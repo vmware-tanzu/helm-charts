@@ -8,12 +8,14 @@ icon: https://cdn-images-1.medium.com/max/1600/1*-9mb3AKnKdcL_QD3CMnthQ.png
 sources:
 - https://github.com/vmware-tanzu/velero
 maintainers:
-  - name: skriss
-    email: krisss@vmware.com
-  - name: nrb
-    email: brubakern@vmware.com
-  - name: carlisia
-    email: carlisiac@vmware.com
   - name: ashish-amarnath
     email: ashisham@vmware.com
+  - name: carlisia
+    email: carlisiac@vmware.com
+  - name: cpanato
+    email: ctadeu@gmail.com
+  - name: nrb
+    email: brubakern@vmware.com
+  - name: skriss
+    email: krisss@vmware.com
 tillerVersion: ">=2.10.0"
