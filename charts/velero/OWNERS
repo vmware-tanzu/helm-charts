@@ -1,10 +1,12 @@
 approvers:
-- hectorj2f
-- nrb
-- carlisia
 - ashish-amarnath
+- carlisia
+- cpanato
+- nrb
+- skriss
 reviewers:
-- hectorj2f
-- nrb
-- carlisia
 - ashish-amarnath
+- carlisia
+- cpanato
+- nrb
+- skriss
