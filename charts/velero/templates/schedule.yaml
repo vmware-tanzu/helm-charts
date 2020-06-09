@@ -8,6 +8,9 @@ metadata:
     app.kubernetes.io/instance: {{ $.Release.Name }}
     app.kubernetes.io/managed-by: {{ $.Release.Service }}
     helm.sh/chart: {{ include "velero.chart" $ }}
+    {{- if .Values.scheduleLabels }}
+      {{- toYaml .Values.scheduleLabels | nindent 4 }}
+    {{- end }}    
 spec:
   schedule: {{ $schedule.schedule | quote }}
 {{- with $schedule.template }}
