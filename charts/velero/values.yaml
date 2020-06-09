@@ -237,6 +237,7 @@ restic:
 schedules: {}
 
 scheduleLabels: {}
+  # myenv: foo
 
 # Velero ConfigMaps.
 # Eg:
