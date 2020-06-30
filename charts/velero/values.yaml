@@ -19,6 +19,10 @@ image:
 #  iam.amazonaws.com/role: arn:aws:iam::<AWS_ACCOUNT_ID>:role/<VELERO_ROLE_NAME>
 podAnnotations: {}
 
+# Additional pod labels for Velero deployment's template. Optional
+# ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+podLabels: {}
+
 # Resource requests/limits to specify for the Velero deployment. Optional.
 resources: {}
 
