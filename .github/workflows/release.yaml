@@ -3,7 +3,7 @@ name: Release Charts
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   release:
@@ -22,7 +22,7 @@ jobs:
       # client version: v2.15.2.
       - name: Install Helm
         run: |
-          curl -sSLo get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get
+          curl -sSLo get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get
           chmod 700 get_helm.sh
           DESIRED_VERSION=v2.15.2 ./get_helm.sh
           helm init --client-only
