@@ -63,6 +63,7 @@ metrics:
   serviceMonitor:
     enabled: false
     additionalLabels: {}
+    namespace:
 
 # Install CRDs as a templates. Enabled by default.
 installCRDs: true
