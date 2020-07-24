@@ -1,4 +1,4 @@
-installCRDs: false
+installCRDs: true
 
 # Set provider name and backup storage location bucket name
 configuration:
