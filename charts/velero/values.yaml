@@ -64,6 +64,9 @@ metrics:
     enabled: false
     additionalLabels: {}
 
+# Install CRDs as a templates. Enabled by default.
+installCRDs: true
+
 ##
 ## End of deployment-related settings.
 ##
