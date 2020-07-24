@@ -36,4 +36,4 @@ spec:
               kubectl delete podvolumerestore --all;
               kubectl delete crd -l app.kubernetes.io/name=velero;
       restartPolicy: OnFailure
-  {{- end }}
+{{- end }}
