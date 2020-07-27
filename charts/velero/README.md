@@ -37,7 +37,7 @@ Specify the necessary values using the --set key=value[,key=value] argument to h
 
 ```bash
 helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> \
---set-file <FULL PATH TO FILE> \
+--set-file credentials.secretContents.cloud=<FULL PATH TO FILE> \
 --set configuration.provider=<PROVIDER NAME> \
 --set configuration.backupStorageLocation.name=<BACKUP STORAGE LOCATION NAME> \
 --set configuration.backupStorageLocation.bucket=<BUCKET NAME> \
@@ -89,7 +89,7 @@ Specify the necessary values using the --set key=value[,key=value] argument to h
 
 ```bash
 helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> \
---set-file <FULL PATH TO FILE> \
+--set-file credentials.secretContents.cloud=<FULL PATH TO FILE> \
 --set configuration.provider=aws \
 --set configuration.backupStorageLocation.name=<BACKUP STORAGE LOCATION NAME> \
 --set configuration.backupStorageLocation.bucket=<BUCKET NAME> \
