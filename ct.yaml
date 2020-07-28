@@ -1,7 +1,6 @@
 # See https://github.com/helm/chart-testing#configuration
-remote: origin
 chart-dirs:
   - charts
-chart-repos:
-  - incubator=https://kubernetes-charts-incubator.storage.googleapis.com
-helm-extra-args: --timeout=500s
+remote: origin
+target-branch: main
+upgrade: true
