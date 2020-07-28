@@ -144,6 +144,14 @@ The [instructions found here](https://velero.io/docs/v1.1.0/upgrade-to-1.1/) wil
 
 Note: when you uninstall the Velero server, all backups remain untouched.
 
+### Using Helm 2
+
 ```bash
 helm delete <RELEASE NAME> --purge
+```
+
+#### Using Helm 3
+
+```bash
+helm delete <RELEASE NAME> -n <YOUR NAMESPACE>
 ```
