@@ -59,7 +59,7 @@ helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> \
 Add/update the necessary values by changing the values.yaml from this repository, then run:
 
 ```bash
-helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE>  -f values.yaml --generate-name
+helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> -f values.yaml --generate-name
 ```
 ##### Upgrade the configuration
 
@@ -110,7 +110,7 @@ helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> \
 Add/update the necessary values by changing the values.yaml from this repository, then run:
 
 ```bash
-helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE>  -f values.yaml
+helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> -f values.yaml
 ```
 
 ##### Upgrade the configuration
