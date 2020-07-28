@@ -40,6 +40,9 @@ securityContext: {}
 # Tolerations to use for the Velero deployment. Optional.
 tolerations: []
 
+# Affinity to use for the Velero deployment. Optional.
+affinity: {}
+
 # Node selector to use for the Velero deployment. Optional.
 nodeSelector: {}
 
@@ -52,17 +55,12 @@ extraVolumeMounts: []
 # Settings for Velero's prometheus metrics. Enabled by default.
 metrics:
   enabled: true
-  scrapeInterval: 30s
 
   # Pod annotations for Prometheus
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8085"
     prometheus.io/path: "/metrics"
-
-  serviceMonitor:
-    enabled: false
-    additionalLabels: {}
 
 # Install CRDs as a templates. Enabled by default.
 installCRDs: true
@@ -81,17 +79,23 @@ configuration:
   provider:
 
   # Parameters for the `default` BackupStorageLocation. See
-  # https://velero.io/docs/v1.0.0/api-types/backupstoragelocation/
+  # https://velero.io/docs/v1.4/api-types/backupstoragelocation/
   backupStorageLocation:
-    # Cloud provider where backups should be stored. Usually should
-    # match `configuration.provider`. Required.
+    # name is the name of the backup storage location where backups should be stored. If a name is not provided,
+    # a backup storage location will be created with the name "default". Optional.
     name:
-    # Provider for the backup storage location. If omitted
+    # provider is the name for the backup storage location provider. If omitted
     # `configuration.provider` will be used instead.
     provider:
-    # Bucket to store backups in. Required.
+    # bucket is the name of the bucket to store backups in. Required.
     bucket:
-    # Prefix within bucket under which to store backups. Optional.
+    # caCert defines a CA bundle to use when verifying TLS connections to the provider.
+    caCert:
+      # type is byte
+      format:
+      # type is string
+      type:
+    # prefix is the directory under which all Velero data should be stored within the bucket. Optional.
     prefix:
     # Additional provider-specific configuration. See link above
     # for details of required/optional fields for your provider.
@@ -110,12 +114,11 @@ configuration:
     #  serviceAccount:
 
   # Parameters for the `default` VolumeSnapshotLocation. See
-  # https://velero.io/docs/v1.0.0/api-types/volumesnapshotlocation/
+  # https://velero.io/docs/v1.4/api-types/volumesnapshotlocation/
   volumeSnapshotLocation:
-    # Cloud provider where volume snapshots are being taken. Usually
-    # should match `configuration.provider`. Required.,
+    # name is the name of the volume snapshot location where snapshots are being taken. Required.
     name:
-    # Provider for the backup storage location. If omitted
+    # provider is the name for the volume snapshot provider. If omitted
     # `configuration.provider` will be used instead.
     provider:
     # Additional provider-specific configuration. See link above
@@ -229,6 +232,8 @@ restic:
 # Eg:
 # schedules:
 #   mybackup:
+#      labels:
+#        myenv: foo
 #     schedule: "0 0 * * *"
 #     template:
 #       ttl: "240h"

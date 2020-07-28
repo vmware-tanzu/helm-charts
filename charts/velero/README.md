@@ -31,16 +31,18 @@ First, create the namespace: `kubectl create namespace <YOUR NAMESPACE>`
 
 ##### Option 1) CLI commands
 
+Note: you may add the flag `--skip-crds` if you don't want to install the CRDs.
+
 Specify the necessary values using the --set key=value[,key=value] argument to helm install. For example,
 
 ```bash
 helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> \
---set-file <FULL PATH TO FILE> \
---set configuration.provider=aws \
---set configuration.backupStorageLocation.name=<PROVIDER NAME> \
+--set-file credentials.secretContents.cloud=<FULL PATH TO FILE> \
+--set configuration.provider=<PROVIDER NAME> \
+--set configuration.backupStorageLocation.name=<BACKUP STORAGE LOCATION NAME> \
 --set configuration.backupStorageLocation.bucket=<BUCKET NAME> \
 --set configuration.backupStorageLocation.config.region=<REGION> \
---set configuration.volumeSnapshotLocation.name=<PROVIDER NAME> \
+--set configuration.volumeSnapshotLocation.name=<VOLUME SNAPSHOT LOCATION NAME> \
 --set configuration.volumeSnapshotLocation.config.region=<REGION> \
 --set image.repository=velero/velero \
 --set image.tag=v1.4.0 \
@@ -57,7 +59,7 @@ helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> \
 Add/update the necessary values by changing the values.yaml from this repository, then run:
 
 ```bash
-helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE>  -f values.yaml --generate-name
+helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> -f values.yaml --generate-name
 ```
 ##### Upgrade the configuration
 
@@ -81,16 +83,18 @@ helm init --service-account=tiller --wait --upgrade
 
 ##### Option 1) CLI commands
 
+Note: you may add the flag `--set installCRDs=false` if you don't want to install the CRDs.
+
 Specify the necessary values using the --set key=value[,key=value] argument to helm install. For example,
 
 ```bash
 helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> \
---set-file <FULL PATH TO FILE> \
+--set-file credentials.secretContents.cloud=<FULL PATH TO FILE> \
 --set configuration.provider=aws \
---set configuration.backupStorageLocation.name=<PROVIDER NAME> \
+--set configuration.backupStorageLocation.name=<BACKUP STORAGE LOCATION NAME> \
 --set configuration.backupStorageLocation.bucket=<BUCKET NAME> \
 --set configuration.backupStorageLocation.config.region=<REGION> \
---set configuration.volumeSnapshotLocation.name=<PROVIDER NAME> \
+--set configuration.volumeSnapshotLocation.name=<VOLUME SNAPSHOT LOCATION NAME> \
 --set configuration.volumeSnapshotLocation.config.region=<REGION> \
 --set image.repository=velero/velero \
 --set image.tag=v1.4.0 \
@@ -106,7 +110,7 @@ helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> \
 Add/update the necessary values by changing the values.yaml from this repository, then run:
 
 ```bash
-helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE>  -f values.yaml
+helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> -f values.yaml
 ```
 
 ##### Upgrade the configuration
@@ -140,6 +144,14 @@ The [instructions found here](https://velero.io/docs/v1.1.0/upgrade-to-1.1/) wil
 
 Note: when you uninstall the Velero server, all backups remain untouched.
 
+### Using Helm 2
+
 ```bash
 helm delete <RELEASE NAME> --purge
+```
+
+#### Using Helm 3
+
+```bash
+helm delete <RELEASE NAME> -n <YOUR NAMESPACE>
 ```
