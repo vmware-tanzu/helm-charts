@@ -234,6 +234,8 @@ restic:
 # Eg:
 # schedules:
 #   mybackup:
+#      labels:
+#        myenv: foo
 #     schedule: "0 0 * * *"
 #     template:
 #       ttl: "240h"
