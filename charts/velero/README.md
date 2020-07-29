@@ -37,7 +37,7 @@ Specify the necessary values using the --set key=value[,key=value] argument to h
 
 ```bash
 helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> \
---set-file <FULL PATH TO FILE> \
+--set-file credentials.secretContents.cloud=<FULL PATH TO FILE> \
 --set configuration.provider=<PROVIDER NAME> \
 --set configuration.backupStorageLocation.name=<BACKUP STORAGE LOCATION NAME> \
 --set configuration.backupStorageLocation.bucket=<BUCKET NAME> \
@@ -59,7 +59,7 @@ helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> \
 Add/update the necessary values by changing the values.yaml from this repository, then run:
 
 ```bash
-helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE>  -f values.yaml --generate-name
+helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> -f values.yaml --generate-name
 ```
 ##### Upgrade the configuration
 
@@ -89,7 +89,7 @@ Specify the necessary values using the --set key=value[,key=value] argument to h
 
 ```bash
 helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> \
---set-file <FULL PATH TO FILE> \
+--set-file credentials.secretContents.cloud=<FULL PATH TO FILE> \
 --set configuration.provider=aws \
 --set configuration.backupStorageLocation.name=<BACKUP STORAGE LOCATION NAME> \
 --set configuration.backupStorageLocation.bucket=<BUCKET NAME> \
@@ -110,7 +110,7 @@ helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> \
 Add/update the necessary values by changing the values.yaml from this repository, then run:
 
 ```bash
-helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE>  -f values.yaml
+helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> -f values.yaml
 ```
 
 ##### Upgrade the configuration
@@ -144,6 +144,14 @@ The [instructions found here](https://velero.io/docs/v1.1.0/upgrade-to-1.1/) wil
 
 Note: when you uninstall the Velero server, all backups remain untouched.
 
+### Using Helm 2
+
 ```bash
 helm delete <RELEASE NAME> --purge
+```
+
+#### Using Helm 3
+
+```bash
+helm delete <RELEASE NAME> -n <YOUR NAMESPACE>
 ```

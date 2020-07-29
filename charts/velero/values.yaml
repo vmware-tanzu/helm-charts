@@ -44,6 +44,9 @@ securityContext: {}
 # Tolerations to use for the Velero deployment. Optional.
 tolerations: []
 
+# Affinity to use for the Velero deployment. Optional.
+affinity: {}
+
 # Node selector to use for the Velero deployment. Optional.
 nodeSelector: {}
 
@@ -56,17 +59,12 @@ extraVolumeMounts: []
 # Settings for Velero's prometheus metrics. Enabled by default.
 metrics:
   enabled: true
-  scrapeInterval: 30s
 
   # Pod annotations for Prometheus
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8085"
     prometheus.io/path: "/metrics"
-
-  serviceMonitor:
-    enabled: false
-    additionalLabels: {}
 
 # Install CRDs as a templates. Enabled by default.
 installCRDs: true
@@ -238,6 +236,8 @@ restic:
 # Eg:
 # schedules:
 #   mybackup:
+#      labels:
+#        myenv: foo
 #     schedule: "0 0 * * *"
 #     template:
 #       ttl: "240h"

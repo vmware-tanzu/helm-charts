@@ -29,9 +29,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
     spec:
-      {{- if .Values.serviceAccount.server.create }}
       serviceAccountName: {{ include "velero.serverServiceAccount" . }}
-      {{- end }}
       securityContext:
         runAsUser: 0
       {{- if .Values.restic.priorityClassName }}
@@ -64,9 +62,17 @@ spec:
           args:
             - restic
             - server
-            {{- with .Values.configuration.features }}
+          {{- with .Values.configuration }}
+            {{- with .features }}
             - --features={{ . }}
             {{- end }}
+            {{- with .logLevel }}
+            - --log-level={{ . }}
+            {{- end }}
+            {{- with .logFormat }}
+            - --log-format={{ . }}
+            {{- end }}
+          {{- end }}
           volumeMounts:
             {{- if .Values.credentials.useSecret }}
             - name: cloud-credentials
