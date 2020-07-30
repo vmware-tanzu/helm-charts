@@ -19,6 +19,9 @@ spec:
     {{- with .prefix }}
     prefix: {{ . }}
     {{- end }}
+    {{- with .caCert }}
+    caCert: {{ . }}
+    {{- end }}
 {{- with .config }}
   config:
 {{ toYaml . | indent 4}}

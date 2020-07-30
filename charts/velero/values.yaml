@@ -93,12 +93,8 @@ configuration:
     provider:
     # bucket is the name of the bucket to store backups in. Required.
     bucket:
-    # caCert defines a CA bundle to use when verifying TLS connections to the provider.
+    # caCert defines a base64 encoded CA bundle to use when verifying TLS connections to the provider.
     caCert:
-      # type is byte
-      format:
-      # type is string
-      type:
     # prefix is the directory under which all Velero data should be stored within the bucket. Optional.
     prefix:
     # Additional provider-specific configuration. See link above
