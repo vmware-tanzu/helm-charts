@@ -1,0 +1,29 @@
+{{- if .Values.metrics.podMonitor.enabled -}}
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: {{ include "velero.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: {{ include "velero.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    helm.sh/chart: {{ include "velero.chart" . }}
+spec:
+  podMetricsEndpoints:
+  - interval: {{ .Values.metrics.podMonitor.interval }}
+    targetPort: {{ .Values.metrics.podMonitor.targetPort }}
+    path: "/metrics"
+  namespaceSelector:
+    matchNames:
+    - {{ .Release.Namespace }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "velero.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/managed-by: {{ .Release.Service }}
+      helm.sh/chart: {{ include "velero.chart" . }}
+      {{- if .Values.podLabels }}
+        {{- toYaml .Values.podLabels | nindent 6 }}
+      {{- end }}
+{{- end -}}

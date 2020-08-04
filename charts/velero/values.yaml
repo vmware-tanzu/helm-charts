@@ -66,6 +66,12 @@ metrics:
     prometheus.io/port: "8085"
     prometheus.io/path: "/metrics"
 
+  # PodMonitor CR for prometheus-operator discovery
+  podMonitor:
+    enabled: false
+    interval: 30s
+    targetPort: 8085
+
 # Install CRDs as a templates. Enabled by default.
 installCRDs: true
 
