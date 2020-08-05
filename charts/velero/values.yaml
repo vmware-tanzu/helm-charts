@@ -239,7 +239,7 @@ restic:
 #       ttl: "240h"
 #       includedNamespaces:
 #        - foo
-schedules: {}
+schedules: []
 
 scheduleLabels: {}
 

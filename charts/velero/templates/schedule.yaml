@@ -1,8 +1,8 @@
-{{- range $scheduleName, $schedule := .Values.schedules }}
+{{- range .Values.schedules }}
 apiVersion: velero.io/v1
 kind: Schedule
 metadata:
-  name: {{ include "velero.fullname" $ }}-{{ $scheduleName }}
+  name: {{ include "velero.fullname" $ }}-{{ .name }}
   labels:
     app.kubernetes.io/name: {{ include "velero.name" $ }}
     app.kubernetes.io/instance: {{ $.Release.Name }}
@@ -12,8 +12,8 @@ metadata:
       {{- toYaml .Values.scheduleLabels | nindent 4 }}
     {{- end }}
 spec:
-  schedule: {{ $schedule.schedule | quote }}
-{{- with $schedule.template }}
+  schedule: {{ .schedule | quote }}
+{{- with .template }}
   template:
     {{- toYaml . | nindent 4 }}
 {{- end }}
