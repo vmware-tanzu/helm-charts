@@ -24,6 +24,30 @@ The default configuration values for this chart are listed in values.yaml.
 
 See Velero's full [official documentation](https://velero.io/docs/v1.4/basic-install/). More specifically, find your provider in the Velero list of [supported providers](https://velero.io/docs/v1.4/supported-providers/) for specific configuration information and examples.
 
+#### Configuration
+
+Parameter                                            | Description                                                                                                | Default
+:--------------------------------------------------- | :--------------------------------------------------------------------------------------------------------- | :---------------------------------------------------
+`image.repository`                                   | Velero image repository                                                                                    | `velero/velero`
+`image.digest`                                       | Velero image digest                                                                                        |
+`image.tag`                                          | Velero image tag                                                                                           | `v1.4.0`
+`image.pullPolicy`                                   | Velero image pull policy                                                                                   | `IfNotPresent`
+`pluginImage.repository`*                            | Velero plugin image repository                                                                             | Generated from `configuration.provider`
+`pluginImage.digest`                                 | Velero plugin image digest                                                                                 |
+`pluginImage.tag`                                    | Velero plugin image tag                                                                                    | `v1.1.0`
+`pluginImage.pullPolicy`                             | Velero plugin image pull policy                                                                            | `IfNotPresent`
+`podAnnotations`                                     | Annotations to add to the Velero deployment's pod template.                                                |
+`podLabels`                                          | Additional pod labels for Velero deployment's template.                                                    |
+`resources`                                          | Resource requests/limits to specify for the Velero deployment.                                             |
+`initContainers`                                     | Init containers to add to the Velero deployment's pod spec.                                                |
+`securityContext`                                    | SecurityContext to use for the Velero deployment.                                                          |
+`tolerations`                                        | Tolerations to use for the Velero deployment.                                                              |
+`affinity`                                           | Affinity to use for the Velero deployment.                                                                 |
+`nodeSelector`                                       | Node selector to use for the Velero deployment.                                                            |
+`extraVolumes`                                       | Extra volumes for the Velero deployment.                                                                   |
+`extraVolumeMounts`                                  | Extra volumeMounts for the Velero deployment.                                                              |
+`metrics.enabled`                                    | Settings for Velero's prometheus metrics. Enabled by default.                                              | `true`
+`installCRDs`                                        | Install CRDs as a templates.                                                                               | `true`
 
 #### Using Helm 3
 
@@ -47,10 +71,6 @@ helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> \
 --set image.repository=velero/velero \
 --set image.tag=v1.4.2 \
 --set image.pullPolicy=IfNotPresent \
---set initContainers[0].name=velero-plugin-for-aws \
---set initContainers[0].image=velero/velero-plugin-for-aws:v1.1.0 \
---set initContainers[0].volumeMounts[0].mountPath=/target \
---set initContainers[0].volumeMounts[0].name=plugins \
 --generate-name
 ```
 
@@ -98,11 +118,7 @@ helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> \
 --set configuration.volumeSnapshotLocation.config.region=<REGION> \
 --set image.repository=velero/velero \
 --set image.tag=v1.4.2 \
---set image.pullPolicy=IfNotPresent \
---set initContainers[0].name=velero-plugin-for-aws \
---set initContainers[0].image=velero/velero-plugin-for-aws:v1.1.0 \
---set initContainers[0].volumeMounts[0].mountPath=/target \
---set initContainers[0].volumeMounts[0].name=plugins 
+--set image.pullPolicy=IfNotPresent
 ```
 
 ##### Option 2) YAML file
@@ -118,7 +134,7 @@ helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> -f values.yaml
 If a value needs to be added or changed, you may do so with the `upgrade` command. An example:
 
 ```bash
-helm upgrade vmware-tanzu/velero <RELEASE NAME> --reuse-values --set configuration.provider=<NEW PROVIDER> 
+helm upgrade vmware-tanzu/velero <RELEASE NAME> --reuse-values --set configuration.provider=<NEW PROVIDER>
 ```
 
 ## Upgrading
