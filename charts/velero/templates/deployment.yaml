@@ -110,16 +110,16 @@ spec:
           {{- if .Values.credentials.useSecret }}
             {{- if eq $provider "aws" }}
             - name: AWS_SHARED_CREDENTIALS_FILE
-              value: /credentials/cloud
+              value: /credentials/{{ .Values.credentials.existingSecretKey }}
             {{- else if eq $provider "gcp"}}
             - name: GOOGLE_APPLICATION_CREDENTIALS
-              value: /credentials/cloud
+              value: /credentials/{{ .Values.credentials.existingSecretKey }}
             {{- else if eq $provider "azure" }}
             - name: AZURE_CREDENTIALS_FILE
-              value: /credentials/cloud
+              value: /credentials/{{ .Values.credentials.existingSecretKey }}
             {{- else if eq $provider "alibabacloud" }}
             - name: ALIBABA_CLOUD_CREDENTIALS_FILE
-              value: /credentials/cloud
+              value: /credentials/{{ .Values.credentials.existingSecretKey }}
             {{- end }}
           {{- end }}
           {{- with .Values.configuration.extraEnvVars }}
