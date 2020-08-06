@@ -12,6 +12,16 @@ image:
   # digest:
   pullPolicy: IfNotPresent
 
+pluginImage:
+  # The plugin image repository will by default be selected using the provider property
+  # set a repository to override the image.
+  # repository: velero/velero-plugin-for-aws
+  tag: v1.1.0
+  # Digest value example: sha256:d238835e151cec91c6a811fe3a89a66d3231d9f64d09e5f3c49552672d271f38. If used, it will
+  # take precedence over the image.tag.
+  # digest:
+  pullPolicy: IfNotPresent
+
 # Annotations to add to the Velero deployment's pod template. Optional.
 #
 # If using kube2iam or kiam, use the following annotation with your AWS_ACCOUNT_ID
@@ -26,14 +36,9 @@ podLabels: {}
 # Resource requests/limits to specify for the Velero deployment. Optional.
 resources: {}
 
-# Init containers to add to the Velero deployment's pod spec. At least one plugin provider image is required.
+# Init containers to add to the Velero deployment's pod spec.
 initContainers: []
-  # - name: velero-plugin-for-aws
-  #   image: velero/velero-plugin-for-aws:v1.1.0
-  #   imagePullPolicy: IfNotPresent
-  #   volumeMounts:
-  #     - mountPath: /target
-  #       name: plugins
+
 
 # SecurityContext to use for the Velero deployment. Optional.
 # Set fsGroup for `AWS IAM Roles for Service Accounts`
