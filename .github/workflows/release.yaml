@@ -24,7 +24,7 @@ jobs:
         run: |
           curl -sSLo get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get
           chmod 700 get_helm.sh
-          DESIRED_VERSION=v2.15.2 ./get_helm.sh
+          DESIRED_VERSION=v2.16.9 ./get_helm.sh
           helm init --client-only
 
       - name: Add dependency chart repos
@@ -33,6 +33,6 @@ jobs:
           helm repo add incubator https://kubernetes-charts-incubator.storage.googleapis.com/
 
       - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.0.0-alpha.2
+        uses: helm/chart-releaser-action@v1.0.0
         env:
           CR_TOKEN: "${{ secrets.CR_TOKEN }}"
