@@ -3,6 +3,30 @@ entries:
   velero:
   - apiVersion: v1
     appVersion: 1.4.0
+    created: "2020-08-12T22:44:53.066559359Z"
+    description: A Helm chart for velero
+    digest: b7319dc286ac838fc47c4973e05f66fdfab35ef2a2e1064d15d8a1f41c0a959f
+    home: https://github.com/vmware-tanzu/velero
+    icon: https://cdn-images-1.medium.com/max/1600/1*-9mb3AKnKdcL_QD3CMnthQ.png
+    maintainers:
+    - email: ashisham@vmware.com
+      name: ashish-amarnath
+    - email: carlisiac@vmware.com
+      name: carlisia
+    - email: ctadeu@gmail.com
+      name: cpanato
+    - email: brubakern@vmware.com
+      name: nrb
+    - email: krisss@vmware.com
+      name: skriss
+    name: velero
+    sources:
+    - https://github.com/vmware-tanzu/velero
+    urls:
+    - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.12.14/velero-2.12.14.tgz
+    version: 2.12.14
+  - apiVersion: v1
+    appVersion: 1.4.0
     created: "2020-07-29T06:58:14.668310513Z"
     description: A Helm chart for velero
     digest: 04e9075797504e34a22284aa5709c33e564efe598dcdee0b8a0c3b536ee9a95f
@@ -22,7 +46,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.12.13/velero-2.12.13.tgz
     version: 2.12.13
@@ -47,7 +70,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.12.12/velero-2.12.12.tgz
     version: 2.12.12
@@ -72,7 +94,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.12.11/velero-2.12.11.tgz
     version: 2.12.11
@@ -97,7 +118,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.12.10/velero-2.12.10.tgz
     version: 2.12.10
@@ -122,7 +142,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.12.9/velero-2.12.9.tgz
     version: 2.12.9
@@ -147,7 +166,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.12.8/velero-2.12.8.tgz
     version: 2.12.8
@@ -172,7 +190,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.12.7/velero-2.12.7.tgz
     version: 2.12.7
@@ -197,7 +214,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.12.6/velero-2.12.6.tgz
     version: 2.12.6
@@ -222,7 +238,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.12.5/velero-2.12.5.tgz
     version: 2.12.5
@@ -247,7 +262,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.12.4/velero-2.12.4.tgz
     version: 2.12.4
@@ -272,7 +286,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.12.3/velero-2.12.3.tgz
     version: 2.12.3
@@ -297,7 +310,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.12.2/velero-2.12.2.tgz
     version: 2.12.2
@@ -322,7 +334,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.12.1/velero-2.12.1.tgz
     version: 2.12.1
@@ -347,7 +358,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.12.0/velero-2.12.0.tgz
     version: 2.12.0
@@ -372,7 +382,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.11.0/velero-2.11.0.tgz
     version: 2.11.0
@@ -397,7 +406,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.10.0/velero-2.10.0.tgz
     version: 2.10.0
@@ -422,7 +430,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.9.15/velero-2.9.15.tgz
     version: 2.9.15
@@ -447,7 +454,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.9.13/velero-2.9.13.tgz
     version: 2.9.13
@@ -472,7 +478,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.9.12/velero-2.9.12.tgz
     version: 2.9.12
@@ -497,7 +502,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.9.11/velero-2.9.11.tgz
     version: 2.9.11
@@ -522,7 +526,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.9.10/velero-2.9.10.tgz
     version: 2.9.10
@@ -547,7 +550,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.9.9/velero-2.9.9.tgz
     version: 2.9.9
@@ -572,7 +574,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.9.8/velero-2.9.8.tgz
     version: 2.9.8
@@ -597,7 +598,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.9.7/velero-2.9.7.tgz
     version: 2.9.7
@@ -622,7 +622,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.9.6/velero-2.9.6.tgz
     version: 2.9.6
@@ -647,7 +646,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.9.5/velero-2.9.5.tgz
     version: 2.9.5
@@ -672,7 +670,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.9.4/velero-2.9.4.tgz
     version: 2.9.4
@@ -697,7 +694,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.9.3/velero-2.9.3.tgz
     version: 2.9.3
@@ -722,7 +718,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.9.2/velero-2.9.2.tgz
     version: 2.9.2
@@ -747,7 +742,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.9.1/velero-2.9.1.tgz
     version: 2.9.1
@@ -772,7 +766,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.9.0/velero-2.9.0.tgz
     version: 2.9.0
@@ -797,7 +790,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.8.10/velero-2.8.10.tgz
     version: 2.8.10
@@ -822,7 +814,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.8.9/velero-2.8.9.tgz
     version: 2.8.9
@@ -847,7 +838,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.8.8/velero-2.8.8.tgz
     version: 2.8.8
@@ -872,7 +862,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.8.7/velero-2.8.7.tgz
     version: 2.8.7
@@ -897,7 +886,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.8.6/velero-2.8.6.tgz
     version: 2.8.6
@@ -922,7 +910,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.8.5/velero-2.8.5.tgz
     version: 2.8.5
@@ -947,7 +934,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.8.4/velero-2.8.4.tgz
     version: 2.8.4
@@ -972,7 +958,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.8.3/velero-2.8.3.tgz
     version: 2.8.3
@@ -997,7 +982,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.8.2/velero-2.8.2.tgz
     version: 2.8.2
@@ -1022,7 +1006,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.8.1/velero-2.8.1.tgz
     version: 2.8.1
@@ -1047,7 +1030,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.8.0/velero-2.8.0.tgz
     version: 2.8.0
@@ -1072,7 +1054,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.7.10/velero-2.7.10.tgz
     version: 2.7.10
@@ -1097,7 +1078,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.7.9/velero-2.7.9.tgz
     version: 2.7.9
@@ -1122,7 +1102,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.7.8/velero-2.7.8.tgz
     version: 2.7.8
@@ -1147,7 +1126,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.7.6/velero-2.7.6.tgz
     version: 2.7.6
@@ -1172,7 +1150,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.7.5/velero-2.7.5.tgz
     version: 2.7.5
@@ -1197,7 +1174,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.7.4/velero-2.7.4.tgz
     version: 2.7.4
@@ -1222,7 +1198,6 @@ entries:
     name: velero
     sources:
     - https://github.com/vmware-tanzu/velero
-    tillerVersion: '>=2.10.0'
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.7.3/velero-2.7.3.tgz
     version: 2.7.3
