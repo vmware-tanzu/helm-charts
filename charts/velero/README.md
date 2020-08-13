@@ -12,7 +12,7 @@ See the different options for installing the [Velero CLI](https://velero.io/docs
 
 ### Velero version
 
-This helm chart installs Velero version v1.4.0 https://github.com/vmware-tanzu/velero/tree/v1.4.0. See the [#Upgrading](#upgrading) section for information on how to upgrade from other versions.
+This helm chart installs Velero version v1.4.2 https://github.com/vmware-tanzu/velero/tree/v1.4.2. See the [#Upgrading](#upgrading) section for information on how to upgrade from other versions.
 
 ### Provider credentials
 
@@ -45,7 +45,7 @@ helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> \
 --set configuration.volumeSnapshotLocation.name=<VOLUME SNAPSHOT LOCATION NAME> \
 --set configuration.volumeSnapshotLocation.config.region=<REGION> \
 --set image.repository=velero/velero \
---set image.tag=v1.4.0 \
+--set image.tag=v1.4.2 \
 --set image.pullPolicy=IfNotPresent \
 --set initContainers[0].name=velero-plugin-for-aws \
 --set initContainers[0].image=velero/velero-plugin-for-aws:v1.1.0 \
@@ -97,7 +97,7 @@ helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> \
 --set configuration.volumeSnapshotLocation.name=<VOLUME SNAPSHOT LOCATION NAME> \
 --set configuration.volumeSnapshotLocation.config.region=<REGION> \
 --set image.repository=velero/velero \
---set image.tag=v1.4.0 \
+--set image.tag=v1.4.2 \
 --set image.pullPolicy=IfNotPresent \
 --set initContainers[0].name=velero-plugin-for-aws \
 --set initContainers[0].image=velero/velero-plugin-for-aws:v1.1.0 \
@@ -123,9 +123,9 @@ helm upgrade vmware-tanzu/velero <RELEASE NAME> --reuse-values --set configurati
 
 ## Upgrading
 
-### Upgrading to v1.4.0
+### Upgrading to v1.4
 
-The [instructions found here](https://velero.io/docs/v1.4/upgrade-to-1.4/) will assist you in upgrading from version v1.3.x to v1.4.0.
+The [instructions found here](https://velero.io/docs/v1.4/upgrade-to-1.4/) will assist you in upgrading from version v1.3.x to v1.4.
 
 
 ### Upgrading to v1.3.1
@@ -150,7 +150,7 @@ Note: when you uninstall the Velero server, all backups remain untouched.
 helm delete <RELEASE NAME> --purge
 ```
 
-#### Using Helm 3
+### Using Helm 3
 
 ```bash
 helm delete <RELEASE NAME> -n <YOUR NAMESPACE>
