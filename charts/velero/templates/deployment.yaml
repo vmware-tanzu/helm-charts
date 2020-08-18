@@ -107,16 +107,16 @@ spec:
           {{- if .Values.credentials.useSecret }}
             {{- if eq $provider "aws" }}
             - name: AWS_SHARED_CREDENTIALS_FILE
-              value: /credentials/{{ .Values.credentials.existingSecretKey }}
+              value: /credentials/cloud
             {{- else if eq $provider "gcp"}}
             - name: GOOGLE_APPLICATION_CREDENTIALS
-              value: /credentials/{{ .Values.credentials.existingSecretKey }}
+              value: /credentials/cloud
             {{- else if eq $provider "azure" }}
             - name: AZURE_CREDENTIALS_FILE
-              value: /credentials/{{ .Values.credentials.existingSecretKey }}
+              value: /credentials/cloud
             {{- else if eq $provider "alibabacloud" }}
             - name: ALIBABA_CLOUD_CREDENTIALS_FILE
-              value: /credentials/{{ .Values.credentials.existingSecretKey }}
+              value: /credentials/cloud
             {{- end }}
           {{- end }}
           {{- with .Values.configuration.extraEnvVars }}
@@ -152,6 +152,9 @@ spec:
         - name: cloud-credentials
           secret:
             secretName: {{ include "velero.secretName" . }}
+            items:
+            - key: {{ .Values.credentials.existingSecretKey }}
+              path: cloud
         {{- end }}
         - name: plugins
           emptyDir: {}
