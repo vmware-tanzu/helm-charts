@@ -1,5 +1,6 @@
 {{- if .Values.configuration.provider -}}
-{{- $provider := .Values.configuration.provider -}}
+{{- $providers := list .Values.configuration.provider .Values.configuration.backupStorageLocation.provider .Values.configuration.volumeSnapshotLocation.provider | compact | uniq -}}
+{{- $provider := first $providers -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -43,11 +44,7 @@ spec:
       {{- end }}
       containers:
         - name: velero
-      {{- if .Values.image.digest }}
-          image: "{{ .Values.image.repository }}@{{ .Values.image.digest }}"
-      {{- else }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-      {{- end }}
+          image: {{include "velero.image-from-values" .Values.image }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           {{- if .Values.metrics.enabled }}
           ports:
@@ -138,16 +135,15 @@ spec:
           {{- end }}
           {{- end }}
       initContainers:
-        - name: velero-plugin
-          {{- if .Values.pluginImage.digest }}
-          image: "{{ include "velero.plugin-for-provider" . }}@{{ .Values.pluginImage.digest }}"
-          {{- else }}
-          image: "{{ include "velero.plugin-for-provider" . }}:{{ .Values.pluginImage.tag }}"
-          {{- end }}
-          imagePullPolicy: {{ .Values.pluginImage.pullPolicy }}
+        {{- range  $providers }}
+        {{- $pluginImage := get $.Values.pluginImages . }}
+        - name: velero-plugin-for-{{.}}
+          image: {{include "velero.image-from-values" $pluginImage }}
+          imagePullPolicy: {{ $pluginImage.pullPolicy }}
           volumeMounts:
             - mountPath: /target
               name: plugins
+        {{- end }}
         {{- if .Values.initContainers }}
         {{- toYaml .Values.initContainers | nindent 8 }}
         {{- end }}

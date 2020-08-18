@@ -111,22 +111,10 @@ Create the volume snapshot location provider
 {{- end -}}
 {{- end -}}
 
-
-{{/*
-Create the plugin provider repository name
-*/}}
-{{- define "velero.plugin-for-provider" -}}
-  {{- $provider := .Values.configuration.provider -}}
-  {{- with .Values.pluginImage -}}
-    {{- if .repository -}}
-      {{- .Values.pluginImage.repository -}}
-    {{- else if eq $provider "azure" -}}
-      {{- "velero/velero-plugin-for-microsoft-azure" -}}
-    {{- else if eq $provider "alibabacloud" }}
-      {{- "registry.cn-hangzhou.aliyuncs.com/acs/velero-plugin-alibabacloud" -}}
-    {{- else  -}}
-      {{- "velero/velero-plugin-for-" -}}{{ $provider }}
-    {{- end -}}
+{{- define "velero.image-from-values" -}}
+  {{- if .digest }}
+    {{- .repository }}@{{ .digest }}
+  {{- else }}
+    {{- .repository }}:{{ .tag }}
   {{- end -}}
 {{- end -}}
-

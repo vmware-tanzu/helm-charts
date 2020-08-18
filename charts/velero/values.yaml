@@ -12,15 +12,29 @@ image:
   # digest:
   pullPolicy: IfNotPresent
 
-pluginImage:
-  # The plugin image repository will by default be selected using the provider property
-  # set a repository to override the image.
-  # repository: velero/velero-plugin-for-aws
-  tag: v1.1.0
-  # Digest value example: sha256:d238835e151cec91c6a811fe3a89a66d3231d9f64d09e5f3c49552672d271f38. If used, it will
-  # take precedence over the image.tag.
-  # digest:
-  pullPolicy: IfNotPresent
+pluginImages:
+  alibabacloud:
+    repository: registry.cn-hangzhou.aliyuncs.com/acs/velero-plugin-alibabacloud
+    tag: v1.1.0
+    pullPolicy: IfNotPresent
+  aws:
+    repository: velero/velero-plugin-for-aws
+    tag: v1.1.0
+    pullPolicy: IfNotPresent
+  azure:
+    repository: velero/velero-plugin-for-microsoft-azure
+    tag: v1.1.0
+    pullPolicy: IfNotPresent
+  csi:
+    repository: velero/velero-plugin-for-csi
+    tag: v0.1.1
+    pullPolicy: IfNotPresent
+  gcp:
+    repository: velero/velero-plugin-for-gcp
+    tag: v1.1.0
+    pullPolicy: IfNotPresent
+
+
 
 # Annotations to add to the Velero deployment's pod template. Optional.
 #
