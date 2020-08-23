@@ -141,6 +141,8 @@ configuration:
   backupSyncPeriod:
   # `velero server` default: 1h
   resticTimeout:
+  # `velero server` default: false
+  defaultVolumesToRestic: false
   # `velero server` default: namespaces,persistentvolumes,persistentvolumeclaims,secrets,configmaps,serviceaccounts,limitranges,pods
   restoreResourcePriorities:
   # `velero server` default: false

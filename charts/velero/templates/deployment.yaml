@@ -65,6 +65,9 @@ spec:
             {{- with .resticTimeout }}
             - --restic-timeout={{ . }}
             {{- end }}
+            {{- with .defaultVolumesToRestic}}
+            - --default-volumes-to-restic={{ . }}
+            {{- end }}
             {{- if .restoreOnlyMode }}
             - --restore-only
             {{- end }}
