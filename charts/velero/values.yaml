@@ -11,6 +11,9 @@ image:
   # take precedence over the image.tag.
   # digest:
   pullPolicy: IfNotPresent
+  # One or more secrets to be used when pulling images
+  imagePullSecrets: []
+  # - registrySecretName
 
 # Annotations to add to the Velero deployment's pod template. Optional.
 #
