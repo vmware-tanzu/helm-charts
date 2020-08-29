@@ -215,18 +215,19 @@ serviceAccount:
 # should contain credentials for the cloud provider IAM account you've
 # set up for Velero.
 credentials:
-  # Whether a secret should be used as the source of IAM account
-  # credentials. Set to false if, for example, using kube2iam or
-  # kiam to provide IAM credentials for the Velero pod.
-  useSecret: true
   # Name of a pre-existing secret (if any) in the Velero namespace
   # that should be used to get IAM account credentials. Optional.
-  existingSecret:
+  # existingSecret:
+
+  # Key within a pre-existing secret (if any) in the Velero namespace
+  # that should be used to get IAM account credentials. Optional.
   existingSecretKey: cloud
+
   # Data to be stored in the Velero secret, if `useSecret` is
   # true and `existingSecret` is empty. This should be the contents
   # of your IAM credentials file.
   secretContents: {}
+
   # additional key/value pairs to be used as environment variables such as "DIGITALOCEAN_TOKEN: <your-key>". Values will be stored in the secret.
   extraEnvVars: {}
 

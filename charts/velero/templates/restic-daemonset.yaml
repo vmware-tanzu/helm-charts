@@ -1,5 +1,6 @@
 {{- if .Values.deployRestic }}
 {{- $provider := .Values.configuration.provider -}}
+{{- $useSecret := or .Values.credentials.existingSecret (or .Values.credentials.secretContents .Values.credentials.extraEnvVars)  -}}
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -36,7 +37,7 @@ spec:
       priorityClassName: {{ include "velero.restic.priorityClassName" . }}
       {{- end }}
       volumes:
-        {{- if .Values.credentials.useSecret }}
+        {{- if $useSecret }}
         - name: cloud-credentials
           secret:
             secretName: {{ include "velero.secretName" . }}
@@ -74,7 +75,7 @@ spec:
             {{- end }}
           {{- end }}
           volumeMounts:
-            {{- if .Values.credentials.useSecret }}
+            {{- if $useSecret }}
             - name: cloud-credentials
               mountPath: /credentials
             {{- end }}
@@ -103,7 +104,7 @@ spec:
                   fieldPath: spec.nodeName
             - name: VELERO_SCRATCH_DIR
               value: /scratch
-          {{- if .Values.credentials.useSecret }}
+          {{- if $useSecret }}
             {{- if eq $provider "aws" }}
             - name: AWS_SHARED_CREDENTIALS_FILE
               value: /credentials/cloud

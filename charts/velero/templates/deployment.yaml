@@ -1,6 +1,7 @@
 {{- if .Values.configuration.provider -}}
 {{- $providers := list .Values.configuration.provider .Values.configuration.backupStorageLocation.provider .Values.configuration.volumeSnapshotLocation.provider | compact | uniq -}}
 {{- $provider := first $providers -}}
+{{- $useSecret := or .Values.credentials.existingSecret (or .Values.credentials.secretContents .Values.credentials.extraEnvVars)  -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -85,7 +86,7 @@ spec:
           volumeMounts:
             - name: plugins
               mountPath: /plugins
-        {{- if .Values.credentials.useSecret }}
+        {{- if or .Values.credentials.secretContents .Values.credentials.extraEnvVars }}
             - name: cloud-credentials
               mountPath: /credentials
             - name: scratch
@@ -104,7 +105,7 @@ spec:
                   fieldPath: metadata.namespace
             - name: LD_LIBRARY_PATH
               value: /plugins
-          {{- if .Values.credentials.useSecret }}
+          {{- if $useSecret }}
             {{- if eq $provider "aws" }}
             - name: AWS_SHARED_CREDENTIALS_FILE
               value: /credentials/cloud
@@ -158,7 +159,7 @@ spec:
 
 
       volumes:
-        {{- if .Values.credentials.useSecret }}
+        {{- if $useSecret }}
         - name: cloud-credentials
           secret:
             secretName: {{ include "velero.secretName" . }}
