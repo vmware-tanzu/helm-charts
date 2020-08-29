@@ -112,9 +112,28 @@ Create the volume snapshot location provider
 {{- end -}}
 
 {{- define "velero.image-from-values" -}}
-  {{- if .digest }}
-    {{- .repository }}@{{ .digest }}
-  {{- else }}
-    {{- .repository }}:{{ .tag }}
+  {{- if kindIs "string" . -}}
+    {{- . }}
+  {{- else -}}
+    {{- if .digest -}}
+      {{- .repository }}@{{ .digest }}
+    {{- else -}}
+      {{- .repository }}:{{ .tag }}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- define "velero.pull-policy-from-values" -}}
+  {{- if kindIs "string" . -}}
+    {{ "IfNotPresent" -}}
+  {{- else -}}
+    {{ .pullPolicy -}}
+  {{- end -}}
+{{- end -}}
+
+{{- define "velero.name-from-values" -}}
+  {{- if kindIs "string" . -}}
+    {{ splitList "@" . | first | splitList ":" | first | splitList "/" | last -}}
+  {{- else -}}
+    {{ splitList "/" .repository | last -}}
   {{- end -}}
 {{- end -}}

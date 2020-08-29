@@ -12,6 +12,7 @@ image:
   # digest:
   pullPolicy: IfNotPresent
 
+# default plugin images to enabled when used by providers
 pluginImages:
   alibabacloud:
     repository: registry.cn-hangzhou.aliyuncs.com/acs/velero-plugin-alibabacloud
@@ -34,6 +35,17 @@ pluginImages:
     tag: v1.1.0
     pullPolicy: IfNotPresent
 
+# Additional plugin images to install
+# Supports a comma seperated string
+# plugins: 'velero/velero-plugin-for-aws:v1.1.0,velero/velero-plugin-for-csi:v0.1.1'
+#
+# Or an array of images as strings and/or objects
+# plugins:
+#   - velero/velero-plugin-for-aws:v1.1.0
+#   - repository: velero/velero-plugin-for-csi
+#     digest: sha256:60d47fd25216f13073525823a067eab223d12e695d4b41e480aa3ff13a58c916
+#     pullPolicy: Always
+plugins: []
 
 
 # Annotations to add to the Velero deployment's pod template. Optional.

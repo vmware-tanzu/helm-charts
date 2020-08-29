@@ -20,6 +20,15 @@ You can then run `helm search repo vmware-tanzu` to see the charts.
 
 TBD
 
+### Running Tests
+
+To run unit tests in this repository please install helm-unittest
+
+```sh
+helm plugin install https://github.com/quintush/helm-unittest
+helm unittest -3 charts/velero
+```
+
 ## License
 
 [Apache 2.0 License](./LICENSE).

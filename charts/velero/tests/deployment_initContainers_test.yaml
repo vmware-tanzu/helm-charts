@@ -1,0 +1,116 @@
+tests:
+  - it: installs initContainers for initContainers array
+    set:
+      initContainers:
+        - image: test/an-init-container
+          imagePullPolicy: Always
+          name: the-init-container
+          volumeMounts:
+            - mountPath: /test
+              name: test
+    values:
+      - base-values.yaml
+    template: deployment.yaml
+    asserts:
+      - contains:
+          path: spec.template.spec.initContainers
+          content:
+            image: test/an-init-container
+            imagePullPolicy: Always
+            name: the-init-container
+            volumeMounts:
+              - mountPath: /test
+                name: test
+  - it: installs plugins initContainers for the various provider values
+    set:
+      configuration:
+        provider: aws
+        backupStorageLocation:
+          provider: azure
+        volumeSnapshotLocation:
+          provider: alibabacloud
+    values:
+      - base-values.yaml
+    template: deployment.yaml
+    asserts:
+      - contains:
+          path: spec.template.spec.initContainers
+          content:
+            image: velero/velero-plugin-for-aws:v1.1.0
+            imagePullPolicy: IfNotPresent
+            name: velero-plugin-for-aws
+            volumeMounts:
+              - mountPath: /target
+                name: plugins
+      - contains:
+          path: spec.template.spec.initContainers
+          content:
+            image: velero/velero-plugin-for-microsoft-azure:v1.1.0
+            imagePullPolicy: IfNotPresent
+            name: velero-plugin-for-microsoft-azure
+            volumeMounts:
+              - mountPath: /target
+                name: plugins
+      - contains:
+          path: spec.template.spec.initContainers
+          content:
+            image: registry.cn-hangzhou.aliyuncs.com/acs/velero-plugin-alibabacloud:v1.1.0
+            imagePullPolicy: IfNotPresent
+            name: velero-plugin-alibabacloud
+            volumeMounts:
+              - mountPath: /target
+                name: plugins
+  - it: installs plugins initContainers for plugins as a array of image tags/objects
+    set:
+      plugins:
+        - velero/velero-plugin-for-test1:first
+        - repository: velero/velero-plugin-for-test2
+          digest: sha256:second
+          pullPolicy: Always
+    values:
+      - base-values.yaml
+    template: deployment.yaml
+    asserts:
+      - contains:
+          path: spec.template.spec.initContainers
+          content:
+            image: velero/velero-plugin-for-test1:first
+            imagePullPolicy: IfNotPresent
+            name: velero-plugin-for-test1
+            volumeMounts:
+              - mountPath: /target
+                name: plugins
+      - contains:
+          path: spec.template.spec.initContainers
+          content:
+            name: velero-plugin-for-test2
+            image: velero/velero-plugin-for-test2@sha256:second
+            imagePullPolicy: Always
+            volumeMounts:
+              - mountPath: /target
+                name: plugins
+  - it: allows plugins as a string of plugin images
+    set:
+      plugins: velero/velero-plugin-for-test1:first,velero/velero-plugin-for-test2@sha256:second
+    values:
+      - base-values.yaml
+    template: deployment.yaml
+    asserts:
+      - contains:
+          path: spec.template.spec.initContainers
+          content:
+            name: velero-plugin-for-test1
+            image: velero/velero-plugin-for-test1:first
+            imagePullPolicy: IfNotPresent
+            volumeMounts:
+              - mountPath: /target
+                name: plugins
+      - contains:
+          path: spec.template.spec.initContainers
+          content:
+            name: velero-plugin-for-test2
+            image: velero/velero-plugin-for-test2@sha256:second
+            imagePullPolicy: IfNotPresent
+            volumeMounts:
+              - mountPath: /target
+                name: plugins

@@ -45,7 +45,7 @@ spec:
       containers:
         - name: velero
           image: {{include "velero.image-from-values" .Values.image }}
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          imagePullPolicy: {{ include "velero.pull-policy-from-values" .Values.image }}
           {{- if .Values.metrics.enabled }}
           ports:
             - name: monitoring
@@ -135,11 +135,19 @@ spec:
           {{- end }}
           {{- end }}
       initContainers:
-        {{- range  $providers }}
-        {{- $pluginImage := get $.Values.pluginImages . }}
-        - name: velero-plugin-for-{{.}}
-          image: {{include "velero.image-from-values" $pluginImage }}
-          imagePullPolicy: {{ $pluginImage.pullPolicy }}
+        {{- $plugins := list -}}
+        {{- if kindIs "string" .Values.plugins -}}
+          {{- $plugins = splitList "," .Values.plugins -}}
+        {{- else -}}
+          {{- $plugins = .Values.plugins -}}
+        {{- end -}}
+        {{- range  $providers -}}
+        {{- $plugins = append $plugins (get $.Values.pluginImages .) }}
+        {{- end }}
+        {{- range $pluginImage := $plugins }}
+        - name: {{ include "velero.name-from-values" $pluginImage }}
+          image: {{ include "velero.image-from-values" $pluginImage }}
+          imagePullPolicy: {{ include "velero.pull-policy-from-values" $pluginImage }}
           volumeMounts:
             - mountPath: /target
               name: plugins
@@ -147,6 +155,8 @@ spec:
         {{- if .Values.initContainers }}
         {{- toYaml .Values.initContainers | nindent 8 }}
         {{- end }}
+
+
       volumes:
         {{- if .Values.credentials.useSecret }}
         - name: cloud-credentials
