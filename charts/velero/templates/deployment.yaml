@@ -142,7 +142,7 @@ spec:
           {{- $plugins = .Values.plugins -}}
         {{- end -}}
         {{- range  $providers -}}
-        {{- $plugins = append $plugins (get $.Values.pluginImages .) }}
+        {{- $plugins = append $plugins (pluck . $.Values.pluginImages | first) }}
         {{- end }}
         {{- range $pluginImage := $plugins }}
         - name: {{ include "velero.name-from-values" $pluginImage }}

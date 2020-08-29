@@ -263,9 +263,7 @@ restic:
 # Backup schedules to create.
 # Eg:
 # schedules:
-#   mybackup:
-#      labels:
-#        myenv: foo
+#     name: mybackup
 #     schedule: "0 0 * * *"
 #     template:
 #       ttl: "240h"
