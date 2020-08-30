@@ -24,12 +24,11 @@ tests:
                 name: test
   - it: installs plugins initContainers for the various provider values
     set:
-      configuration:
-        provider: aws
-        backupStorageLocation:
-          provider: azure
-        volumeSnapshotLocation:
-          provider: alibabacloud
+      provider: aws
+      backupStorageLocation:
+        provider: azure
+      volumeSnapshotLocation:
+        provider: alibabacloud
     values:
       - base-values.yaml
     asserts:

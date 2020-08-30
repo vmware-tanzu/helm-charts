@@ -1,5 +1,5 @@
 {{- if .Values.restic.enabled }}
-{{- $provider := .Values.configuration.provider -}}
+{{- $provider := .Values.provider -}}
 {{- $useSecret := or .Values.credentials.existingSecret (or .Values.credentials.secretContents .Values.credentials.extraEnvVars)  -}}
 apiVersion: apps/v1
 kind: DaemonSet
@@ -63,7 +63,7 @@ spec:
           args:
             - restic
             - server
-          {{- with .Values.configuration }}
+          {{- with .Values }}
             {{- with .features }}
             - --features={{ . }}
             {{- end }}
@@ -88,7 +88,7 @@ spec:
             {{- toYaml .Values.restic.extraVolumeMounts | nindent 12 }}
             {{- end }}
           env:
-            {{- with .Values.configuration.extraEnvVars }}
+            {{- with .Values.extraEnvVars }}
             {{- range $key, $value := . }}
             - name: {{ default "none" $key | quote }}
               value: {{ default "none" $value | quote }}
@@ -119,7 +119,7 @@ spec:
               value: /credentials/cloud
             {{- end }}
           {{- end }}
-          {{- with .Values.configuration.extraEnvVars }}
+          {{- with .Values.extraEnvVars }}
           {{- range $key, $value := . }}
             - name: {{ default "none" $key | quote }}
               value: {{ default "none" $value | quote }}

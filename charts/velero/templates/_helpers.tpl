@@ -79,7 +79,7 @@ Create the Restic priority class name.
 Create the backup storage location name
 */}}
 {{- define "velero.backupStorageLocation.name" -}}
-{{- with .Values.configuration.backupStorageLocation -}}
+{{- with .Values.backupStorageLocation -}}
 {{ default "default" .name }}
 {{- end -}}
 {{- end -}}
@@ -88,7 +88,7 @@ Create the backup storage location name
 Create the backup storage location provider
 */}}
 {{- define "velero.backupStorageLocation.provider" -}}
-{{- with .Values.configuration -}}
+{{- with .Values -}}
 {{ default .provider .backupStorageLocation.provider }}
 {{- end -}}
 {{- end -}}
@@ -97,7 +97,7 @@ Create the backup storage location provider
 Create the volume snapshot location name
 */}}
 {{- define "velero.volumeSnapshotLocation.name" -}}
-{{- with .Values.configuration.volumeSnapshotLocation -}}
+{{- with .Values.volumeSnapshotLocation -}}
 {{ default "default" .name }}
 {{- end -}}
 {{- end -}}
@@ -106,7 +106,7 @@ Create the volume snapshot location name
 Create the volume snapshot location provider
 */}}
 {{- define "velero.volumeSnapshotLocation.provider" -}}
-{{- with .Values.configuration -}}
+{{- with .Values -}}
 {{ default .provider .volumeSnapshotLocation.provider }}
 {{- end -}}
 {{- end -}}

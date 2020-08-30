@@ -109,85 +109,84 @@ installCRDs: true
 ## Parameters for the `default` BackupStorageLocation and VolumeSnapshotLocation,
 ## and additional server settings.
 ##
-configuration:
-  # Cloud provider being used (e.g. aws, azure, gcp).
+# Cloud provider being used (e.g. aws, azure, gcp).
+provider:
+
+# Parameters for the `default` BackupStorageLocation. See
+# https://velero.io/docs/v1.4/api-types/backupstoragelocation/
+backupStorageLocation:
+  # name is the name of the backup storage location where backups should be stored. If a name is not provided,
+  # a backup storage location will be created with the name "default". Optional.
+  name:
+  # provider is the name for the backup storage location provider. If omitted
+  # `provider` will be used instead.
   provider:
+  # bucket is the name of the bucket to store backups in. Required.
+  bucket:
+  # caCert defines a base64 encoded CA bundle to use when verifying TLS connections to the provider.
+  caCert:
+  # prefix is the directory under which all Velero data should be stored within the bucket. Optional.
+  prefix:
+  # Additional provider-specific configuration. See link above
+  # for details of required/optional fields for your provider.
+  config: {}
+  #  region:
+  #  s3ForcePathStyle:
+  #  s3Url:
+  #  kmsKeyId:
+  #  resourceGroup:
+  #  The ID of the subscription containing the storage account, if different from the cluster’s subscription. (Azure only)
+  #  subscriptionId:
+  #  storageAccount:
+  #  publicUrl:
+  #  Name of the GCP service account to use for this backup storage location. Specify the
+  #  service account here if you want to use workload identity instead of providing the key file.(GCP only)
+  #  serviceAccount:
 
-  # Parameters for the `default` BackupStorageLocation. See
-  # https://velero.io/docs/v1.4/api-types/backupstoragelocation/
-  backupStorageLocation:
-    # name is the name of the backup storage location where backups should be stored. If a name is not provided,
-    # a backup storage location will be created with the name "default". Optional.
-    name:
-    # provider is the name for the backup storage location provider. If omitted
-    # `configuration.provider` will be used instead.
-    provider:
-    # bucket is the name of the bucket to store backups in. Required.
-    bucket:
-    # caCert defines a base64 encoded CA bundle to use when verifying TLS connections to the provider.
-    caCert:
-    # prefix is the directory under which all Velero data should be stored within the bucket. Optional.
-    prefix:
-    # Additional provider-specific configuration. See link above
-    # for details of required/optional fields for your provider.
-    config: {}
-    #  region:
-    #  s3ForcePathStyle:
-    #  s3Url:
-    #  kmsKeyId:
-    #  resourceGroup:
-    #  The ID of the subscription containing the storage account, if different from the cluster’s subscription. (Azure only)
-    #  subscriptionId:
-    #  storageAccount:
-    #  publicUrl:
-    #  Name of the GCP service account to use for this backup storage location. Specify the
-    #  service account here if you want to use workload identity instead of providing the key file.(GCP only)
-    #  serviceAccount:
+# Parameters for the `default` VolumeSnapshotLocation. See
+# https://velero.io/docs/v1.4/api-types/volumesnapshotlocation/
+volumeSnapshotLocation:
+  # name is the name of the volume snapshot location where snapshots are being taken. Required.
+  name:
+  # provider is the name for the volume snapshot provider. If omitted
+  # `configuration.provider` will be used instead.
+  provider:
+  # Additional provider-specific configuration. See link above
+  # for details of required/optional fields for your provider.
+  config: {}
+#    region:
+#    apitimeout:
+#    resourceGroup:
+#    The ID of the subscription where volume snapshots should be stored, if different from the cluster’s subscription. If specified, also requires `volumeSnapshotLocation.config.resourceGroup`to be set. (Azure only)
+#    subscriptionId:
+#    snapshotLocation:
+#    project:
 
-  # Parameters for the `default` VolumeSnapshotLocation. See
-  # https://velero.io/docs/v1.4/api-types/volumesnapshotlocation/
-  volumeSnapshotLocation:
-    # name is the name of the volume snapshot location where snapshots are being taken. Required.
-    name:
-    # provider is the name for the volume snapshot provider. If omitted
-    # `configuration.provider` will be used instead.
-    provider:
-    # Additional provider-specific configuration. See link above
-    # for details of required/optional fields for your provider.
-    config: {}
-  #    region:
-  #    apitimeout:
-  #    resourceGroup:
-  #    The ID of the subscription where volume snapshots should be stored, if different from the cluster’s subscription. If specified, also requires `configuration.volumeSnapshotLocation.config.resourceGroup`to be set. (Azure only)
-  #    subscriptionId:
-  #    snapshotLocation:
-  #    project:
+# These are server-level settings passed as CLI flags to the `velero server` command. Velero
+# uses default values if they're not passed in, so they only need to be explicitly specified
+# here if using a non-default value. The `velero server` default values are shown in the
+# comments below.
+# --------------------
+# `velero server` default: 1m
+backupSyncPeriod:
+# `velero server` default: 1h
+resticTimeout:
+# `velero server` default: namespaces,persistentvolumes,persistentvolumeclaims,secrets,configmaps,serviceaccounts,limitranges,pods
+restoreResourcePriorities:
+# `velero server` default: false
+restoreOnlyMode:
 
-  # These are server-level settings passed as CLI flags to the `velero server` command. Velero
-  # uses default values if they're not passed in, so they only need to be explicitly specified
-  # here if using a non-default value. The `velero server` default values are shown in the
-  # comments below.
-  # --------------------
-  # `velero server` default: 1m
-  backupSyncPeriod:
-  # `velero server` default: 1h
-  resticTimeout:
-  # `velero server` default: namespaces,persistentvolumes,persistentvolumeclaims,secrets,configmaps,serviceaccounts,limitranges,pods
-  restoreResourcePriorities:
-  # `velero server` default: false
-  restoreOnlyMode:
+# additional key/value pairs to be used as environment variables such as "AWS_CLUSTER_NAME: 'yourcluster.domain.tld'"
+extraEnvVars: {}
 
-  # additional key/value pairs to be used as environment variables such as "AWS_CLUSTER_NAME: 'yourcluster.domain.tld'"
-  extraEnvVars: {}
+# Comma separated list of velero feature flags. default: empty
+features:
 
-  # Comma separated list of velero feature flags. default: empty
-  features:
+# Set log-level for Velero pod. Default: info. Other options: debug, warning, error, fatal, panic.
+logLevel:
 
-  # Set log-level for Velero pod. Default: info. Other options: debug, warning, error, fatal, panic.
-  logLevel:
-
-  # Set log-format for Velero pod. Default: text. Other option: json.
-  logFormat:
+# Set log-format for Velero pod. Default: text. Other option: json.
+logFormat:
 
 ##
 ## End of backup/snapshot location settings.

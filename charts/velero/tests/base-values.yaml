@@ -1,5 +1,4 @@
-configuration:
-  provider: gcp
+provider: gcp
 schedules:
   - name: mybackup
     schedule: "0 0 * * *"

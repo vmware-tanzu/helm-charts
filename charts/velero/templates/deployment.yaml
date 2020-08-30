@@ -1,5 +1,5 @@
-{{- if .Values.configuration.provider -}}
-{{- $providers := list .Values.configuration.provider .Values.configuration.backupStorageLocation.provider .Values.configuration.volumeSnapshotLocation.provider | compact | uniq -}}
+{{- if .Values.provider -}}
+{{- $providers := list .Values.provider .Values.backupStorageLocation.provider .Values.volumeSnapshotLocation.provider | compact | uniq -}}
 {{- $provider := first $providers -}}
 {{- $useSecret := or .Values.credentials.existingSecret (or .Values.credentials.secretContents .Values.credentials.extraEnvVars)  -}}
 apiVersion: apps/v1
@@ -56,7 +56,7 @@ spec:
             - /velero
           args:
             - server
-          {{- with .Values.configuration }}
+          {{- with .Values }}
             {{- with .backupSyncPeriod }}
             - --backup-sync-period={{ . }}
             {{- end }}
@@ -120,7 +120,7 @@ spec:
               value: /credentials/cloud
             {{- end }}
           {{- end }}
-          {{- with .Values.configuration.extraEnvVars }}
+          {{- with .Values.extraEnvVars }}
           {{- range $key, $value := . }}
             - name: {{ default "none" $key | quote }}
               value: {{ default "none" $value | quote }}
