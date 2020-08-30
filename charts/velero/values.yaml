@@ -236,10 +236,9 @@ backupsEnabled: true
 # Whether to create volumesnapshotlocation crd, if false => disable snapshot feature
 snapshotsEnabled: true
 
-# Whether to deploy the restic daemonset.
-deployRestic: false
-
 restic:
+  # Whether to deploy the restic daemonset.
+  enabled: false
   podVolumePath: /var/lib/kubelet/pods
   privileged: false
   # Pod priority class name to use for the Restic daemonset. Optional.

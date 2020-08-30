@@ -1,4 +1,4 @@
-{{- if .Values.deployRestic }}
+{{- if .Values.restic.enabled }}
 {{- $provider := .Values.configuration.provider -}}
 {{- $useSecret := or .Values.credentials.existingSecret (or .Values.credentials.secretContents .Values.credentials.extraEnvVars)  -}}
 apiVersion: apps/v1
