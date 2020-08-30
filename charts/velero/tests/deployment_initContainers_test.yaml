@@ -1,3 +1,5 @@
+templates:
+  - deployment.yaml
 tests:
   - it: installs initContainers for initContainers array
     set:
@@ -10,7 +12,6 @@ tests:
               name: test
     values:
       - base-values.yaml
-    template: deployment.yaml
     asserts:
       - contains:
           path: spec.template.spec.initContainers
@@ -31,7 +32,6 @@ tests:
           provider: alibabacloud
     values:
       - base-values.yaml
-    template: deployment.yaml
     asserts:
       - contains:
           path: spec.template.spec.initContainers
@@ -69,7 +69,6 @@ tests:
           pullPolicy: Always
     values:
       - base-values.yaml
-    template: deployment.yaml
     asserts:
       - contains:
           path: spec.template.spec.initContainers
@@ -94,7 +93,6 @@ tests:
       plugins: velero/velero-plugin-for-test1:first,velero/velero-plugin-for-test2@sha256:second
     values:
       - base-values.yaml
-    template: deployment.yaml
     asserts:
       - contains:
           path: spec.template.spec.initContainers
