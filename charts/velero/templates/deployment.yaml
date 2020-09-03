@@ -36,6 +36,12 @@ spec:
       {{- end }}
     {{- end }}
     spec:
+    {{- if .Values.image.imagePullSecrets }}
+      imagePullSecrets:
+      {{- range .Values.image.imagePullSecrets }}
+        - name: {{ . }}
+      {{- end }}
+    {{- end }}
       restartPolicy: Always
       serviceAccountName: {{ include "velero.serverServiceAccount" . }}
       {{- if .Values.priorityClassName }}
