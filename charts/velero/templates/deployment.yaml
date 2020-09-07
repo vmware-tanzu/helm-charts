@@ -133,8 +133,8 @@ spec:
           {{- end }}
           {{- with .Values.configuration.extraEnvVars }}
           {{- range $key, $value := . }}
-            - name: {{ default "none" $key | quote }}
-              value: {{ default "none" $value | quote }}
+            - name: {{ default "none" $key }}
+              value: {{ default "none" $value }}
           {{- end }}
           {{- end }}
           {{- with .Values.credentials.extraEnvVars }}
