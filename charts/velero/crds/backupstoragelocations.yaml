@@ -7,7 +7,7 @@ metadata:
   annotations:
     "helm.sh/hook": pre-install,pre-upgrade
     "helm.sh/hook-delete-policy": "before-hook-creation"
-    controller-gen.kubebuilder.io/version: v0.2.4
+    controller-gen.kubebuilder.io/version: v0.3.0
   name: backupstoragelocations.velero.io
 spec:
   additionalPrinterColumns:
