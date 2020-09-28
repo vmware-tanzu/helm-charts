@@ -1,0 +1,76 @@
+##
+## Configuration settings that directly affect the Velero deployment YAML.
+##
+
+# Details of the container image to use in the Velero deployment & daemonset (if
+# enabling restic). Required.
+image:
+  repository: velero/velero
+  tag: v1.4.2
+
+# Init containers to add to the Velero deployment's pod spec. At least one plugin provider image is required.
+initContainers:
+  - name: velero-plugin-for-aws
+    image: velero/velero-plugin-for-aws:v1.1.0
+    imagePullPolicy: IfNotPresent
+    volumeMounts:
+      - mountPath: /target
+        name: plugins
+
+##
+## Parameters for the `default` BackupStorageLocation and VolumeSnapshotLocation,
+## and additional server settings.
+##
+configuration:
+  # Cloud provider being used (e.g. aws, azure, gcp).
+  provider: aws
+  # Parameters for the `default` BackupStorageLocation. See
+  # https://velero.io/docs/v1.4/api-types/backupstoragelocation/
+  backupStorageLocation:
+    # name is the name of the backup storage location where backups should be stored. If a name is not provided,
+    # a backup storage location will be created with the name "default". Optional.
+    name: velero-backup
+    # bucket is the name of the bucket to store backups in. Required.
+    bucket: velero-backup
+    # Additional provider-specific configuration. See link above
+    # for details of required/optional fields for your provider.
+    config:
+      region: us-east-1
+
+  # Parameters for the `default` VolumeSnapshotLocation. See
+  # https://velero.io/docs/v1.4/api-types/volumesnapshotlocation/
+  volumeSnapshotLocation:
+    # name is the name of the volume snapshot location where snapshots are being taken. Required.
+    name: velero-backup
+    # Additional provider-specific configuration. See link above
+    # for details of required/optional fields for your provider.
+    config:
+      region: us-east-1
+# Info about the secret to be used by the Velero deployment, which
+# should contain credentials for the cloud provider IAM account you've
+# set up for Velero.
+credentials:
+  # Whether a secret should be used as the source of IAM account
+  # credentials. Set to false if, for example, using kube2iam or
+  # kiam to provide IAM credentials for the Velero pod.
+  useSecret: true
+  # Name of a pre-existing secret (if any) in the Velero namespace
+  # that should be used to get IAM account credentials. Optional.
+  existingSecret: velero-aws-creds
+
+# Backup schedules to create.
+
+# If you've specified a value for configuration.backupStorageLocation.name,
+# ensure you specify the same name in schedules.<YOUR_SCHEDULE_NAME>.template.storageLocation
+schedules:
+  backup-all:
+    schedule: "0 0 * * *"
+    template:
+      ttl: 720h0m0s
+      includeClusterResources: true
+      includedNamespaces:
+      - '*'
+      includedResources:
+      - '*'
+      storageLocation: velero-backup
+      snapshotVolumes: true

@@ -19,6 +19,7 @@ Velero has two main components: a CLI, and a server-side Kubernetes deployment.
       * [Option 2) YAML file](#option-2-yaml-file-1)
       * [Upgrade the configuration](#upgrade-the-configuration-1)
 * [Upgrading](#upgrading)
+  * [Upgrading to v1.5](#upgrading-to-v15)
   * [Upgrading to v1.4](#upgrading-to-v14)
   * [Upgrading to v1.3.1](#upgrading-to-v131)
   * [Upgrading to v1.2.0](#upgrading-to-v120)
@@ -26,6 +27,7 @@ Velero has two main components: a CLI, and a server-side Kubernetes deployment.
 * [Uninstall Velero](#uninstall-velero)
   * [Using Helm 2](#using-helm-2-1)
   * [Using Helm 3](#using-helm-3-1)
+* [Chart configuration examples](#chart-configuration-examples)
 
 ## Installing the Velero CLI
 
@@ -183,3 +185,10 @@ helm delete <RELEASE NAME> --purge
 ```bash
 helm delete <RELEASE NAME> -n <YOUR NAMESPACE>
 ```
+
+## Chart configuration examples
+
+In [examples folder](./examples/) located some basic scenario for different plugins. It does not include settings that you need make in your cloud provider, see plugin README for details.
+
+* [AWS example](./examples/aws/)
+* [vSphere example](./examples/vsphere/)
