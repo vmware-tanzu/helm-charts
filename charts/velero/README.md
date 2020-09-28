@@ -4,6 +4,29 @@ Velero is an open source tool to safely backup and restore, perform disaster rec
 
 Velero has two main components: a CLI, and a server-side Kubernetes deployment.
 
+* [Installing the Velero CLI](#installing-the-velero-cli)
+* [Installing the Velero server](#installing-the-velero-server)
+  * [Velero version](#velero-version)
+  * [Provider credentials](#provider-credentials)
+  * [Installing](#installing)
+    * [Using Helm 3](#using-helm-3)
+      * [Option 1) CLI commands](#option-1-cli-commands)
+      * [Option 2) YAML file](#option-2-yaml-file)
+      * [Upgrade the configuration](#upgrade-the-configuration)
+    * [Using Helm 2](#using-helm-2)
+      * [Tiller cluster-admin permissions](#tiller-cluster-admin-permissions)
+      * [Option 1) CLI commands](#option-1-cli-commands-1)
+      * [Option 2) YAML file](#option-2-yaml-file-1)
+      * [Upgrade the configuration](#upgrade-the-configuration-1)
+* [Upgrading](#upgrading)
+  * [Upgrading to v1.4](#upgrading-to-v14)
+  * [Upgrading to v1.3.1](#upgrading-to-v131)
+  * [Upgrading to v1.2.0](#upgrading-to-v120)
+  * [Upgrading to v1.1.0](#upgrading-to-v110)
+* [Uninstall Velero](#uninstall-velero)
+  * [Using Helm 2](#using-helm-2-1)
+  * [Using Helm 3](#using-helm-3-1)
+
 ## Installing the Velero CLI
 
 See the different options for installing the [Velero CLI](https://velero.io/docs/v1.5/basic-install/#install-the-cli).
@@ -61,6 +84,7 @@ Add/update the necessary values by changing the values.yaml from this repository
 ```bash
 helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> -f values.yaml --generate-name
 ```
+
 ##### Upgrade the configuration
 
 If a value needs to be added or changed, you may do so with the `upgrade` command. An example:
@@ -75,7 +99,7 @@ helm upgrade vmware-tanzu/velero <RELEASE NAME> --namespace <YOUR NAMESPACE> --r
 
 A service account and the role binding prerequisite must be added to Tiller when configuring Helm to install Velero:
 
-```
+```bash
 kubectl create sa -n kube-system tiller
 kubectl create clusterrolebinding tiller-cluster-admin --clusterrole cluster-admin --serviceaccount kube-system:tiller
 helm init --service-account=tiller --wait --upgrade
@@ -102,7 +126,7 @@ helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> \
 --set initContainers[0].name=velero-plugin-for-aws \
 --set initContainers[0].image=velero/velero-plugin-for-aws:v1.1.0 \
 --set initContainers[0].volumeMounts[0].mountPath=/target \
---set initContainers[0].volumeMounts[0].name=plugins 
+--set initContainers[0].volumeMounts[0].name=plugins
 ```
 
 ##### Option 2) YAML file
@@ -118,7 +142,7 @@ helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> -f values.yaml
 If a value needs to be added or changed, you may do so with the `upgrade` command. An example:
 
 ```bash
-helm upgrade vmware-tanzu/velero <RELEASE NAME> --reuse-values --set configuration.provider=<NEW PROVIDER> 
+helm upgrade vmware-tanzu/velero <RELEASE NAME> --reuse-values --set configuration.provider=<NEW PROVIDER>
 ```
 
 ## Upgrading

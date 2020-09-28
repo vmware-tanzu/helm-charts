@@ -111,7 +111,7 @@ configuration:
     #  s3Url:
     #  kmsKeyId:
     #  resourceGroup:
-    #  The ID of the subscription containing the storage account, if different from the cluster’s subscription. (Azure only)
+    #  The ID of the subscription containing the storage account, if different from the cluster's subscription. (Azure only)
     #  subscriptionId:
     #  storageAccount:
     #  publicUrl:
@@ -133,7 +133,7 @@ configuration:
   #    region:
   #    apitimeout:
   #    resourceGroup:
-  #    The ID of the subscription where volume snapshots should be stored, if different from the cluster’s subscription. If specified, also requires `configuration.volumeSnapshotLocation.config.resourceGroup`to be set. (Azure only)
+  #    The ID of the subscription where volume snapshots should be stored, if different from the cluster's subscription. If specified, also requires `configuration.volumeSnapshotLocation.config.resourceGroup`to be set. (Azure only)
   #    subscriptionId:
   #    snapshotLocation:
   #    project:
@@ -199,6 +199,7 @@ credentials:
   useSecret: true
   # Name of a pre-existing secret (if any) in the Velero namespace
   # that should be used to get IAM account credentials. Optional.
+  # Attention: Secret K/V should be `data.cloud: <base64 config>`
   existingSecret:
   # Data to be stored in the Velero secret, if `useSecret` is
   # true and `existingSecret` is empty. This should be the contents
@@ -245,9 +246,16 @@ restic:
 #       myenv: foo
 #     schedule: "0 0 * * *"
 #     template:
-#       ttl: "240h"
+#       ttl: 240h0m0s
+#       includeClusterResources: true
 #       includedNamespaces:
 #       - foo
+#       includedResources:
+#       - '*'
+#       # If you've specified a value for configuration.backupStorageLocation.name,
+#       # ensure you specify the same name in schedules.<YOUR_SCHEDULE_NAME>.template.storageLocation
+#       storageLocation: default
+#       snapshotVolumes: true
 schedules: {}
 
 # Velero ConfigMaps.
