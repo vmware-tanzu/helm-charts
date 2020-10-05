@@ -86,6 +86,9 @@ spec:
             {{- with .logFormat }}
             - --log-format={{ . }}
             {{- end }}
+            {{- if .defaultVolumesToRestic }}
+            - --default-volumes-to-restic
+            {{- end }}
           {{- end }}
           {{- with .Values.resources }}
           resources:
