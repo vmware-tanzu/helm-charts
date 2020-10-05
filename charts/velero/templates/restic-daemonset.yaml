@@ -93,12 +93,6 @@ spec:
             {{- toYaml .Values.restic.extraVolumeMounts | nindent 12 }}
             {{- end }}
           env:
-            {{- with .Values.configuration.extraEnvVars }}
-            {{- range $key, $value := . }}
-            - name: {{ default "none" $key | quote }}
-              value: {{ default "none" $value | quote }}
-            {{- end }}
-            {{- end }}
             - name: VELERO_NAMESPACE
               valueFrom:
                 fieldRef:
@@ -126,8 +120,8 @@ spec:
           {{- end }}
           {{- with .Values.configuration.extraEnvVars }}
           {{- range $key, $value := . }}
-            - name: {{ default "none" $key | quote }}
-              value: {{ default "none" $value | quote }}
+            - name: {{ default "none" $key }}
+              value: {{ default "none" $value }}
           {{- end }}
           {{- end }}
           {{- with .Values.credentials.extraEnvVars }}
