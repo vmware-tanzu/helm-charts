@@ -238,13 +238,13 @@ restic:
 # Eg:
 # schedules:
 #   mybackup:
-#      labels:
-#        myenv: foo
+#     labels:
+#       myenv: foo
 #     schedule: "0 0 * * *"
 #     template:
 #       ttl: "240h"
 #       includedNamespaces:
-#        - foo
+#       - foo
 schedules: {}
 
 # Velero ConfigMaps.
