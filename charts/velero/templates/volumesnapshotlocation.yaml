@@ -4,8 +4,10 @@ kind: VolumeSnapshotLocation
 metadata:
   name: {{ include "velero.volumeSnapshotLocation.name" . }}
   annotations:
+{{- if .Values.enableHelmHooks.templates }}
     "helm.sh/hook": post-install,post-upgrade
     "helm.sh/hook-delete-policy": "before-hook-creation"
+{{- end }}
   labels:
     app.kubernetes.io/name: {{ include "velero.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}

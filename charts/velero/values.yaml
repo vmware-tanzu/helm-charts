@@ -72,6 +72,12 @@ metrics:
 # Install CRDs as a templates. Enabled by default.
 installCRDs: true
 
+# Enable/disable helm hooks annotations in CRDs and/or templates
+# You should disable this if using a deploy tool that doesn't support helm hooks
+enableHelmHooks:
+  crds: true
+  templates: true
+
 ##
 ## End of deployment-related settings.
 ##
