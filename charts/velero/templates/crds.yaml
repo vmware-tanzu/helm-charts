@@ -1,6 +1,14 @@
 {{- if and .Values.installCRDs (eq .Release.Service "Tiller") }}
 {{- range $path, $bytes := .Files.Glob "crds/*.yaml" }}
-{{ $.Files.Get $path }}
+{{- if $.Values.enableHelmHooks.crds }}
+{{- $.Files.Get $path }}
+{{- else }}
+{{- range $.Files.Lines $path }}
+{{- if not ( contains "helm.sh/hook" . ) }}
+{{ . }}
+{{- end }}
+{{- end }}
+{{- end }}
 ---
 {{- end }}
 {{- end }}
