@@ -1,10 +1,13 @@
 {{- if and .Values.installCRDs (eq .Release.Service "Tiller") }}
 {{- range $path, $bytes := .Files.Glob "crds/*.yaml" }}
-{{- if $.Values.enableHelmHooks }}
+{{- if not $.Values.enableHelmHooks }}
 {{ $.Files.Get $path }}
 {{- else }}
 {{- range $.Files.Lines $path }}
-{{- if not ( contains "helm.sh/hook" . ) }}
+{{- if contains "annotations:" . }}
+{{ . }}
+{{ template "velero.helmhooks.crds" . }}
+{{- else }}
 {{ . }}
 {{- end }}
 {{- end }}
