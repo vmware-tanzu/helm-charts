@@ -4,7 +4,7 @@ kind: BackupStorageLocation
 metadata:
   name: {{ include "velero.backupStorageLocation.name" . }}
   annotations:
-  {{- if .Values.enableHelmHooks.templates }}
+  {{- if .Values.enableHelmHooks }}
     "helm.sh/hook": post-install,post-upgrade
     "helm.sh/hook-delete-policy": "before-hook-creation"
   {{- end }}
