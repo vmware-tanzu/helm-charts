@@ -44,6 +44,9 @@ initContainers: []
 securityContext: {}
   # fsGroup: 1337
 
+# Pod priority class name to use for the Velero deployment. Optional.
+priorityClassName: ""
+
 # Tolerations to use for the Velero deployment. Optional.
 tolerations: []
 
@@ -216,7 +219,7 @@ restic:
   podVolumePath: /var/lib/kubelet/pods
   privileged: false
   # Pod priority class name to use for the Restic daemonset. Optional.
-  priorityClassName: {}
+  priorityClassName: ""
   # Resource requests/limits to specify for the Restic daemonset deployment. Optional.
   resources: {}
   # Tolerations to use for the Restic daemonset. Optional.
