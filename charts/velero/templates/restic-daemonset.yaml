@@ -64,13 +64,13 @@ spec:
             - restic
             - server
           {{- with .Values }}
-            {{- with coalesce .features .configuration.features }}
+            {{- with coalesce .configuration.features .features }}
             - --features={{ . }}
             {{- end }}
-            {{- with coalesce .logLevel .configuration.logLevel }}
+            {{- with coalesce .configuration.logLevel .logLevel }}
             - --log-level={{ . }}
             {{- end }}
-            {{- with coalesce .logFormat .configuration.logFormat }}
+            {{- with coalesce .configuration.logFormat .logFormat }}
             - --log-format={{ . }}
             {{- end }}
           {{- end }}
@@ -88,7 +88,7 @@ spec:
             {{- toYaml .Values.restic.extraVolumeMounts | nindent 12 }}
             {{- end }}
           env:
-            {{- with coalesce .Values.extraEnvVars .Values.configuration.extraEnvVars }}
+            {{- with coalesce .Values.configuration.extraEnvVars .Values.extraEnvVars }}
             {{- range $key, $value := . }}
             - name: {{ default "none" $key | quote }}
               value: {{ default "none" $value | quote }}
@@ -119,7 +119,7 @@ spec:
               value: /credentials/cloud
             {{- end }}
           {{- end }}
-          {{- with coalesce .Values.extraEnvVars .Values.configuration.extraEnvVars }}
+          {{- with coalesce .Values.configuration.extraEnvVars .Values.extraEnvVars }}
           {{- range $key, $value := . }}
             - name: {{ default "none" $key | quote }}
               value: {{ default "none" $value | quote }}

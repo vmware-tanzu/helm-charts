@@ -26,7 +26,7 @@ To run unit tests in this repository please install helm-unittest
 
 ```sh
 helm plugin install https://github.com/quintush/helm-unittest
-helm unittest -3 charts/velero
+helm unittest charts/velero
 ```
 
 ## License
