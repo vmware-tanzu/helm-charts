@@ -16,3 +16,11 @@ tests:
     asserts:
       - isKind:
           of: DaemonSet
+  - it: is created when enabled (legacy)
+    set:
+      deployRestic: true
+    values:
+      - base-values.yaml
+    asserts:
+      - isKind:
+          of: DaemonSet

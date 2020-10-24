@@ -286,3 +286,8 @@ configMaps: {}
 ##
 ## End of additional Velero resource settings.
 ##
+
+# Depricated configuration key
+configuration:
+  backupStorageLocation: {}
+  volumeSnapshotLocation: {}

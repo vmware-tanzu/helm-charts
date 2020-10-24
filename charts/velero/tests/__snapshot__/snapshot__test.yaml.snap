@@ -7,7 +7,7 @@ manifest should match snapshot:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Tiller
         app.kubernetes.io/name: velero
-        helm.sh/chart: velero-3.0.0-alpha.1
+        helm.sh/chart: velero-2.14.0
       name: RELEASE-NAME-velero
     spec:
       replicas: 1
@@ -25,7 +25,7 @@ manifest should match snapshot:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/managed-by: Tiller
             app.kubernetes.io/name: velero
-            helm.sh/chart: velero-3.0.0-alpha.1
+            helm.sh/chart: velero-2.14.0
             name: velero
         spec:
           containers:
@@ -77,7 +77,7 @@ manifest should match snapshot:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Tiller
         app.kubernetes.io/name: velero
-        helm.sh/chart: velero-3.0.0-alpha.1
+        helm.sh/chart: velero-2.14.0
       name: default
     spec:
       config:
@@ -94,7 +94,7 @@ manifest should match snapshot:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Tiller
         app.kubernetes.io/name: velero
-        helm.sh/chart: velero-3.0.0-alpha.1
+        helm.sh/chart: velero-2.14.0
       name: restic
     spec:
       selector:
@@ -106,7 +106,7 @@ manifest should match snapshot:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/managed-by: Tiller
             app.kubernetes.io/name: velero
-            helm.sh/chart: velero-3.0.0-alpha.1
+            helm.sh/chart: velero-2.14.0
             name: restic
         spec:
           containers:
@@ -157,7 +157,7 @@ manifest should match snapshot:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Tiller
         app.kubernetes.io/name: velero
-        helm.sh/chart: velero-3.0.0-alpha.1
+        helm.sh/chart: velero-2.14.0
       name: default
     spec:
       config:

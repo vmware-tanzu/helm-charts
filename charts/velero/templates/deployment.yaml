@@ -1,5 +1,5 @@
 {{- if .Values.provider -}}
-{{- $providers := list .Values.provider .Values.backupStorageLocation.provider .Values.volumeSnapshotLocation.provider | compact | uniq -}}
+{{- $providers := list .Values.provider .Values.backupStorageLocation.provider .Values.volumeSnapshotLocation.provider .Values.configuration.backupStorageLocation.provider .Values.configuration.volumeSnapshotLocation.provider | compact | uniq -}}
 {{- $provider := first $providers -}}
 {{- $useSecret := or .Values.credentials.existingSecret (or .Values.credentials.secretContents .Values.credentials.extraEnvVars)  -}}
 apiVersion: apps/v1
@@ -57,25 +57,25 @@ spec:
           args:
             - server
           {{- with .Values }}
-            {{- with .backupSyncPeriod }}
+            {{- with coalesce .backupSyncPeriod .configuration.backupSyncPeriod }}
             - --backup-sync-period={{ . }}
             {{- end }}
-            {{- with .resticTimeout }}
+            {{- with coalesce .resticTimeout .configuration.resticTimeout }}
             - --restic-timeout={{ . }}
             {{- end }}
-            {{- if .restoreOnlyMode }}
+            {{- if coalesce .restoreOnlyMode .configuration.restoreOnlyMode }}
             - --restore-only
             {{- end }}
-            {{- with .restoreResourcePriorities }}
+            {{- with coalesce .restoreResourcePriorities .configuration.restoreResourcePriorities }}
             - --restore-resource-priorities={{ . }}
             {{- end }}
-            {{- with .features }}
+            {{- with coalesce .features .configuration.features }}
             - --features={{ . }}
             {{- end }}
-            {{- with .logLevel }}
+            {{- with coalesce .configuration.logLevel }}
             - --log-level={{ . }}
             {{- end }}
-            {{- with .logFormat }}
+            {{- with coalesce .configuration.logFormat }}
             - --log-format={{ . }}
             {{- end }}
           {{- end }}
@@ -120,7 +120,7 @@ spec:
               value: /credentials/cloud
             {{- end }}
           {{- end }}
-          {{- with .Values.extraEnvVars }}
+          {{- with coalesce .Values.extraEnvVars .Values.configuration.extraEnvVars }}
           {{- range $key, $value := . }}
             - name: {{ default "none" $key | quote }}
               value: {{ default "none" $value | quote }}
