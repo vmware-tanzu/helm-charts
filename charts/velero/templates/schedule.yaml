@@ -1,15 +1,19 @@
+{{- if kindIs "slice" .Values.schedules -}}
 {{- range .Values.schedules }}
 apiVersion: velero.io/v1
 kind: Schedule
 metadata:
   name: {{ include "velero.fullname" $ }}-{{ .name }}
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-delete-policy": "before-hook-creation"
   labels:
     app.kubernetes.io/name: {{ include "velero.name" $ }}
     app.kubernetes.io/instance: {{ $.Release.Name }}
     app.kubernetes.io/managed-by: {{ $.Release.Service }}
     helm.sh/chart: {{ include "velero.chart" $ }}
-    {{- if $.Values.scheduleLabels }}
-      {{- toYaml $.Values.scheduleLabels | nindent 4 }}
+    {{- if .labels }}
+      {{- toYaml .labels | nindent 4 }}
     {{- end }}
 spec:
   schedule: {{ .schedule | quote }}
@@ -18,4 +22,30 @@ spec:
     {{- toYaml . | nindent 4 }}
 {{- end }}
 ---
+{{- end -}}
+{{- else -}}
+{{- range $scheduleName, $schedule := .Values.schedules }}
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: {{ include "velero.fullname" $ }}-{{ $scheduleName }}
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-delete-policy": "before-hook-creation"
+  labels:
+    app.kubernetes.io/name: {{ include "velero.name" $ }}
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    app.kubernetes.io/managed-by: {{ $.Release.Service }}
+    helm.sh/chart: {{ include "velero.chart" $ }}
+    {{- if $schedule.labels }}
+      {{- toYaml $schedule.labels | nindent 4 }}
+    {{- end }}
+spec:
+  schedule: {{ $schedule.schedule | quote }}
+{{- with $schedule.template }}
+  template:
+    {{- toYaml . | nindent 4 }}
 {{- end }}
+---
+{{- end }}
+{{- end -}}

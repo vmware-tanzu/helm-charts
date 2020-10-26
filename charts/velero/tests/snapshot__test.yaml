@@ -3,6 +3,7 @@ templates:
   - backupstoragelocation.yaml
   - restic-daemonset.yaml
   - volumesnapshotlocation.yaml
+  - schedule.yaml
 tests:
   - it: manifest should match snapshot
     values:

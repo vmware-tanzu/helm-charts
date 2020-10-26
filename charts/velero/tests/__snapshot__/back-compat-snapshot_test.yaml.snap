@@ -164,3 +164,22 @@ manifest should match snapshot:
         bucket: velero
         region: us-west-1
       provider: aws
+  5: |
+    apiVersion: velero.io/v1
+    kind: Schedule
+    metadata:
+      annotations:
+        helm.sh/hook: post-install,post-upgrade
+        helm.sh/hook-delete-policy: before-hook-creation
+      labels:
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/managed-by: Tiller
+        app.kubernetes.io/name: velero
+        helm.sh/chart: velero-2.14.0
+      name: RELEASE-NAME-velero-mybackup
+    spec:
+      schedule: 0 0 * * *
+      template:
+        includedNamespaces:
+        - foo
+        ttl: 240h

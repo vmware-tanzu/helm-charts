@@ -262,13 +262,13 @@ restic:
 # Backup schedules to create.
 # Eg:
 # schedules:
-#     name: mybackup
+#   - name: mybackup
 #     schedule: "0 0 * * *"
 #     template:
 #       ttl: "240h"
 #       includedNamespaces:
 #        - foo
-schedules: []
+# schedules: []
 
 scheduleLabels: {}
 
@@ -287,7 +287,7 @@ configMaps: {}
 ## End of additional Velero resource settings.
 ##
 
-# Depricated configuration key
+# Deprecated
 configuration:
   backupStorageLocation: {}
   volumeSnapshotLocation: {}
