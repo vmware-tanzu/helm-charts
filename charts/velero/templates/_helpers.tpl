@@ -79,34 +79,53 @@ Create the Restic priority class name.
 Create the backup storage location name
 */}}
 {{- define "velero.backupStorageLocation.name" -}}
-{{- with .Values.configuration.backupStorageLocation -}}
-{{ default "default" .name }}
-{{- end -}}
+{{ coalesce .Values.configuration.backupStorageLocation.name .Values.backupStorageLocation.name "default" }}
 {{- end -}}
 
 {{/*
 Create the backup storage location provider
 */}}
 {{- define "velero.backupStorageLocation.provider" -}}
-{{- with .Values.configuration -}}
-{{ default .provider .backupStorageLocation.provider }}
-{{- end -}}
+{{ coalesce .Values.configuration.backupStorageLocation.provider .Values.backupStorageLocation.provider .Values.configuration.provider .Values.provider }}
 {{- end -}}
 
 {{/*
 Create the volume snapshot location name
 */}}
 {{- define "velero.volumeSnapshotLocation.name" -}}
-{{- with .Values.configuration.volumeSnapshotLocation -}}
-{{ default "default" .name }}
-{{- end -}}
+{{ coalesce .Values.configuration.volumeSnapshotLocation.name .Values.volumeSnapshotLocation.name "default" }}
 {{- end -}}
 
 {{/*
 Create the volume snapshot location provider
 */}}
 {{- define "velero.volumeSnapshotLocation.provider" -}}
-{{- with .Values.configuration -}}
-{{ default .provider .volumeSnapshotLocation.provider }}
+{{ coalesce  .Values.configuration.volumeSnapshotLocation.provider .Values.volumeSnapshotLocation.provider .Values.configuration.provider .Values.provider}}
 {{- end -}}
+
+{{- define "velero.image-from-values" -}}
+  {{- if kindIs "string" . -}}
+    {{- . }}
+  {{- else -}}
+    {{- if .digest -}}
+      {{- .repository }}@{{ .digest }}
+    {{- else -}}
+      {{- .repository }}:{{ .tag }}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- define "velero.pull-policy-from-values" -}}
+  {{- if kindIs "string" . -}}
+    {{ "IfNotPresent" -}}
+  {{- else -}}
+    {{ .pullPolicy -}}
+  {{- end -}}
+{{- end -}}
+
+{{- define "velero.name-from-values" -}}
+  {{- if kindIs "string" . -}}
+    {{ splitList "@" . | first | splitList ":" | first | splitList "/" | last -}}
+  {{- else -}}
+    {{ splitList "/" .repository | last -}}
+  {{- end -}}
 {{- end -}}

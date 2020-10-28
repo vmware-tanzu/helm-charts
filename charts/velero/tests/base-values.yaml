@@ -1,0 +1,8 @@
+provider: gcp
+schedules:
+  - name: mybackup
+    schedule: "0 0 * * *"
+    template:
+      ttl: "240h"
+      includedNamespaces:
+        - foo

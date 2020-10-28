@@ -24,7 +24,6 @@ The default configuration values for this chart are listed in values.yaml.
 
 See Velero's full [official documentation](https://velero.io/docs/v1.5/basic-install/). More specifically, find your provider in the Velero list of [supported providers](https://velero.io/docs/v1.5/supported-providers/) for specific configuration information and examples.
 
-
 #### Using Helm 3
 
 First, create the namespace: `kubectl create namespace <YOUR NAMESPACE>`
@@ -38,19 +37,15 @@ Specify the necessary values using the --set key=value[,key=value] argument to h
 ```bash
 helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> \
 --set-file credentials.secretContents.cloud=<FULL PATH TO FILE> \
---set configuration.provider=<PROVIDER NAME> \
---set configuration.backupStorageLocation.name=<BACKUP STORAGE LOCATION NAME> \
---set configuration.backupStorageLocation.bucket=<BUCKET NAME> \
---set configuration.backupStorageLocation.config.region=<REGION> \
---set configuration.volumeSnapshotLocation.name=<VOLUME SNAPSHOT LOCATION NAME> \
---set configuration.volumeSnapshotLocation.config.region=<REGION> \
+--set provider=<PROVIDER NAME> \
+--set backupStorageLocation.name=<BACKUP STORAGE LOCATION NAME> \
+--set backupStorageLocation.bucket=<BUCKET NAME> \
+--set backupStorageLocation.config.region=<REGION> \
+--set volumeSnapshotLocation.name=<VOLUME SNAPSHOT LOCATION NAME> \
+--set volumeSnapshotLocation.config.region=<REGION> \
 --set image.repository=velero/velero \
 --set image.tag=v1.5.1 \
 --set image.pullPolicy=IfNotPresent \
---set initContainers[0].name=velero-plugin-for-aws \
---set initContainers[0].image=velero/velero-plugin-for-aws:v1.1.0 \
---set initContainers[0].volumeMounts[0].mountPath=/target \
---set initContainers[0].volumeMounts[0].name=plugins \
 --generate-name
 ```
 
@@ -66,7 +61,7 @@ helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> -f values.yaml --g
 If a value needs to be added or changed, you may do so with the `upgrade` command. An example:
 
 ```bash
-helm upgrade vmware-tanzu/velero <RELEASE NAME> --namespace <YOUR NAMESPACE> --reuse-values --set configuration.provider=<NEW PROVIDER>
+helm upgrade vmware-tanzu/velero <RELEASE NAME> --namespace <YOUR NAMESPACE> --reuse-values --set provider=<NEW PROVIDER>
 ```
 
 #### Using Helm 2
@@ -90,19 +85,15 @@ Specify the necessary values using the --set key=value[,key=value] argument to h
 ```bash
 helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> \
 --set-file credentials.secretContents.cloud=<FULL PATH TO FILE> \
---set configuration.provider=aws \
---set configuration.backupStorageLocation.name=<BACKUP STORAGE LOCATION NAME> \
---set configuration.backupStorageLocation.bucket=<BUCKET NAME> \
---set configuration.backupStorageLocation.config.region=<REGION> \
---set configuration.volumeSnapshotLocation.name=<VOLUME SNAPSHOT LOCATION NAME> \
---set configuration.volumeSnapshotLocation.config.region=<REGION> \
+--set provider=aws \
+--set backupStorageLocation.name=<BACKUP STORAGE LOCATION NAME> \
+--set backupStorageLocation.bucket=<BUCKET NAME> \
+--set backupStorageLocation.config.region=<REGION> \
+--set volumeSnapshotLocation.name=<VOLUME SNAPSHOT LOCATION NAME> \
+--set volumeSnapshotLocation.config.region=<REGION> \
 --set image.repository=velero/velero \
 --set image.tag=v1.5.1 \
---set image.pullPolicy=IfNotPresent \
---set initContainers[0].name=velero-plugin-for-aws \
---set initContainers[0].image=velero/velero-plugin-for-aws:v1.1.0 \
---set initContainers[0].volumeMounts[0].mountPath=/target \
---set initContainers[0].volumeMounts[0].name=plugins 
+--set image.pullPolicy=IfNotPresent
 ```
 
 ##### Option 2) YAML file
@@ -118,7 +109,7 @@ helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> -f values.yaml
 If a value needs to be added or changed, you may do so with the `upgrade` command. An example:
 
 ```bash
-helm upgrade vmware-tanzu/velero <RELEASE NAME> --reuse-values --set configuration.provider=<NEW PROVIDER> 
+helm upgrade vmware-tanzu/velero <RELEASE NAME> --reuse-values --set provider=<NEW PROVIDER>
 ```
 
 ## Upgrading

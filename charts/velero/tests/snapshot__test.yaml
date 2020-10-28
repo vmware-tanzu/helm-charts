@@ -1,0 +1,14 @@
+templates:
+  - deployment.yaml
+  - backupstoragelocation.yaml
+  - restic-daemonset.yaml
+  - volumesnapshotlocation.yaml
+  - schedule.yaml
+tests:
+  - it: manifest should match snapshot
+    values:
+      - ../ci/test-values.yaml
+    set:
+      restic.enabled: true
+    asserts:
+      - matchSnapshot: {}

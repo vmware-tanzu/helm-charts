@@ -1,5 +1,6 @@
-{{- if .Values.deployRestic }}
-{{- $provider := .Values.configuration.provider -}}
+{{- if or .Values.deployRestic .Values.restic.enabled }}
+{{- $provider := .Values.provider -}}
+{{- $useSecret := or .Values.credentials.existingSecret (or .Values.credentials.secretContents .Values.credentials.extraEnvVars)  -}}
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -42,7 +43,7 @@ spec:
       priorityClassName: {{ include "velero.restic.priorityClassName" . }}
       {{- end }}
       volumes:
-        {{- if .Values.credentials.useSecret }}
+        {{- if $useSecret }}
         - name: cloud-credentials
           secret:
             secretName: {{ include "velero.secretName" . }}
@@ -68,19 +69,19 @@ spec:
           args:
             - restic
             - server
-          {{- with .Values.configuration }}
-            {{- with .features }}
+          {{- with .Values }}
+            {{- with coalesce .configuration.features .features }}
             - --features={{ . }}
             {{- end }}
-            {{- with .logLevel }}
+            {{- with coalesce .configuration.logLevel .logLevel }}
             - --log-level={{ . }}
             {{- end }}
-            {{- with .logFormat }}
+            {{- with coalesce .configuration.logFormat .logFormat }}
             - --log-format={{ . }}
             {{- end }}
           {{- end }}
           volumeMounts:
-            {{- if .Values.credentials.useSecret }}
+            {{- if $useSecret }}
             - name: cloud-credentials
               mountPath: /credentials
             {{- end }}
@@ -103,7 +104,7 @@ spec:
                   fieldPath: spec.nodeName
             - name: VELERO_SCRATCH_DIR
               value: /scratch
-          {{- if .Values.credentials.useSecret }}
+          {{- if $useSecret }}
             {{- if eq $provider "aws" }}
             - name: AWS_SHARED_CREDENTIALS_FILE
               value: /credentials/cloud
@@ -118,7 +119,7 @@ spec:
               value: /credentials/cloud
             {{- end }}
           {{- end }}
-          {{- with .Values.configuration.extraEnvVars }}
+          {{- with coalesce .Values.configuration.extraEnvVars .Values.extraEnvVars }}
           {{- range $key, $value := . }}
             - name: {{ default "none" $key }}
               value: {{ default "none" $value }}

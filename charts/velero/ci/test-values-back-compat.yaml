@@ -1,17 +1,18 @@
 installCRDs: true
 
 # Set provider name and backup storage location bucket name
-provider: aws
-backupStorageLocation:
-  bucket: velero
-  config:
-    region: us-west-1
-    profile: test
-volumeSnapshotLocation:
+configuration:
   provider: aws
-  config:
+  backupStorageLocation:
     bucket: velero
-    region: us-west-1
+    config:
+      region: us-west-1
+      profile: test
+  volumeSnapshotLocation:
+    provider: aws
+    config:
+      bucket: velero
+      region: us-west-1
 
 # Set a service account so that the CRD clean up job has proper permissions to delete CRDs
 serviceAccount:
@@ -19,14 +20,14 @@ serviceAccount:
     name: velero
 
 schedules:
-  - name: mybackup
+  mybackup:
     labels:
       myenv: foo
     schedule: "0 0 * * *"
     template:
       ttl: "240h"
       includedNamespaces:
-        - foo
+      - foo
 
 # Whether or not to clean up CustomResourceDefintions when deleting a release.
 # Cleaning up CRDs will delete the BackupStorageLocation and VolumeSnapshotLocation instances, which would have to be reconfigured.

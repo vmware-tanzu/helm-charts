@@ -1,5 +1,7 @@
-{{- if .Values.configuration.provider -}}
-{{- $provider := .Values.configuration.provider -}}
+{{- if or .Values.provider .Values.configuration.provider -}}
+{{- $providers := list .Values.provider .Values.backupStorageLocation.provider .Values.volumeSnapshotLocation.provider .Values.configuration.backupStorageLocation.provider .Values.configuration.volumeSnapshotLocation.provider | compact | uniq -}}
+{{- $provider := first $providers -}}
+{{- $useSecret := or .Values.credentials.existingSecret (or .Values.credentials.secretContents .Values.credentials.extraEnvVars)  -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -49,12 +51,8 @@ spec:
       {{- end }}
       containers:
         - name: velero
-      {{- if .Values.image.digest }}
-          image: "{{ .Values.image.repository }}@{{ .Values.image.digest }}"
-      {{- else }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-      {{- end }}
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: {{include "velero.image-from-values" .Values.image }}
+          imagePullPolicy: {{ include "velero.pull-policy-from-values" .Values.image }}
           {{- if .Values.metrics.enabled }}
           ports:
             - name: monitoring
@@ -64,26 +62,26 @@ spec:
             - /velero
           args:
             - server
-          {{- with .Values.configuration }}
-            {{- with .backupSyncPeriod }}
+          {{- with .Values }}
+            {{- with coalesce .configuration.backupSyncPeriod .backupSyncPeriod  }}
             - --backup-sync-period={{ . }}
             {{- end }}
-            {{- with .resticTimeout }}
+            {{- with coalesce .configuration.resticTimeout .resticTimeout}}
             - --restic-timeout={{ . }}
             {{- end }}
-            {{- if .restoreOnlyMode }}
+            {{- if coalesce .configuration.restoreOnlyMode .restoreOnlyMode}}
             - --restore-only
             {{- end }}
-            {{- with .restoreResourcePriorities }}
+            {{- with coalesce .configuration.restoreResourcePriorities .restoreResourcePriorities }}
             - --restore-resource-priorities={{ . }}
             {{- end }}
-            {{- with .features }}
+            {{- with coalesce .configuration.features .features }}
             - --features={{ . }}
             {{- end }}
-            {{- with .logLevel }}
+            {{- with coalesce .configuration.logLevel .logLevel }}
             - --log-level={{ . }}
             {{- end }}
-            {{- with .logFormat }}
+            {{- with coalesce .configuration.logFormat .logFormat }}
             - --log-format={{ . }}
             {{- end }}
             {{- if .defaultVolumesToRestic }}
@@ -97,7 +95,7 @@ spec:
           volumeMounts:
             - name: plugins
               mountPath: /plugins
-        {{- if .Values.credentials.useSecret }}
+        {{- if or .Values.credentials.secretContents .Values.credentials.extraEnvVars }}
             - name: cloud-credentials
               mountPath: /credentials
             - name: scratch
@@ -116,7 +114,7 @@ spec:
                   fieldPath: metadata.namespace
             - name: LD_LIBRARY_PATH
               value: /plugins
-          {{- if .Values.credentials.useSecret }}
+          {{- if $useSecret }}
             {{- if eq $provider "aws" }}
             - name: AWS_SHARED_CREDENTIALS_FILE
               value: /credentials/cloud
@@ -131,7 +129,7 @@ spec:
               value: /credentials/cloud
             {{- end }}
           {{- end }}
-          {{- with .Values.configuration.extraEnvVars }}
+          {{- with coalesce .Values.configuration.extraEnvVars .Values.extraEnvVars }}
           {{- range $key, $value := . }}
             - name: {{ default "none" $key }}
               value: {{ default "none" $value }}
@@ -146,15 +144,37 @@ spec:
                   key: {{ default "none" $key }}
           {{- end }}
           {{- end }}
-{{- if .Values.initContainers }}
       initContainers:
+        {{- $plugins := list -}}
+        {{- if kindIs "string" .Values.plugins -}}
+          {{- $plugins = splitList "," .Values.plugins -}}
+        {{- else -}}
+          {{- $plugins = .Values.plugins -}}
+        {{- end -}}
+        {{- range  $providers -}}
+        {{- $plugins = append $plugins (pluck . $.Values.pluginImages | first) }}
+        {{- end }}
+        {{- range $pluginImage := $plugins }}
+        - name: {{ include "velero.name-from-values" $pluginImage }}
+          image: {{ include "velero.image-from-values" $pluginImage }}
+          imagePullPolicy: {{ include "velero.pull-policy-from-values" $pluginImage }}
+          volumeMounts:
+            - mountPath: /target
+              name: plugins
+        {{- end }}
+        {{- if .Values.initContainers }}
         {{- toYaml .Values.initContainers | nindent 8 }}
-{{- end }}
+        {{- end }}
+
+
       volumes:
-        {{- if .Values.credentials.useSecret }}
+        {{- if $useSecret }}
         - name: cloud-credentials
           secret:
             secretName: {{ include "velero.secretName" . }}
+            items:
+            - key: {{ .Values.credentials.existingSecretKey }}
+              path: cloud
         {{- end }}
         - name: plugins
           emptyDir: {}
