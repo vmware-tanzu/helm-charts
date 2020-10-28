@@ -30,6 +30,12 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
     spec:
+    {{- if .Values.image.imagePullSecrets }}
+      imagePullSecrets:
+      {{- range .Values.image.imagePullSecrets }}
+        - name: {{ . }}
+      {{- end }}
+    {{- end }}
       serviceAccountName: {{ include "velero.serverServiceAccount" . }}
       securityContext:
         runAsUser: 0
@@ -88,12 +94,6 @@ spec:
             {{- toYaml .Values.restic.extraVolumeMounts | nindent 12 }}
             {{- end }}
           env:
-            {{- with coalesce .Values.configuration.extraEnvVars .Values.extraEnvVars }}
-            {{- range $key, $value := . }}
-            - name: {{ default "none" $key | quote }}
-              value: {{ default "none" $value | quote }}
-            {{- end }}
-            {{- end }}
             - name: VELERO_NAMESPACE
               valueFrom:
                 fieldRef:
@@ -121,8 +121,8 @@ spec:
           {{- end }}
           {{- with coalesce .Values.configuration.extraEnvVars .Values.extraEnvVars }}
           {{- range $key, $value := . }}
-            - name: {{ default "none" $key | quote }}
-              value: {{ default "none" $value | quote }}
+            - name: {{ default "none" $key }}
+              value: {{ default "none" $value }}
           {{- end }}
           {{- end }}
           {{- with .Values.credentials.extraEnvVars }}

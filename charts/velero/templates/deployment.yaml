@@ -38,6 +38,12 @@ spec:
       {{- end }}
     {{- end }}
     spec:
+    {{- if .Values.image.imagePullSecrets }}
+      imagePullSecrets:
+      {{- range .Values.image.imagePullSecrets }}
+        - name: {{ . }}
+      {{- end }}
+    {{- end }}
       restartPolicy: Always
       serviceAccountName: {{ include "velero.serverServiceAccount" . }}
       {{- if .Values.priorityClassName }}
@@ -77,6 +83,9 @@ spec:
             {{- end }}
             {{- with coalesce .configuration.logFormat .logFormat }}
             - --log-format={{ . }}
+            {{- end }}
+            {{- if .defaultVolumesToRestic }}
+            - --default-volumes-to-restic
             {{- end }}
           {{- end }}
           {{- with .Values.resources }}
@@ -122,8 +131,8 @@ spec:
           {{- end }}
           {{- with coalesce .Values.configuration.extraEnvVars .Values.extraEnvVars }}
           {{- range $key, $value := . }}
-            - name: {{ default "none" $key | quote }}
-              value: {{ default "none" $value | quote }}
+            - name: {{ default "none" $key }}
+              value: {{ default "none" $value }}
           {{- end }}
           {{- end }}
           {{- with .Values.credentials.extraEnvVars }}
