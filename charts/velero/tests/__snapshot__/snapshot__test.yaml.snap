@@ -43,7 +43,7 @@ manifest should match snapshot:
                   fieldPath: metadata.namespace
             - name: LD_LIBRARY_PATH
               value: /plugins
-            image: velero/velero:v1.4.2
+            image: velero/velero:v1.5.2
             imagePullPolicy: IfNotPresent
             name: velero
             ports:
@@ -126,7 +126,7 @@ manifest should match snapshot:
                   fieldPath: spec.nodeName
             - name: VELERO_SCRATCH_DIR
               value: /scratch
-            image: velero/velero:v1.4.2
+            image: velero/velero:v1.5.2
             imagePullPolicy: IfNotPresent
             name: restic
             securityContext:
@@ -176,6 +176,7 @@ manifest should match snapshot:
         app.kubernetes.io/managed-by: Tiller
         app.kubernetes.io/name: velero
         helm.sh/chart: velero-2.14.0
+        myenv: foo
       name: RELEASE-NAME-velero-mybackup
     spec:
       schedule: 0 0 * * *

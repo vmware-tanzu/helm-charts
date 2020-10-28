@@ -13,16 +13,6 @@ volumeSnapshotLocation:
     bucket: velero
     region: us-west-1
 
-schedules:
-  mybackup:
-    labels:
-      myenv: foo
-    schedule: "0 0 * * *"
-    template:
-      ttl: "240h"
-      includedNamespaces:
-      - foo
-
 # Set a service account so that the CRD clean up job has proper permissions to delete CRDs
 serviceAccount:
   server:
@@ -30,11 +20,14 @@ serviceAccount:
 
 schedules:
   - name: mybackup
+    labels:
+      myenv: foo
     schedule: "0 0 * * *"
     template:
       ttl: "240h"
       includedNamespaces:
         - foo
+
 # Whether or not to clean up CustomResourceDefintions when deleting a release.
 # Cleaning up CRDs will delete the BackupStorageLocation and VolumeSnapshotLocation instances, which would have to be reconfigured.
 # Backup data in object storage will _not_ be deleted, however Backup instances in the Kubernetes API will.
