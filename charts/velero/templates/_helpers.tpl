@@ -110,3 +110,11 @@ Create the volume snapshot location provider
 {{ default .provider .volumeSnapshotLocation.provider }}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Helm hooks for Helm v2 CRDs 
+*/}}
+{{- define "velero.helmhooks.crds" -}}
+{{ print "\"helm.sh/hook\": pre-install,pre-upgrade" | indent 4 }}
+{{ print "\"helm.sh/hook-delete-policy\": \"before-hook-creation\"" | indent 4 }}
+{{- end -}}
