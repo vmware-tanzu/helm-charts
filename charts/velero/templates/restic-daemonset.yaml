@@ -138,6 +138,7 @@ spec:
                   key: {{ default "none" $key }}
           {{- end }}
           {{- end }}
+          dnsPolicy: {{ .Values.restic.dnsPolicy }}
           securityContext:
             privileged: {{ .Values.restic.privileged }}
             {{- with .Values.restic.securityContext }}

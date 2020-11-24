@@ -151,6 +151,7 @@ spec:
                   key: {{ default "none" $key }}
           {{- end }}
           {{- end }}
+      dnsPolicy: {{ .Values.dnsPolicy }}
 {{- if .Values.initContainers }}
       initContainers:
         {{- toYaml .Values.initContainers | nindent 8 }}
