@@ -29,6 +29,10 @@ podLabels: {}
 # Resource requests/limits to specify for the Velero deployment. Optional.
 resources: {}
 
+# Configure the dnsPolicy of the Velero deployment
+# See: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy
+dnsPolicy: ClusterFirst
+
 # Init containers to add to the Velero deployment's pod spec. At least one plugin provider image is required.
 initContainers: []
   # - name: velero-plugin-for-aws
@@ -241,6 +245,10 @@ restic:
 
   # Extra volumeMounts for the Restic daemonset. Optional.
   extraVolumeMounts: []
+
+  # Configure the dnsPolicy of the Restic daemonset
+  # See: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy
+  dnsPolicy: ClusterFirst
 
   # SecurityContext to use for the Velero deployment. Optional.
   # Set fsGroup for `AWS IAM Roles for Service Accounts`
