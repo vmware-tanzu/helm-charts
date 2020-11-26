@@ -55,6 +55,7 @@ spec:
         {{- if .Values.restic.extraVolumes }}
         {{- toYaml .Values.restic.extraVolumes | nindent 8 }}
         {{- end }}
+      dnsPolicy: {{ .Values.restic.dnsPolicy }}
       containers:
         - name: restic
         {{- if .Values.image.digest }}
@@ -138,7 +139,6 @@ spec:
                   key: {{ default "none" $key }}
           {{- end }}
           {{- end }}
-          dnsPolicy: {{ .Values.restic.dnsPolicy }}
           securityContext:
             privileged: {{ .Values.restic.privileged }}
             {{- with .Values.restic.securityContext }}
