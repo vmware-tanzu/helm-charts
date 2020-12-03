@@ -24,11 +24,12 @@ spec:
     {{- with .caCert }}
     caCert: {{ . }}
     {{- end }}
-{{- with .config }}
   config:
-{{ toYaml . | indent 4}}
-{{- if .s3ForcePathStyle }}
-    s3ForcePathStyle: {{ .s3ForcePathStyle | quote }}
+{{- range $key, $value := .config }}
+{{- if (eq $key "s3ForcePathStyle") }}
+    {{ $key }}: {{ $value | quote }}
+{{- else }}
+    {{ $key }}: {{ $value }}
 {{- end }}
 {{- end }}
 {{- end }}
