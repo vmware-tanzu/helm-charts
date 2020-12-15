@@ -26,6 +26,9 @@ podAnnotations: {}
 # ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 podLabels: {}
 
+# Annotations to add to the Velero deployment object. Optional.
+deployAnnotations: {}
+
 # Resource requests/limits to specify for the Velero deployment. Optional.
 resources: {}
 
