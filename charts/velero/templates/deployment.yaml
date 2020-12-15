@@ -9,12 +9,12 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
     helm.sh/chart: {{ include "velero.chart" . }}
-  {{- if .Values.deployAnnotations }}
-    annotations:
-    {{- with .Values.deployAnnotations }}
-      {{- toYaml . | nindent 4 }}
-    {{- end }}
+{{- if .Values.deployAnnotations }}
+  annotations:
+  {{- with .Values.deployAnnotations }}
+    {{- toYaml . | nindent 4 }}
   {{- end }}
+{{- end }}
 spec:
   replicas: 1
   selector:
