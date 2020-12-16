@@ -12,7 +12,7 @@ See the different options for installing the [Velero CLI](https://velero.io/docs
 
 ### Velero version
 
-This helm chart installs Velero version v1.5.1 https://github.com/vmware-tanzu/velero/tree/v1.5.1. See the [#Upgrading](#upgrading) section for information on how to upgrade from other versions.
+This helm chart installs Velero version v1.5 https://velero.io/docs/v1.5/. See the [#Upgrading](#upgrading) section for information on how to upgrade from other versions.
 
 ### Provider credentials
 
@@ -44,9 +44,6 @@ helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> \
 --set configuration.backupStorageLocation.config.region=<REGION> \
 --set configuration.volumeSnapshotLocation.name=<VOLUME SNAPSHOT LOCATION NAME> \
 --set configuration.volumeSnapshotLocation.config.region=<REGION> \
---set image.repository=velero/velero \
---set image.tag=v1.5.1 \
---set image.pullPolicy=IfNotPresent \
 --set initContainers[0].name=velero-plugin-for-aws \
 --set initContainers[0].image=velero/velero-plugin-for-aws:v1.1.0 \
 --set initContainers[0].volumeMounts[0].mountPath=/target \
@@ -96,9 +93,6 @@ helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> \
 --set configuration.backupStorageLocation.config.region=<REGION> \
 --set configuration.volumeSnapshotLocation.name=<VOLUME SNAPSHOT LOCATION NAME> \
 --set configuration.volumeSnapshotLocation.config.region=<REGION> \
---set image.repository=velero/velero \
---set image.tag=v1.5.1 \
---set image.pullPolicy=IfNotPresent \
 --set initContainers[0].name=velero-plugin-for-aws \
 --set initContainers[0].image=velero/velero-plugin-for-aws:v1.1.0 \
 --set initContainers[0].volumeMounts[0].mountPath=/target \
