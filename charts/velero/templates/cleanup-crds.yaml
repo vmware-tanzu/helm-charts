@@ -4,12 +4,12 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ template "velero.fullname" . }}-cleanup
+  name: {{ template "velero.fullname" . }}-cleanup-crds
   namespace: {{ .Release.Namespace }}
   annotations:
     "helm.sh/hook": pre-delete
-    "helm.sh/hook-weight": "3"
-    "helm.sh/hook-delete-policy": hook-succeeded
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
   labels:
     app.kubernetes.io/name: {{ include "velero.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
@@ -18,9 +18,9 @@ metadata:
 spec:
   template:
     metadata:
-      name: velero-cleanup
+      name: velero-cleanup-crds
     spec:
-      serviceAccountName: {{ include "velero.serverServiceAccount" . }}
+      serviceAccountName: {{ include "velero.crdsServiceAccount" . }}
       containers:
         - name: kubectl
           image: docker.io/bitnami/kubectl:1.14.1
@@ -28,12 +28,6 @@ spec:
           command:
             - /bin/sh
             - -c
-            - >
-              kubectl delete restore --all;
-              kubectl delete backup --all;
-              kubectl delete backupstoragelocation --all;
-              kubectl delete volumesnapshotlocation --all;
-              kubectl delete podvolumerestore --all;
-              kubectl delete crd -l app.kubernetes.io/name=velero;
+            - kubectl delete crd -l component=velero
       restartPolicy: OnFailure
 {{- end }}

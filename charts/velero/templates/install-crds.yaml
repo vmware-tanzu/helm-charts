@@ -1,0 +1,52 @@
+{{- if .Values.installCRDs }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "velero.fullname" . }}-install-crds
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+  labels:
+    app.kubernetes.io/name: {{ include "velero.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    helm.sh/chart: {{ include "velero.chart" . }}
+spec:
+  template:
+    metadata:
+      name: velero-install-crds
+    spec:
+      serviceAccountName: {{ include "velero.crdsServiceAccount" . }}
+      initContainers:
+        - name: velero
+      {{- if .Values.image.digest }}
+          image: "{{ .Values.image.repository }}@{{ .Values.image.digest }}"
+      {{- else }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+      {{- end }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - /bin/sh
+            - -c
+            - /velero install --crds-only --dry-run -o yaml > /tmp/crds.yaml
+          volumeMounts:
+            - mountPath: /tmp
+              name: crds
+      containers:
+        - name: kubectl
+          image: docker.io/bitnami/kubectl:1.14.1
+          imagePullPolicy: IfNotPresent
+          command:
+            - /bin/sh
+            - -c
+            - kubectl apply -f /tmp/crds.yaml
+          volumeMounts:
+            - mountPath: /tmp
+              name: crds
+      volumes:
+        - name: crds
+          emptyDir: {}
+      restartPolicy: OnFailure
+{{- end }}

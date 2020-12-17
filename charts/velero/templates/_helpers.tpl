@@ -32,6 +32,17 @@ Create chart name and version as used by the chart label.
 {{- end -}}
 
 {{/*
+Create the name of the service account to use for creating or deleting the velero CRDs
+*/}}
+{{- define "velero.crdsServiceAccount" -}}
+{{- if .Values.serviceAccount.crds.create -}}
+    {{ default (printf "%s-%s" (include "velero.fullname" .) "crds") .Values.serviceAccount.crds.name }}
+{{- else -}}
+    {{ default "default" .Values.serviceAccount.crds.name }}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Create the name of the service account to use for creating or deleting the velero server
 */}}
 {{- define "velero.serverServiceAccount" -}}
