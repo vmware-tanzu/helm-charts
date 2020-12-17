@@ -69,12 +69,17 @@ extraVolumeMounts: []
 # Settings for Velero's prometheus metrics. Enabled by default.
 metrics:
   enabled: true
+  scrapeInterval: 30s
 
   # Pod annotations for Prometheus
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "8085"
     prometheus.io/path: "/metrics"
+
+  serviceMonitor:
+    enabled: false
+    additionalLabels: {}
 
 # Install CRDs as a templates. Enabled by default.
 installCRDs: true
