@@ -5,3 +5,4 @@ remote: origin
 target-branch: main
 namespace: velero
 upgrade: true
+print-config: true
