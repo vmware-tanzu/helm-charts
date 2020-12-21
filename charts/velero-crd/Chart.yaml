@@ -1,7 +1,7 @@
 apiVersion: v1
 appVersion: 1.5.2
-description: A helm chart for velero
-name: velero
+description: A helm chart for velero CRDs
+name: velero-crd
 version: 2.15.0
 home: https://github.com/vmware-tanzu/velero
 icon: https://cdn-images-1.medium.com/max/1600/1*-9mb3AKnKdcL_QD3CMnthQ.png
