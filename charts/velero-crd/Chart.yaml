@@ -18,4 +18,3 @@ maintainers:
     email: jenting.hsiao@suse.com
   - name: nrb
     email: brubakern@vmware.com
-tillerVersion: ">=2.10.0"
