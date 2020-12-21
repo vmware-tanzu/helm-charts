@@ -3,4 +3,5 @@ chart-dirs:
   - charts
 remote: origin
 target-branch: main
+namespace: velero
 upgrade: true
