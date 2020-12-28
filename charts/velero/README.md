@@ -27,16 +27,18 @@ See Velero's full [official documentation](https://velero.io/docs/v1.5/basic-ins
 
 #### Using Helm 3
 
-First, create the namespace: `kubectl create namespace <YOUR NAMESPACE>`
-
 ##### Option 1) CLI commands
 
-Note: you may add the flag `--skip-crds` if you don't want to install the CRDs.
+Note: You may add the flag `--set installCRDs=false` if you don't want to install the CRDs.
+Likewise, you may add the flag `--set cleanUpCRDs=true` if you want to delete the Velero CRDs after deleting a release.
+Please note that cleaning up CRDs will also delete any CRD instance, such as BackupStorageLocation and VolumeSnapshotLocation, which would have to be reconfigured when reinstalling Velero. The backup data in object storage will not be deleted, even though the backup instances in the cluster will.
 
 Specify the necessary values using the --set key=value[,key=value] argument to helm install. For example,
 
 ```bash
-helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> \
+helm install vmware-tanzu/velero \
+--namespace <YOUR NAMESPACE> \
+--create-namespace \
 --set-file credentials.secretContents.cloud=<FULL PATH TO FILE> \
 --set configuration.provider=<PROVIDER NAME> \
 --set configuration.backupStorageLocation.name=<BACKUP STORAGE LOCATION NAME> \
@@ -44,8 +46,8 @@ helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> \
 --set configuration.backupStorageLocation.config.region=<REGION> \
 --set configuration.volumeSnapshotLocation.name=<VOLUME SNAPSHOT LOCATION NAME> \
 --set configuration.volumeSnapshotLocation.config.region=<REGION> \
---set initContainers[0].name=velero-plugin-for-aws \
---set initContainers[0].image=velero/velero-plugin-for-aws:v1.1.0 \
+--set initContainers[0].name=velero-plugin-for-<PROVIDER NAME> \
+--set initContainers[0].image=velero/velero-plugin-for-<PROVIDER NAME>:<PROVIDER PLUGIN TAG> \
 --set initContainers[0].volumeMounts[0].mountPath=/target \
 --set initContainers[0].volumeMounts[0].name=plugins \
 --generate-name
@@ -80,21 +82,24 @@ helm init --service-account=tiller --wait --upgrade
 
 ##### Option 1) CLI commands
 
-Note: you may add the flag `--set installCRDs=false` if you don't want to install the CRDs.
+Note: You may add the flag `--set installCRDs=false` if you don't want to install the CRDs.
+Likewise, you may add the flag `--set cleanUpCRDs=true` if you want to delete the Velero CRDs after deleting a release.
+Please note that cleaning up CRDs will also delete any CRD instance, such as BackupStorageLocation and VolumeSnapshotLocation, which would have to be reconfigured when reinstalling Velero. The backup data in object storage will not be deleted, even though the backup instances in the cluster will.
 
 Specify the necessary values using the --set key=value[,key=value] argument to helm install. For example,
 
 ```bash
-helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> \
+helm install vmware-tanzu/velero \
+--namespace <YOUR NAMESPACE> \
 --set-file credentials.secretContents.cloud=<FULL PATH TO FILE> \
---set configuration.provider=aws \
+--set configuration.provider=<PROVIDER NAME> \
 --set configuration.backupStorageLocation.name=<BACKUP STORAGE LOCATION NAME> \
 --set configuration.backupStorageLocation.bucket=<BUCKET NAME> \
 --set configuration.backupStorageLocation.config.region=<REGION> \
 --set configuration.volumeSnapshotLocation.name=<VOLUME SNAPSHOT LOCATION NAME> \
 --set configuration.volumeSnapshotLocation.config.region=<REGION> \
---set initContainers[0].name=velero-plugin-for-aws \
---set initContainers[0].image=velero/velero-plugin-for-aws:v1.1.0 \
+--set initContainers[0].name=velero-plugin-for-<PROVIDER NAME> \
+--set initContainers[0].image=velero/velero-plugin-for-<PROVIDER NAME>:<PROVIDER PLUGIN TAG> \
 --set initContainers[0].volumeMounts[0].mountPath=/target \
 --set initContainers[0].volumeMounts[0].name=plugins 
 ```
