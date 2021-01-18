@@ -4,3 +4,5 @@ chart-dirs:
 remote: origin
 target-branch: main
 upgrade: true
+chart-repos:
+  - stable=https://charts.helm.sh/stable
