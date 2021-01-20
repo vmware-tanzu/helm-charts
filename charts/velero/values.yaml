@@ -279,6 +279,8 @@ restic:
 #   mybackup:
 #     labels:
 #       myenv: foo
+#     annotations:
+#       myenv: foo
 #     schedule: "0 0 * * *"
 #     template:
 #       ttl: "240h"
