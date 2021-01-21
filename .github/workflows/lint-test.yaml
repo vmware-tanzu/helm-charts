@@ -41,6 +41,7 @@ jobs:
         id: lint
         uses: helm/chart-testing-action@v1.0.0-alpha.3 # fixed on v1.0.0-alpha.3 for helm2
         with:
+          image: quay.io/cpanato/chart-testing:dev-v2-latest
           command: lint
 
       - name: Create kind cluster
@@ -51,4 +52,5 @@ jobs:
       - name: Run chart-testing (install)
         uses: helm/chart-testing-action@v1.0.0-alpha.3 # fixed on v1.0.0-alpha.3 for helm2
         with:
+          image: quay.io/cpanato/chart-testing:dev-v2-latest
           command: install
