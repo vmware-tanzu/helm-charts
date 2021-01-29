@@ -65,6 +65,9 @@ spec:
             {{- if .restoreOnlyMode }}
             - --restore-only
             {{- end }}
+            {{- if .defaultVolumesToRestic }}
+            - --default-volumes-to-restic
+            {{- end }}
             {{- with .restoreResourcePriorities }}
             - --restore-resource-priorities={{ . }}
             {{- end }}
