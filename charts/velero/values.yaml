@@ -70,6 +70,7 @@ extraVolumeMounts: []
 metrics:
   enabled: true
   scrapeInterval: 30s
+  scrapeTimeout: 10s
 
   # Pod annotations for Prometheus
   podAnnotations:
@@ -80,6 +81,8 @@ metrics:
   serviceMonitor:
     enabled: false
     additionalLabels: {}
+    # Deploy Service Monitor to another namespace
+    namespace:
 
 # Install CRDs as a templates. Enabled by default.
 installCRDs: true
