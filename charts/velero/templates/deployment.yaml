@@ -4,6 +4,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "velero.fullname" . }}
+  annotations:
+    {{- with .Values.deploymentAnnotations }}
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
   labels:
     app.kubernetes.io/name: {{ include "velero.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
