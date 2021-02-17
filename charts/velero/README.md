@@ -69,7 +69,7 @@ helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> -f values.yaml --g
 If a value needs to be added or changed, you may do so with the `upgrade` command. An example:
 
 ```bash
-    helm upgrade vmware-tanzu/velero <RELEASE NAME> --namespace <YOUR NAMESPACE> --reuse-values --set configuration.provider=<NEW PROVIDER>
+helm upgrade vmware-tanzu/velero <RELEASE NAME> --namespace <YOUR NAMESPACE> --reuse-values --set configuration.provider=<NEW PROVIDER>
 ```
 
 #### Using Helm 2
@@ -107,6 +107,8 @@ helm install vmware-tanzu/velero \
 --set initContainers[0].volumeMounts[0].mountPath=/target \
 --set initContainers[0].volumeMounts[0].name=plugins 
 ```
+
+Users of zsh might need to put quotes around key/value pairs.
 
 ##### Option 2) YAML file
 
