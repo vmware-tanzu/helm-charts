@@ -4,10 +4,12 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: restic
+  {{- if .Values.restic.daemonsetAnnotations }}
   annotations:
     {{- with .Values.restic.daemonsetAnnotations }}
       {{- toYaml . | nindent 6 }}
     {{- end }}
+  {{- end }}
   labels:
     app.kubernetes.io/name: {{ include "velero.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
