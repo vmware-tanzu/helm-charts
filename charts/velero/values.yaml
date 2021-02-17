@@ -297,6 +297,9 @@ restic:
   # see more informations at: https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html
   securityContext: {}
     # fsGroup: 1337
+  
+  # Node selector to use for the Restic daemonset. Optional.
+  nodeSelector: {}
 
 # Backup schedules to create.
 # Eg:
