@@ -4,17 +4,18 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: restic
-  {{- if .Values.restic.daemonsetAnnotations }}
+  {{- with .Values.restic.annotations }}
   annotations:
-    {{- with .Values.restic.daemonsetAnnotations }}
-      {{- toYaml . | nindent 6 }}
-    {{- end }}
+    {{- toYaml . | nindent 4 }}
   {{- end }}
   labels:
     app.kubernetes.io/name: {{ include "velero.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
     helm.sh/chart: {{ include "velero.chart" . }}
+    {{- with .Values.restic.labels }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
 spec:
   selector:
     matchLabels:

@@ -18,8 +18,11 @@ image:
 # Annotations to add to the Velero deployment's. Optional.
 #
 # If you are using reloader use the following annotation with your VELERO_SECRET_NAME
-deploymentAnnotations: {}
-  # secret.reloader.stakater.com/reload: "<VELERO_SECRET_NAME>"
+annotations: {}
+# secret.reloader.stakater.com/reload: "<VELERO_SECRET_NAME>"
+
+# Labels to add to the Velero deployment's. Optional.
+labels: {}
 
 # Annotations to add to the Velero deployment's pod template. Optional.
 #
@@ -77,6 +80,11 @@ metrics:
   enabled: true
   scrapeInterval: 30s
   scrapeTimeout: 10s
+
+  # service metdata if metrics are enabled
+  service:
+    annotations: {}
+    labels: {}
 
   # Pod annotations for Prometheus
   podAnnotations:
@@ -269,7 +277,10 @@ restic:
   tolerations: []
 
   # Annotations to set for the Restic daemonset. Optional.
-  daemonsetAnnotations: {}
+  annotations: {}
+
+  # labels to set for the Restic daemonset. Optional.
+  labels: {}
 
   # Extra volumes for the Restic daemonset. Optional.
   extraVolumes: []
