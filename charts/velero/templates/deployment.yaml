@@ -1,5 +1,7 @@
 {{- if .Values.configuration.provider -}}
 {{- $provider := .Values.configuration.provider -}}
+{{/* 'securityContext' got renamed to 'podSecurityContext', merge both dicts into one for backward compatibility */}}
+{{- $podSecurityContext := merge (.Values.podSecurityContext | default dict) (.Values.securityContext | default dict) -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -108,15 +110,23 @@ spec:
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          {{- with .Values.containerSecurityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           volumeMounts:
             - name: plugins
               mountPath: /plugins
-        {{- if .Values.credentials.useSecret }}
+            {{- if .Values.credentials.useSecret }}
             - name: cloud-credentials
               mountPath: /credentials
             - name: scratch
               mountPath: /scratch
-        {{- end }}
+            {{- end }}
+            {{- if .Values.containerSecurityContext.readOnlyRootFilesystem }}
+            - name: tmpdir
+              mountPath: /tmp
+            {{- end }}
             {{- if .Values.extraVolumeMounts }}
             {{- toYaml .Values.extraVolumeMounts | nindent 12 }}
             {{- end }}
@@ -180,10 +190,14 @@ spec:
           emptyDir: {}
         - name: scratch
           emptyDir: {}
+        {{- if .Values.containerSecurityContext.readOnlyRootFilesystem }}
+        - name: tmpdir
+          emptyDir: {}
+        {{- end }}
         {{- if .Values.extraVolumes }}
         {{- toYaml .Values.extraVolumes | nindent 8 }}
         {{- end }}
-    {{- with .Values.securityContext }}
+    {{- with $podSecurityContext }}
       securityContext:
         {{- toYaml . | nindent 8 }}
     {{- end }}

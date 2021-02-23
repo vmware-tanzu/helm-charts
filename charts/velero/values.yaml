@@ -54,8 +54,17 @@ initContainers: []
 # SecurityContext to use for the Velero deployment. Optional.
 # Set fsGroup for `AWS IAM Roles for Service Accounts`
 # see more informations at: https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html
-securityContext: {}
+podSecurityContext: {}
   # fsGroup: 1337
+
+# Container Level Security Context for the 'velero' container of the Velero deployment. Optional.
+# See: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
+containerSecurityContext: {}
+  # allowPrivilegeEscalation: false
+  # capabilities:
+  #   drop: ["ALL"]
+  #   add: []
+  # readOnlyRootFilesystem: true
 
 # Pod priority class name to use for the Velero deployment. Optional.
 priorityClassName: ""
@@ -288,8 +297,13 @@ restic:
   # SecurityContext to use for the Velero deployment. Optional.
   # Set fsGroup for `AWS IAM Roles for Service Accounts`
   # see more informations at: https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html
-  securityContext: {}
+  podSecurityContext:
+    runAsUser: 0
     # fsGroup: 1337
+
+  # Container Level Security Context for the 'restic' container of the restic DaemonSet. Optional.
+  # See: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
+  containerSecurityContext: {}
 
   # Node selector to use for the Restic daemonset. Optional.
   nodeSelector: {}
