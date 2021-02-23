@@ -90,6 +90,12 @@ spec:
             {{- if .defaultVolumesToRestic }}
             - --default-volumes-to-restic
             {{- end }}
+            {{- with .clientQPS }}
+            - --client-qps={{ . }}
+            {{- end }}
+            {{- with .clientBurst }}
+            - --client-burst={{ . }}
+            {{- end }}
           {{- end }}
           {{- with .Values.resources }}
           resources:

@@ -168,6 +168,11 @@ configuration:
   restoreResourcePriorities:
   # `velero server` default: false
   restoreOnlyMode:
+  # `velero server` default: 20.0
+  clientQPS:
+  # `velero server` default: 30
+  clientBurst:
+  #
 
   # additional key/value pairs to be used as environment variables such as "AWS_CLUSTER_NAME: 'yourcluster.domain.tld'"
   extraEnvVars: {}
