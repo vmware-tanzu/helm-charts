@@ -15,6 +15,15 @@ image:
   imagePullSecrets: []
   # - registrySecretName
 
+# Annotations to add to the Velero deployment's. Optional.
+#
+# If you are using reloader use the following annotation with your VELERO_SECRET_NAME
+annotations: {}
+# secret.reloader.stakater.com/reload: "<VELERO_SECRET_NAME>"
+
+# Labels to add to the Velero deployment's. Optional.
+labels: {}
+
 # Annotations to add to the Velero deployment's pod template. Optional.
 #
 # If using kube2iam or kiam, use the following annotation with your AWS_ACCOUNT_ID
@@ -71,6 +80,11 @@ metrics:
   enabled: true
   scrapeInterval: 30s
   scrapeTimeout: 10s
+
+  # service metdata if metrics are enabled
+  service:
+    annotations: {}
+    labels: {}
 
   # Pod annotations for Prometheus
   podAnnotations:
@@ -261,6 +275,12 @@ restic:
   resources: {}
   # Tolerations to use for the Restic daemonset. Optional.
   tolerations: []
+
+  # Annotations to set for the Restic daemonset. Optional.
+  annotations: {}
+
+  # labels to set for the Restic daemonset. Optional.
+  labels: {}
 
   # Extra volumes for the Restic daemonset. Optional.
   extraVolumes: []
