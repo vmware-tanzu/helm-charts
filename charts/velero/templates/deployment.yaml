@@ -4,12 +4,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "velero.fullname" . }}
+  {{- with .Values.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   labels:
     app.kubernetes.io/name: {{ include "velero.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
     helm.sh/chart: {{ include "velero.chart" . }}
     component: velero
+    {{- with .Values.labels }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
 spec:
   replicas: 1
   selector:
@@ -89,6 +96,12 @@ spec:
             {{- end }}
             {{- if .defaultVolumesToRestic }}
             - --default-volumes-to-restic
+            {{- end }}
+            {{- with .clientQPS }}
+            - --client-qps={{ . }}
+            {{- end }}
+            {{- with .clientBurst }}
+            - --client-burst={{ . }}
             {{- end }}
           {{- end }}
           {{- with .Values.resources }}
