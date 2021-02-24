@@ -298,6 +298,9 @@ restic:
   securityContext: {}
     # fsGroup: 1337
 
+  # Node selector to use for the Restic daemonset. Optional.
+  nodeSelector: {}
+
 # Backup schedules to create.
 # Eg:
 # schedules:
