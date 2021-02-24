@@ -3,6 +3,30 @@ entries:
   velero:
   - apiVersion: v1
     appVersion: 1.5.3
+    created: "2021-02-24T18:42:18.071418019Z"
+    description: A Helm chart for velero
+    digest: d9da198fd7a1b6b8ed45807d686792f078bcb1b5d8d6725f33da8ed3f342e03e
+    home: https://github.com/vmware-tanzu/velero
+    icon: https://cdn-images-1.medium.com/max/1600/1*-9mb3AKnKdcL_QD3CMnthQ.png
+    maintainers:
+    - email: ashisham@vmware.com
+      name: ashish-amarnath
+    - email: carlisiac@vmware.com
+      name: carlisia
+    - email: ctadeu@gmail.com
+      name: cpanato
+    - email: brubakern@vmware.com
+      name: nrb
+    - email: krisss@vmware.com
+      name: skriss
+    name: velero
+    sources:
+    - https://github.com/vmware-tanzu/velero
+    urls:
+    - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.14.12/velero-2.14.12.tgz
+    version: 2.14.12
+  - apiVersion: v1
+    appVersion: 1.5.3
     created: "2021-02-24T11:49:00.148199617Z"
     description: A Helm chart for velero
     digest: ac8a9d3459e0202660891136b15a25df34245e13f7f2ea7b191a22c34098a7a0
@@ -1801,4 +1825,4 @@ entries:
     urls:
     - https://github.com/vmware-tanzu/helm-charts/releases/download/velero-2.7.3/velero-2.7.3.tgz
     version: 2.7.3
-generated: "2019-12-18T18:07:47.212339875Z"
+generated: "2021-02-24T18:42:18.078503117Z"
