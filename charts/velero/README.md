@@ -24,6 +24,9 @@ The default configuration values for this chart are listed in values.yaml.
 
 See Velero's full [official documentation](https://velero.io/docs/v1.5/basic-install/). More specifically, find your provider in the Velero list of [supported providers](https://velero.io/docs/v1.5/supported-providers/) for specific configuration information and examples.
 
+#### Set up Helm
+
+See the main [README.md](https://github.com/vmware-tanzu/helm-charts#kubernetes-helm-charts-for-vmware-tanzu).
 
 #### Using Helm 3
 
@@ -36,7 +39,7 @@ Please note that cleaning up CRDs will also delete any CRD instance, such as Bac
 Specify the necessary values using the --set key=value[,key=value] argument to helm install. For example,
 
 ```bash
-helm install vmware-tanzu/velero \
+helm install velero vmware-tanzu/velero \
 --namespace <YOUR NAMESPACE> \
 --create-namespace \
 --set-file credentials.secretContents.cloud=<FULL PATH TO FILE> \
@@ -50,8 +53,9 @@ helm install vmware-tanzu/velero \
 --set initContainers[0].image=velero/velero-plugin-for-<PROVIDER NAME>:<PROVIDER PLUGIN TAG> \
 --set initContainers[0].volumeMounts[0].mountPath=/target \
 --set initContainers[0].volumeMounts[0].name=plugins \
---generate-name
 ```
+
+Users of zsh might need to put quotes around key/value pairs.
 
 ##### Option 2) YAML file
 
@@ -103,6 +107,8 @@ helm install vmware-tanzu/velero \
 --set initContainers[0].volumeMounts[0].mountPath=/target \
 --set initContainers[0].volumeMounts[0].name=plugins 
 ```
+
+Users of zsh might need to put quotes around key/value pairs.
 
 ##### Option 2) YAML file
 
