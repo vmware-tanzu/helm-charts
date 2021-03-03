@@ -4,8 +4,13 @@ kind: Schedule
 metadata:
   name: {{ include "velero.fullname" $ }}-{{ $scheduleName }}
   annotations:
+  {{- if $schedule.annotations }}
+    {{- toYaml $schedule.annotations | nindent 4 }}
+  {{- end }}
+  {{- if $.Values.enableHelmHooks }}
     "helm.sh/hook": post-install,post-upgrade
     "helm.sh/hook-delete-policy": "before-hook-creation"
+  {{- end }}
   labels:
     app.kubernetes.io/name: {{ include "velero.name" $ }}
     app.kubernetes.io/instance: {{ $.Release.Name }}

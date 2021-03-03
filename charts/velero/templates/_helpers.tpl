@@ -49,7 +49,7 @@ Create the name for the credentials secret.
 {{- if .Values.credentials.existingSecret -}}
   {{- .Values.credentials.existingSecret -}}
 {{- else -}}
-  {{- include "velero.fullname" . -}}
+  {{ default (include "velero.fullname" .) .Values.credentials.name }}
 {{- end -}}
 {{- end -}}
 
@@ -109,4 +109,12 @@ Create the volume snapshot location provider
 {{- with .Values.configuration -}}
 {{ default .provider .volumeSnapshotLocation.provider }}
 {{- end -}}
+{{- end -}}
+
+{{/*
+Helm hooks for Helm v2 CRDs 
+*/}}
+{{- define "velero.helmhooks.crds" -}}
+{{ print "\"helm.sh/hook\": pre-install,pre-upgrade" | indent 4 }}
+{{ print "\"helm.sh/hook-delete-policy\": \"before-hook-creation\"" | indent 4 }}
 {{- end -}}
