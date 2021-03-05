@@ -32,8 +32,7 @@ See the main [README.md](https://github.com/vmware-tanzu/helm-charts#kubernetes-
 
 ##### Option 1) CLI commands
 
-Note: You may add the flag `--set installCRDs=false` if you don't want to install the CRDs.
-Likewise, you may add the flag `--set cleanUpCRDs=true` if you want to delete the Velero CRDs after deleting a release.
+Note: You may add the flag `--set cleanUpCRDs=true` if you want to delete the Velero CRDs after deleting a release.
 Please note that cleaning up CRDs will also delete any CRD instance, such as BackupStorageLocation and VolumeSnapshotLocation, which would have to be reconfigured when reinstalling Velero. The backup data in object storage will not be deleted, even though the backup instances in the cluster will.
 
 Specify the necessary values using the --set key=value[,key=value] argument to helm install. For example,
