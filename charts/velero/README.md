@@ -74,49 +74,7 @@ helm upgrade vmware-tanzu/velero <RELEASE NAME> --namespace <YOUR NAMESPACE> --r
 
 #### Using Helm 2
 
-##### Tiller cluster-admin permissions
-
-A service account and the role binding prerequisite must be added to Tiller when configuring Helm to install Velero:
-
-```
-kubectl create sa -n kube-system tiller
-kubectl create clusterrolebinding tiller-cluster-admin --clusterrole cluster-admin --serviceaccount kube-system:tiller
-helm init --service-account=tiller --wait --upgrade
-```
-
-##### Option 1) CLI commands
-
-Note: You may add the flag `--set installCRDs=false` if you don't want to install the CRDs.
-Likewise, you may add the flag `--set cleanUpCRDs=true` if you want to delete the Velero CRDs after deleting a release.
-Please note that cleaning up CRDs will also delete any CRD instance, such as BackupStorageLocation and VolumeSnapshotLocation, which would have to be reconfigured when reinstalling Velero. The backup data in object storage will not be deleted, even though the backup instances in the cluster will.
-
-Specify the necessary values using the --set key=value[,key=value] argument to helm install. For example,
-
-```bash
-helm install vmware-tanzu/velero \
---namespace <YOUR NAMESPACE> \
---set-file credentials.secretContents.cloud=<FULL PATH TO FILE> \
---set configuration.provider=<PROVIDER NAME> \
---set configuration.backupStorageLocation.name=<BACKUP STORAGE LOCATION NAME> \
---set configuration.backupStorageLocation.bucket=<BUCKET NAME> \
---set configuration.backupStorageLocation.config.region=<REGION> \
---set configuration.volumeSnapshotLocation.name=<VOLUME SNAPSHOT LOCATION NAME> \
---set configuration.volumeSnapshotLocation.config.region=<REGION> \
---set initContainers[0].name=velero-plugin-for-<PROVIDER NAME> \
---set initContainers[0].image=velero/velero-plugin-for-<PROVIDER NAME>:<PROVIDER PLUGIN TAG> \
---set initContainers[0].volumeMounts[0].mountPath=/target \
---set initContainers[0].volumeMounts[0].name=plugins 
-```
-
-Users of zsh might need to put quotes around key/value pairs.
-
-##### Option 2) YAML file
-
-Add/update the necessary values by changing the values.yaml from this repository, then run:
-
-```bash
-helm install vmware-tanzu/velero --namespace <YOUR NAMESPACE> -f values.yaml
-```
+We're no longer support Helm v2 since it's deprecated in November 2020.
 
 ##### Upgrade the configuration
 
@@ -152,12 +110,6 @@ The [instructions found here](https://velero.io/docs/v1.1.0/upgrade-to-1.1/) wil
 ## Uninstall Velero
 
 Note: when you uninstall the Velero server, all backups remain untouched.
-
-### Using Helm 2
-
-```bash
-helm delete <RELEASE NAME> --purge
-```
 
 ### Using Helm 3
 
