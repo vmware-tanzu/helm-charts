@@ -98,14 +98,6 @@ metrics:
     # ServiceMonitor namespace. Default to Velero namespace.
     # namespace:
 
-# Install CRDs as a templates. Enabled by default.
-installCRDs: true
-
-# Enable/disable all helm hooks annotations
-# You should disable this if using a deploy tool that doesn't support helm hooks,
-# such as ArgoCD
-enableHelmHooks: true
-
 ##
 ## End of deployment-related settings.
 ##
