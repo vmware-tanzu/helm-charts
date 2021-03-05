@@ -1,4 +1,4 @@
-apiVersion: v1
+apiVersion: v2
 appVersion: 1.5.3
 description: A Helm chart for velero
 name: velero
