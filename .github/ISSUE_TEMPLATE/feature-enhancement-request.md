@@ -20,8 +20,6 @@ about: Suggest an idea for this project
 
 - helm version (use `helm version`): 
 - helm chart version and app version:
-  - helm2 (use `helm list`):
-  - helm3 (use `helm list -n <YOUR NAMESPACE>`):
 - Kubernetes version (use `kubectl version`):
 - Kubernetes installer & version:
 - Cloud provider or hardware configuration:
