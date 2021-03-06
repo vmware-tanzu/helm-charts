@@ -4,7 +4,7 @@ kind: BackupStorageLocation
 metadata:
   name: {{ include "velero.backupStorageLocation.name" . }}
   annotations:
-    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook": post-install,post-upgrade,post-rollback
     "helm.sh/hook-delete-policy": "before-hook-creation"
   labels:
     app.kubernetes.io/name: {{ include "velero.name" . }}
