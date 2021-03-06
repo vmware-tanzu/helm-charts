@@ -4,6 +4,7 @@ kind: CustomResourceDefinition
 metadata:
   labels:
     app.kubernetes.io/name: velero
+    component: velero
   annotations:
     controller-gen.kubebuilder.io/version: v0.3.0
   name: restores.velero.io
