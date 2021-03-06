@@ -3,8 +3,7 @@ name: 'Auto Assign PR Reviewers'
 # This should mean PRs from forks are supported.
 on: 
   pull_request_target:
-    types: [opened, reopened, sychronized]
-
+    types: [opened, reopened, sychronized, ready_for_review]
 
 jobs: 
   add-reviews:
