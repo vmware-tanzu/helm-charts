@@ -32,9 +32,6 @@ See the main [README.md](https://github.com/vmware-tanzu/helm-charts#kubernetes-
 
 ##### Option 1) CLI commands
 
-Note: You may add the flag `--set cleanUpCRDs=true` if you want to delete the Velero CRDs after deleting a release.
-Please note that cleaning up CRDs will also delete any CRD instance, such as BackupStorageLocation and VolumeSnapshotLocation, which would have to be reconfigured when reinstalling Velero. The backup data in object storage will not be deleted, even though the backup instances in the cluster will.
-
 Specify the necessary values using the --set key=value[,key=value] argument to helm install. For example,
 
 ```bash
@@ -51,7 +48,7 @@ helm install velero vmware-tanzu/velero \
 --set initContainers[0].name=velero-plugin-for-<PROVIDER NAME> \
 --set initContainers[0].image=velero/velero-plugin-for-<PROVIDER NAME>:<PROVIDER PLUGIN TAG> \
 --set initContainers[0].volumeMounts[0].mountPath=/target \
---set initContainers[0].volumeMounts[0].name=plugins \
+--set initContainers[0].volumeMounts[0].name=plugins
 ```
 
 Users of zsh might need to put quotes around key/value pairs.
@@ -113,5 +110,5 @@ Note: when you uninstall the Velero server, all backups remain untouched.
 ### Using Helm 3
 
 ```bash
-helm delete <RELEASE NAME> -n <YOUR NAMESPACE>
+helm uninstall <RELEASE NAME> -n <YOUR NAMESPACE>
 ```
