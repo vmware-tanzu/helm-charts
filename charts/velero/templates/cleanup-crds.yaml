@@ -4,11 +4,10 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ template "velero.fullname" . }}-cleanup
+  name: {{ template "velero.fullname" . }}-cleanup-crds
   namespace: {{ .Release.Namespace }}
   annotations:
     "helm.sh/hook": pre-delete
-    "helm.sh/hook-weight": "3"
     "helm.sh/hook-delete-policy": hook-succeeded
   labels:
     app.kubernetes.io/name: {{ include "velero.name" . }}
@@ -18,7 +17,7 @@ metadata:
 spec:
   template:
     metadata:
-      name: velero-cleanup
+      name: velero-cleanup-crds
     spec:
       serviceAccountName: {{ include "velero.serverServiceAccount" . }}
       containers:
