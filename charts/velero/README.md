@@ -51,7 +51,7 @@ helm install velero vmware-tanzu/velero \
 --set initContainers[0].name=velero-plugin-for-<PROVIDER NAME> \
 --set initContainers[0].image=velero/velero-plugin-for-<PROVIDER NAME>:<PROVIDER PLUGIN TAG> \
 --set initContainers[0].volumeMounts[0].mountPath=/target \
---set initContainers[0].volumeMounts[0].name=plugins \
+--set initContainers[0].volumeMounts[0].name=plugins
 ```
 
 Users of zsh might need to put quotes around key/value pairs.
@@ -113,5 +113,5 @@ Note: when you uninstall the Velero server, all backups remain untouched.
 ### Using Helm 3
 
 ```bash
-helm delete <RELEASE NAME> -n <YOUR NAMESPACE>
+helm uninstall <RELEASE NAME> -n <YOUR NAMESPACE>
 ```
