@@ -1,0 +1,32 @@
+{{- if .Release.IsUpgrade }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ template "velero.fullname" . }}-upgrade-crds
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: {{ include "velero.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    helm.sh/chart: {{ include "velero.chart" . }}
+spec:
+  template:
+    metadata:
+      name: velero-upgrade-crds
+    spec:
+      serviceAccountName: {{ include "velero.serverServiceAccount" . }}
+      containers:
+        - name: velero
+      {{- if .Values.image.digest }}
+          image: "{{ .Values.image.repository }}@{{ .Values.image.digest }}"
+      {{- else }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+      {{- end }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - /velero
+          args:
+            - install
+            - --crds-only
+      restartPolicy: OnFailure
+{{- end }}
