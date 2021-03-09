@@ -161,10 +161,11 @@ configuration:
     # for details of required/optional fields for your provider.
     config: {}
   #    region:
-  #    apitimeout:
+  #    apiTimeout:
   #    resourceGroup:
   #    The ID of the subscription where volume snapshots should be stored, if different from the cluster’s subscription. If specified, also requires `configuration.volumeSnapshotLocation.config.resourceGroup`to be set. (Azure only)
   #    subscriptionId:
+  #    incremental:
   #    snapshotLocation:
   #    project:
 
