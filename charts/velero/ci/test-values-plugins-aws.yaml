@@ -1,16 +1,25 @@
 # Set provider name and backup storage location bucket name
 configuration:
   provider: aws
+  # https://github.com/vmware-tanzu/velero-plugin-for-aws/blob/main/backupstoragelocation.md
   backupStorageLocation:
     bucket: velero
     config:
       region: us-west-1
       profile: test
+  # https://github.com/vmware-tanzu/velero-plugin-for-aws/blob/main/volumesnapshotlocation.
   volumeSnapshotLocation:
     provider: aws
     config:
-      bucket: velero
       region: us-west-1
+
+initContainers:
+  - name: velero-plugin-for-aws
+    image: velero/velero-plugin-for-aws:v1.1.0
+    imagePullPolicy: IfNotPresent
+    volumeMounts:
+      - mountPath: /target
+        name: plugins
 
 schedules:
   mybackup:
