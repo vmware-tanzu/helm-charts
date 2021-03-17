@@ -192,7 +192,7 @@ configuration:
   # Set log-format for Velero pod. Default: text. Other option: json.
   logFormat:
 
-  # Set true for backup all pod volumes without having to apply annotation on the pod when used restic Default: false. Other option: false.
+  # Set true for backup all pod volumes without having to apply annotation on the pod when used restic Default: false. Other option: true.
   defaultVolumesToRestic:
 
 ##
