@@ -175,6 +175,9 @@ spec:
         - name: cloud-credentials
           secret:
             secretName: {{ include "velero.secretName" . }}
+            items:
+              - key: {{ .Values.credentials.existingSecretKey }}
+                path: "cloud"
         {{- end }}
         - name: plugins
           emptyDir: {}

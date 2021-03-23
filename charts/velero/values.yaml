@@ -238,6 +238,8 @@ credentials:
   # [AWS] https://github.com/vmware-tanzu/velero-plugin-for-aws/blob/main/README.md
   # [GCP] https://github.com/vmware-tanzu/velero-plugin-for-gcp/blob/main/README.md
   # [Azure] https://github.com/vmware-tanzu/velero-plugin-for-microsoft-azure/blob/main/README.md
+  existingSecretKey: cloud
+
   secretContents: {}
   #  cloud: |
   #    [default]
