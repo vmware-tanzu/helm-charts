@@ -24,9 +24,25 @@ spec:
       {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
-            - /velero
-          args:
-            - install
-            - --crds-only
+            - /bin/sh
+            - -c
+            - /velero install --crds-only --dry-run -o yaml > /tmp/crds.yaml
+          volumeMounts:
+            - mountPath: /tmp
+              name: crds
+      containers:
+        - name: kubectl
+          image: docker.io/bitnami/kubectl:1.14.1
+          imagePullPolicy: IfNotPresent
+          command:
+            - /bin/sh
+            - -c
+            - kubectl apply -f /tmp/crds.yaml
+          volumeMounts:
+            - mountPath: /tmp
+              name: crds
+      volumes:
+        - name: crds
+          emptyDir: {}
       restartPolicy: OnFailure
 {{- end }}
