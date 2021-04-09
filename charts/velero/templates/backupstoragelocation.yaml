@@ -24,9 +24,8 @@ spec:
     {{- end }}
 {{- with .config }}
   config:
-{{ toYaml . | indent 4}}
-{{- if .s3ForcePathStyle }}
-    s3ForcePathStyle: {{ .s3ForcePathStyle | quote }}
+{{- range $key, $value := . }}
+{{- $key | nindent 4 }}: {{ $value | quote }}
 {{- end }}
 {{- end }}
 {{- end }}
