@@ -85,10 +85,13 @@ helm upgrade vmware-tanzu/velero <RELEASE NAME> --reuse-values --set configurati
 
 ## Upgrading
 
+### Upgrading to v1.6
+
+The [instructions found here](https://velero.io/docs/v1.6/upgrade-to-1.6/) will assist you in upgrading from version v1.5.x to v1.6.
+
 ### Upgrading to v1.5
 
 The [instructions found here](https://velero.io/docs/v1.5/upgrade-to-1.5/) will assist you in upgrading from version v1.4.x to v1.5.
-
 
 ### Upgrading to v1.4
 
