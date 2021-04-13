@@ -178,6 +178,8 @@ configuration:
   clientQPS:
   # `velero server` default: 30
   clientBurst:
+  # `velero server` default: empty
+  disableControllers:
   #
 
   # additional key/value pairs to be used as environment variables such as "AWS_CLUSTER_NAME: 'yourcluster.domain.tld'"
