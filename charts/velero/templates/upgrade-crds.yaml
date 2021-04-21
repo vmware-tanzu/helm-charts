@@ -15,7 +15,7 @@ spec:
       name: velero-upgrade-crds
     spec:
       serviceAccountName: {{ include "velero.serverServiceAccount" . }}
-      containers:
+      initContainers:
         - name: velero
       {{- if .Values.image.digest }}
           image: "{{ .Values.image.repository }}@{{ .Values.image.digest }}"
