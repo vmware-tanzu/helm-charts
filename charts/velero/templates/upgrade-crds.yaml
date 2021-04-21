@@ -10,6 +10,7 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
     helm.sh/chart: {{ include "velero.chart" . }}
 spec:
+  backoffLimit: 3
   template:
     metadata:
       name: velero-upgrade-crds
