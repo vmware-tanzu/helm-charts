@@ -36,7 +36,7 @@ podAnnotations: {}
 podLabels: {}
 
 # Resource requests/limits to specify for the Velero deployment.
-# https://velero.io/docs/main/customize-installation/#customize-resource-requests-and-limits
+# https://velero.io/docs/v1.6/customize-installation/#customize-resource-requests-and-limits
 resources:
   requests:
     cpu: 500m
@@ -119,7 +119,7 @@ configuration:
   provider:
 
   # Parameters for the `default` BackupStorageLocation. See
-  # https://velero.io/docs/v1.5/api-types/backupstoragelocation/
+  # https://velero.io/docs/v1.6/api-types/backupstoragelocation/
   backupStorageLocation:
     # name is the name of the backup storage location where backups should be stored. If a name is not provided,
     # a backup storage location will be created with the name "default". Optional.
@@ -150,7 +150,7 @@ configuration:
     #  serviceAccount:
 
   # Parameters for the `default` VolumeSnapshotLocation. See
-  # https://velero.io/docs/v1.5/api-types/volumesnapshotlocation/
+  # https://velero.io/docs/v1.6/api-types/volumesnapshotlocation/
   volumeSnapshotLocation:
     # name is the name of the volume snapshot location where snapshots are being taken. Required.
     name:
@@ -275,7 +275,7 @@ restic:
   # Pod priority class name to use for the Restic daemonset. Optional.
   priorityClassName: ""
   # Resource requests/limits to specify for the Restic daemonset deployment. Optional.
-  # https://velero.io/docs/main/customize-installation/#customize-resource-requests-and-limits
+  # https://velero.io/docs/v1.6/customize-installation/#customize-resource-requests-and-limits
   resources:
     requests:
       cpu: 500m
@@ -335,7 +335,7 @@ schedules: {}
 #       velero.io/plugin-config: ""
 #       velero.io/restic: RestoreItemAction
 #     data:
-#       image: velero/velero-restic-restore-helper:v1.3.1
+#       image: velero/velero-restic-restore-helper:v1.6.0
 configMaps: {}
 
 ##
