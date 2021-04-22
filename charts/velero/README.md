@@ -6,13 +6,13 @@ Velero has two main components: a CLI, and a server-side Kubernetes deployment.
 
 ## Installing the Velero CLI
 
-See the different options for installing the [Velero CLI](https://velero.io/docs/v1.5/basic-install/#install-the-cli).
+See the different options for installing the [Velero CLI](https://velero.io/docs/v1.6/basic-install/#install-the-cli).
 
 ## Installing the Velero server
 
 ### Velero version
 
-This helm chart installs Velero version v1.5 https://velero.io/docs/v1.5/. See the [#Upgrading](#upgrading) section for information on how to upgrade from other versions.
+This helm chart installs Velero version v1.6 https://velero.io/docs/v1.6/. See the [#Upgrading](#upgrading) section for information on how to upgrade from other versions.
 
 ### Provider credentials
 
@@ -22,7 +22,7 @@ When installing using the Helm chart, the provider's credential information will
 
 The default configuration values for this chart are listed in values.yaml.
 
-See Velero's full [official documentation](https://velero.io/docs/v1.5/basic-install/). More specifically, find your provider in the Velero list of [supported providers](https://velero.io/docs/v1.5/supported-providers/) for specific configuration information and examples.
+See Velero's full [official documentation](https://velero.io/docs/v1.6/basic-install/). More specifically, find your provider in the Velero list of [supported providers](https://velero.io/docs/v1.6/supported-providers/) for specific configuration information and examples.
 
 #### Set up Helm
 
@@ -51,7 +51,7 @@ helm install velero vmware-tanzu/velero \
 --set initContainers[0].name=velero-plugin-for-<PROVIDER NAME> \
 --set initContainers[0].image=velero/velero-plugin-for-<PROVIDER NAME>:<PROVIDER PLUGIN TAG> \
 --set initContainers[0].volumeMounts[0].mountPath=/target \
---set initContainers[0].volumeMounts[0].name=plugins \
+--set initContainers[0].volumeMounts[0].name=plugins
 ```
 
 Users of zsh might need to put quotes around key/value pairs.
@@ -116,5 +116,5 @@ Note: when you uninstall the Velero server, all backups remain untouched.
 ### Using Helm 3
 
 ```bash
-helm delete <RELEASE NAME> -n <YOUR NAMESPACE>
+helm uninstall <RELEASE NAME> -n <YOUR NAMESPACE>
 ```
