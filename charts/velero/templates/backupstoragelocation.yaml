@@ -13,6 +13,9 @@ metadata:
     helm.sh/chart: {{ include "velero.chart" . }}
 spec:
   provider: {{ include "velero.backupStorageLocation.provider" . }}
+  {{- with .Values.configuration.backupStorageLocation.default }}
+  default: {{ . }}
+  {{- end }}
 {{- with .Values.configuration.backupStorageLocation }}
   objectStorage:
     bucket: {{ .bucket  }}
