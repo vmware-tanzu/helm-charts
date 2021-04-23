@@ -1,4 +1,4 @@
-{{- if .Values.upgradeCrdsJob.enabled }}
+{{- if .Values.upgradeCRDs }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -17,15 +17,15 @@ spec:
   template:
     metadata:
       name: velero-upgrade-crds
-      {{- if .Values.upgradeCrdsJob.podLabels }}
+      {{- if .Values.crdsJob.podLabels }}
       labels:
-        {{- with .Values.upgradeCrdsJob.podLabels }}
+        {{- with .Values.crdsJob.podLabels }}
           {{- toYaml . | nindent 8 }}
         {{- end }}
       {{- end }}
-      {{- if .Values.upgradeCrdsJob.podAnnotations }}
+      {{- if .Values.crdsJob.podAnnotations }}
       annotations:
-        {{- with .Values.upgradeCrdsJob.podAnnotations }}
+        {{- with .Values.crdsJob.podAnnotations }}
           {{- toYaml . | nindent 8 }}
         {{- end }}
       {{- end }}
@@ -54,12 +54,12 @@ spec:
               name: crds
       containers:
         - name: kubectl
-        {{- if .Values.upgradeCrdsJob.image.digest }}
-          image: "{{ .Values.upgradeCrdsJob.image.repository }}@{{ .Values.upgradeCrdsJob.image.digest }}"
+        {{- if .Values.crdsJob.image.digest }}
+          image: "{{ .Values.crdsJob.image.repository }}@{{ .Values.crdsJob.image.digest }}"
         {{- else }}
-          image: "{{ .Values.upgradeCrdsJob.image.repository }}:{{ .Values.upgradeCrdsJob.image.tag }}"
+          image: "{{ .Values.crdsJob.image.repository }}:{{ .Values.crdsJob.image.tag }}"
         {{- end }}
-          imagePullPolicy: {{ .Values.upgradeCrdsJob.image.pullPolicy }}
+          imagePullPolicy: {{ .Values.crdsJob.image.pullPolicy }}
           command:
             - /bin/sh
             - -c

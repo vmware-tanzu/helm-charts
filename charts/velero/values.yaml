@@ -105,8 +105,7 @@ metrics:
     # ServiceMonitor namespace. Default to Velero namespace.
     # namespace:
 
-upgradeCrdsJob:
-  enabled: true
+crdsJob:
   image:
     repository: docker.io/bitnami/kubectl
     tag: 1.14.3
@@ -118,6 +117,13 @@ upgradeCrdsJob:
   podAnnotations: {}
   # Pod labels for the upgrade crds job
   podLabels: {}
+
+# This job is meant primarily for cleaning up on CI systems.
+# Using this on production systems, especially those that have multiple releases of Velero, will be destructive.
+cleanUpCRDs: false
+
+# This job upgrade the CRDs
+upgradeCRDs: true
 
 ##
 ## End of deployment-related settings.
