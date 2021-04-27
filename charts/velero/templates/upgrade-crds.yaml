@@ -17,17 +17,13 @@ spec:
   template:
     metadata:
       name: velero-upgrade-crds
-      {{- if .Values.crdsJob.podLabels }}
+      {{- with .Values.kubectl.labels }}
       labels:
-        {{- with .Values.crdsJob.podLabels }}
-          {{- toYaml . | nindent 8 }}
-        {{- end }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- if .Values.crdsJob.podAnnotations }}
+      {{- with .Values.kubectl.annotations }}
       annotations:
-        {{- with .Values.crdsJob.podAnnotations }}
-          {{- toYaml . | nindent 8 }}
-        {{- end }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
     spec:
     {{- if .Values.image.imagePullSecrets }}
@@ -39,11 +35,11 @@ spec:
       serviceAccountName: {{ include "velero.serverServiceAccount" . }}
       initContainers:
         - name: velero
-      {{- if .Values.image.digest }}
+          {{- if .Values.image.digest }}
           image: "{{ .Values.image.repository }}@{{ .Values.image.digest }}"
-      {{- else }}
+          {{- else }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-      {{- end }}
+          {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
             - /bin/sh
@@ -54,12 +50,12 @@ spec:
               name: crds
       containers:
         - name: kubectl
-        {{- if .Values.crdsJob.image.digest }}
-          image: "{{ .Values.crdsJob.image.repository }}@{{ .Values.crdsJob.image.digest }}"
-        {{- else }}
-          image: "{{ .Values.crdsJob.image.repository }}:{{ .Values.crdsJob.image.tag }}"
-        {{- end }}
-          imagePullPolicy: {{ .Values.crdsJob.image.pullPolicy }}
+          {{- if .Values.kubectl.image.digest }}
+          image: "{{ .Values.kubectl.image.repository }}@{{ .Values.kubectl.image.digest }}"
+          {{- else }}
+          image: "{{ .Values.kubectl.image.repository }}:{{ .Values.kubectl.image.tag }}"
+          {{- end }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
             - /bin/sh
             - -c

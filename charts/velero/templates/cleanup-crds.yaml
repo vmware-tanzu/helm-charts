@@ -1,4 +1,4 @@
-{{- if .Values.cleanUpCRDs  }}
+{{- if .Values.cleanUpCRDs }}
 # This job is meant primarily for cleaning up on CI systems.
 # Using this on production systems, especially those that have multiple releases of Velero, will be destructive.
 apiVersion: batch/v1
@@ -19,17 +19,13 @@ spec:
   template:
     metadata:
       name: velero-cleanup-crds
-      {{- if .Values.crdsJob.podLabels }}
+      {{- with .Values.kubectl.labels }}
       labels:
-        {{- with .Values.crdsJob.podLabels }}
-          {{- toYaml . | nindent 8 }}
-        {{- end }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- if .Values.crdsJob.podAnnotations }}
+      {{- with .Values.kubectl.annotations }}
       annotations:
-        {{- with .Values.crdsJob.podAnnotations }}
-          {{- toYaml . | nindent 8 }}
-        {{- end }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
     spec:
     {{- if .Values.image.imagePullSecrets }}
@@ -41,12 +37,12 @@ spec:
       serviceAccountName: {{ include "velero.serverServiceAccount" . }}
       containers:
         - name: kubectl
-          {{- if .Values.crdsJob.image.digest }}
-          image: "{{ .Values.crdsJob.image.repository }}@{{ .Values.crdsJob.image.digest }}"
+          {{- if .Values.kubectl.image.digest }}
+          image: "{{ .Values.kubectl.image.repository }}@{{ .Values.kubectl.image.digest }}"
           {{- else }}
-          image: "{{ .Values.crdsJob.image.repository }}:{{ .Values.crdsJob.image.tag }}"
+          image: "{{ .Values.kubectl.image.repository }}:{{ .Values.kubectl.image.tag }}"
           {{- end }}
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
             - /bin/sh
             - -c
