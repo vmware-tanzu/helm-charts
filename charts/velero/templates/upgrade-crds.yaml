@@ -1,3 +1,4 @@
+{{- if .Values.upgradeCrdsJob.enabled }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -17,6 +18,12 @@ spec:
     metadata:
       name: velero-upgrade-crds
     spec:
+      {{- if .Values.image.imagePullSecrets }}
+        imagePullSecrets:
+        {{- range .Values.image.imagePullSecrets }}
+          - name: {{ . }}
+        {{- end }}
+      {{- end }}
       serviceAccountName: {{ include "velero.serverServiceAccount" . }}
       initContainers:
         - name: velero
@@ -35,8 +42,12 @@ spec:
               name: crds
       containers:
         - name: kubectl
-          image: docker.io/bitnami/kubectl:1.14.3
-          imagePullPolicy: IfNotPresent
+      {{- if .Values.upgradeCrdsJob.kubectlImage.digest }}
+          image: "{{ .Values.upgradeCrdsJob.kubectlImage.repository }}@{{ .Values.upgradeCrdsJob.kubectlImage.digest }}"
+      {{- else }}
+          image: "{{ .Values.upgradeCrdsJob.kubectlImage.repository }}:{{ .Values.upgradeCrdsJob.kubectlImage.tag }}"
+      {{- end }}
+          imagePullPolicy: {{ .Values.upgradeCrdsJob.kubectlImage.pullPolicy }}
           command:
             - /bin/sh
             - -c
@@ -48,3 +59,4 @@ spec:
         - name: crds
           emptyDir: {}
       restartPolicy: OnFailure
+{{- end }}

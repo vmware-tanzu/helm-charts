@@ -213,6 +213,25 @@ configuration:
 
 
 ##
+## Settings for the CRD upgrade hook
+##
+upgradeCrdsJob:
+  # Whether to enable the CRD upgrade job on install, upgrade or rollback
+  enabled: true
+  # The upgrade job needs kubectl to apply the rendered manifests.
+  # This options lets you specify a kubectl container image to apply the rendered manifests.
+  kubectlImage:
+    repository: docker.io/bitnami/kubectl
+    tag: 1.14.3
+    # Digest value example: sha256:d238835e151cec91c6a811fe3a89a66d3231d9f64d09e5f3c49552672d271f38. If used, it will
+    # take precedence over the image.tag.
+    # digest:
+    pullPolicy: IfNotPresent
+##
+## End of the CRD upgrade hook section.
+##
+
+##
 ## Settings for additional Velero resources.
 ##
 
