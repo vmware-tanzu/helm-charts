@@ -17,6 +17,12 @@ spec:
     metadata:
       name: velero-upgrade-crds
     spec:
+    {{- if .Values.image.imagePullSecrets }}
+      imagePullSecrets:
+      {{- range .Values.image.imagePullSecrets }}
+        - name: {{ . }}
+      {{- end }}
+    {{- end }}
       serviceAccountName: {{ include "velero.serverServiceAccount" . }}
       initContainers:
         - name: velero
