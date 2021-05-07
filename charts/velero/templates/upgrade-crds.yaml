@@ -1,3 +1,4 @@
+{{- if .Values.upgradeCRDs }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -16,6 +17,14 @@ spec:
   template:
     metadata:
       name: velero-upgrade-crds
+      {{- with .Values.kubectl.labels }}
+      labels:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.kubectl.annotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
     spec:
     {{- if .Values.image.imagePullSecrets }}
       imagePullSecrets:
@@ -26,11 +35,11 @@ spec:
       serviceAccountName: {{ include "velero.serverServiceAccount" . }}
       initContainers:
         - name: velero
-      {{- if .Values.image.digest }}
+          {{- if .Values.image.digest }}
           image: "{{ .Values.image.repository }}@{{ .Values.image.digest }}"
-      {{- else }}
+          {{- else }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-      {{- end }}
+          {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
             - /bin/sh
@@ -41,8 +50,12 @@ spec:
               name: crds
       containers:
         - name: kubectl
-          image: docker.io/bitnami/kubectl:1.14.3
-          imagePullPolicy: IfNotPresent
+          {{- if .Values.kubectl.image.digest }}
+          image: "{{ .Values.kubectl.image.repository }}@{{ .Values.kubectl.image.digest }}"
+          {{- else }}
+          image: "{{ .Values.kubectl.image.repository }}:{{ .Values.kubectl.image.tag }}"
+          {{- end }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
             - /bin/sh
             - -c
@@ -54,3 +67,4 @@ spec:
         - name: crds
           emptyDir: {}
       restartPolicy: OnFailure
+{{- end }}
