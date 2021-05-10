@@ -17,7 +17,6 @@ spec:
     listKind: BackupList
     plural: backups
     singular: backup
-  preserveUnknownFields: false
   scope: Namespaced
   validation:
     openAPIV3Schema:
@@ -48,14 +47,12 @@ spec:
                 not included in the backup.
               items:
                 type: string
-              nullable: true
               type: array
             excludedResources:
               description: ExcludedResources is a slice of resource names that are
                 not included in the backup.
               items:
                 type: string
-              nullable: true
               type: array
             hooks:
               description: Hooks represent custom behaviors that should be executed
@@ -74,14 +71,12 @@ spec:
                           which this hook spec does not apply.
                         items:
                           type: string
-                        nullable: true
                         type: array
                       excludedResources:
                         description: ExcludedResources specifies the resources to
                           which this hook spec does not apply.
                         items:
                           type: string
-                        nullable: true
                         type: array
                       includedNamespaces:
                         description: IncludedNamespaces specifies the namespaces to
@@ -89,7 +84,6 @@ spec:
                           namespaces.
                         items:
                           type: string
-                        nullable: true
                         type: array
                       includedResources:
                         description: IncludedResources specifies the resources to
@@ -97,12 +91,10 @@ spec:
                           resources.
                         items:
                           type: string
-                        nullable: true
                         type: array
                       labelSelector:
                         description: LabelSelector, if specified, filters the resources
                           to which this hook spec applies.
-                        nullable: true
                         properties:
                           matchExpressions:
                             description: matchExpressions is a list of label selector
@@ -238,33 +230,28 @@ spec:
                     required:
                     - name
                     type: object
-                  nullable: true
                   type: array
               type: object
             includeClusterResources:
               description: IncludeClusterResources specifies whether cluster-scoped
                 resources should be included for consideration in the backup.
-              nullable: true
               type: boolean
             includedNamespaces:
               description: IncludedNamespaces is a slice of namespace names to include
                 objects from. If empty, all namespaces are included.
               items:
                 type: string
-              nullable: true
               type: array
             includedResources:
               description: IncludedResources is a slice of resource names to include
                 in the backup. If empty, all resources are included.
               items:
                 type: string
-              nullable: true
               type: array
             labelSelector:
               description: LabelSelector is a metav1.LabelSelector to filter with
                 when adding individual objects to the backup. If empty or nil, all
                 objects are included. Optional.
-              nullable: true
               properties:
                 matchExpressions:
                   description: matchExpressions is a list of label selector requirements.
@@ -313,12 +300,10 @@ spec:
                 of specific Kind. The map key is the Kind name and value is a list
                 of resource names separated by commas. Each resource name has format
                 "namespace/resourcename".  For cluster resources, simply use "resourcename".
-              nullable: true
               type: object
             snapshotVolumes:
               description: SnapshotVolumes specifies whether to take cloud snapshots
                 of any PV's referenced in the set of objects included in the Backup.
-              nullable: true
               type: boolean
             storageLocation:
               description: StorageLocation is a string containing the name of a BackupStorageLocation
@@ -344,7 +329,6 @@ spec:
                 is recorded before uploading the backup object. The server's time
                 is used for CompletionTimestamps
               format: date-time
-              nullable: true
               type: string
             errors:
               description: Errors is a count of all error messages that were generated
@@ -354,7 +338,6 @@ spec:
             expiration:
               description: Expiration is when this Backup is eligible for garbage-collection.
               format: date-time
-              nullable: true
               type: string
             formatVersion:
               description: FormatVersion is the backup format version, including major,
@@ -375,7 +358,6 @@ spec:
               description: Progress contains information about the backup's execution
                 progress. Note that this information is best-effort only -- if Velero
                 fails to update it during a backup for any reason, it may be inaccurate/stale.
-              nullable: true
               properties:
                 itemsBackedUp:
                   description: ItemsBackedUp is the number of items that have actually
@@ -394,14 +376,12 @@ spec:
                 from CreationTimestamp, since that value changes on restores. The
                 server's time is used for StartTimestamps
               format: date-time
-              nullable: true
               type: string
             validationErrors:
               description: ValidationErrors is a slice of all validation errors (if
                 applicable).
               items:
                 type: string
-              nullable: true
               type: array
             version:
               description: 'Version is the backup format major version. Deprecated:

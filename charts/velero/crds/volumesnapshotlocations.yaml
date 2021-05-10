@@ -17,7 +17,6 @@ spec:
     listKind: VolumeSnapshotLocationList
     plural: volumesnapshotlocations
     singular: volumesnapshotlocation
-  preserveUnknownFields: false
   scope: Namespaced
   validation:
     openAPIV3Schema:
