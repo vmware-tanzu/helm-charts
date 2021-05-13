@@ -105,6 +105,9 @@ spec:
             {{- with .clientBurst }}
             - --client-burst={{ . }}
             {{- end }}
+            {{- with .disableControllers }}
+            - --disable-controllers={{ . }}
+            {{- end }}
           {{- end }}
           {{- with .Values.resources }}
           resources:
