@@ -1,9 +1,0 @@
-addReviewers: true
-addAssignees: author
-
-# Set this to the length of the reviewers list because the default was not including everyone
-numberOfReviewers: 3
-
-reviewers:
-  - carlisia
-  - jenting
