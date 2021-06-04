@@ -123,9 +123,9 @@ spec:
             {{- if .Values.credentials.useSecret }}
             - name: cloud-credentials
               mountPath: /credentials
+            {{- end }}
             - name: scratch
               mountPath: /scratch
-            {{- end }}
             {{- if .Values.containerSecurityContext.readOnlyRootFilesystem }}
             - name: tmpdir
               mountPath: /tmp
