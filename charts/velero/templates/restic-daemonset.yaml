@@ -1,5 +1,7 @@
 {{- if .Values.deployRestic }}
 {{- $provider := .Values.configuration.provider -}}
+{{/* 'restic.securityContext' got renamed to 'restic.containerSecurityContext', merge both dicts into one for backward compatibility */}}
+{{- $containerSecurityContext := merge (.Values.restic.containerSecurityContext | default dict) (.Values.restic.securityContext | default dict) -}}
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -43,8 +45,10 @@ spec:
       {{- end }}
     {{- end }}
       serviceAccountName: {{ include "velero.serverServiceAccount" . }}
+      {{- with .Values.restic.podSecurityContext }}
       securityContext:
-        runAsUser: 0
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- if .Values.restic.priorityClassName }}
       priorityClassName: {{ include "velero.restic.priorityClassName" . }}
       {{- end }}
@@ -148,7 +152,7 @@ spec:
           {{- end }}
           securityContext:
             privileged: {{ .Values.restic.privileged }}
-            {{- with .Values.restic.securityContext }}
+            {{- with $containerSecurityContext }}
               {{- toYaml . | nindent 12 }}
             {{- end }}
           {{- with .Values.restic.resources }}
