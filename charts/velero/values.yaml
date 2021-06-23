@@ -356,6 +356,7 @@ restic:
 #     annotations:
 #       myenv: foo
 #     schedule: "0 0 * * *"
+#     useOwnerReferencesInBackup: true
 #     template:
 #       ttl: "240h"
 #       includedNamespaces:
