@@ -3,6 +3,10 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: {{ include "velero.fullname" . }}-server
+  {{- if .Values.customAnnotations }}
+  annotations:
+  {{- toYaml .Values.customAnnotations | nindent 4 }}
+  {{- end }}
   labels:
     {{- include "velero.labels" . | indent 4 }}
 subjects:

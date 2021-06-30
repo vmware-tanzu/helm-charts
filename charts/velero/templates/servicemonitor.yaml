@@ -6,6 +6,10 @@ metadata:
   {{- if .Values.metrics.serviceMonitor.namespace }}
   namespace: {{ .Values.metrics.serviceMonitor.namespace }}
   {{- end }}
+  {{- if .Values.customAnnotations }}
+  annotations:
+  {{- toYaml .Values.customAnnotations | nindent 4 }}
+  {{- end }}
   labels:
     {{- include "velero.labels" . | indent 4 }}
   {{- with .Values.metrics.serviceMonitor.additionalLabels }}

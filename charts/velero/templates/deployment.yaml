@@ -10,6 +10,9 @@ metadata:
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
+  {{- if .Values.customAnnotations }}
+  {{- toYaml .Values.customAnnotations | nindent 4 }}
+  {{- end }}
   labels:
     {{- include "velero.labels" . | indent 4 }}
     {{- with .Values.labels }}

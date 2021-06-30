@@ -6,6 +6,9 @@ metadata:
   annotations:
     "helm.sh/hook": post-install,post-upgrade,post-rollback
     "helm.sh/hook-delete-policy": before-hook-creation
+    {{- if .Values.customAnnotations }}
+    {{- toYaml .Values.customAnnotations | nindent 4 }}
+    {{- end }}
   labels:
     {{- include "velero.labels" . | indent 4 }}
 spec:
