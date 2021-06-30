@@ -26,7 +26,6 @@ spec:
   template:
     metadata:
       labels:
-        name: velero
         {{- include "velero.labels" . | indent 8 }}
         {{- if .Values.podLabels }}
           {{- toYaml .Values.podLabels | nindent 8 }}
