@@ -22,13 +22,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/instance: {{ .Release.Name }}
-      app.kubernetes.io/name: {{ include "velero.name" . }}
+      {{- include "velero.selectorLabels" . | indent 6 }}
   template:
     metadata:
       labels:
         name: velero
-        {{- include "velero.labels" . | indent 4 }}
+        {{- include "velero.labels" . | indent 8 }}
         {{- if .Values.podLabels }}
           {{- toYaml .Values.podLabels | nindent 8 }}
         {{- end }}

@@ -25,6 +25,5 @@ spec:
       targetPort: monitoring
   selector:
     name: velero
-    app.kubernetes.io/name: {{ include "velero.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    {{- include "velero.selectorLabels" . | indent 4 }}
 {{- end }}

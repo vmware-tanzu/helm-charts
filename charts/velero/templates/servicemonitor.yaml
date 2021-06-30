@@ -21,8 +21,7 @@ spec:
       - {{ .Release.Namespace }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "velero.name" . }}
-      app.kubernetes.io/instance: {{ .Release.Name }}
+      {{- include "velero.selectorLabels" . | indent 6 }}
   endpoints:
   - port: monitoring
     interval: {{ .Values.metrics.scrapeInterval }}
