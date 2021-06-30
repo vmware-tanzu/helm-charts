@@ -8,10 +8,7 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
   labels:
-    app.kubernetes.io/name: {{ include "velero.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
-    helm.sh/chart: {{ include "velero.chart" . }}
+    {{- include "velero.labels" . | indent 4 }}
     {{- with .Values.metrics.service.labels }}
       {{- toYaml . | nindent 4 }}
     {{- end }}

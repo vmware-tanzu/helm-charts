@@ -43,6 +43,32 @@ Create the name of the service account to use for creating or deleting the veler
 {{- end -}}
 
 {{/*
+Generate basic labels
+*/}}
+{{- define "velero.labels" }}
+helm.sh/chart: {{ include "velero.chart" . }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+app.kubernetes.io/component: metrics
+app.kubernetes.io/part-of: {{ template "velero.name" . }}
+{{- include "velero.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+{{- if .Values.customLabels }}
+{{ toYaml .Values.customLabels }}
+{{- end }}
+{{- end }}
+
+{{/*
+Selector labels
+*/}}
+{{- define "velero.selectorLabels" }}
+app.kubernetes.io/name: {{ include "velero.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+
+{{/*
 Create the name for the credentials secret.
 */}}
 {{- define "velero.secretName" -}}

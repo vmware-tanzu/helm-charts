@@ -4,11 +4,7 @@ kind: Role
 metadata:
   name: {{ include "velero.fullname" . }}-server
   labels:
-    app.kubernetes.io/component: server
-    app.kubernetes.io/name: {{ include "velero.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
-    helm.sh/chart: {{ include "velero.chart" . }}
+    {{- include "velero.labels" . | indent 4 }}
 rules:
 - apiGroups:
     - "*"
