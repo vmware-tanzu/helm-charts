@@ -18,9 +18,9 @@ spec:
   {{- end }}
 {{- with .Values.configuration.backupStorageLocation }}
   objectStorage:
-    bucket: {{ .bucket  }}
+    bucket: {{ .bucket | quote }}
     {{- with .prefix }}
-    prefix: {{ . }}
+    prefix: {{ . | quote }}
     {{- end }}
     {{- with .caCert }}
     caCert: {{ . }}
