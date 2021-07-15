@@ -48,7 +48,7 @@ Generate basic labels
 {{- define "velero.labels" }}
 helm.sh/chart: {{ include "velero.chart" . }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
-app.kubernetes.io/component: metrics
+app.kubernetes.io/component: server
 app.kubernetes.io/part-of: {{ template "velero.name" . }}
 {{- include "velero.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
