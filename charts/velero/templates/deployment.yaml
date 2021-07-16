@@ -8,8 +8,8 @@ metadata:
   name: {{ include "velero.fullname" . }}
   {{- if or .Values.annotations .Values.customAnnotations }}
   annotations:
-    {{- if .Values.customAnnotations }}
-    {{- toYaml .Values.customAnnotations | nindent 4 }}
+    {{- with .Values.customAnnotations }}
+    {{- toYaml . | nindent 4 }}
     {{- end }}
     {{- if .Values.annotations }}
     {{- toYaml .Values.annotations | nindent 4 }}
@@ -34,8 +34,8 @@ spec:
         {{- end }}
     {{- if or .Values.podAnnotations .Values.metrics.enabled .Values.customAnnotations }}
       annotations:
-      {{- if .Values.customAnnotations }}
-      {{- toYaml .Values.customAnnotations | nindent 8 }}
+      {{- with .Values.customAnnotations }}
+      {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}

@@ -7,8 +7,8 @@ metadata:
   annotations:
     "helm.sh/hook": post-install,post-upgrade,post-rollback
     "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
-    {{- if .Values.customAnnotations }}
-    {{- toYaml .Values.customAnnotations | nindent 4 }}
+    {{- with .Values.customAnnotations }}
+    {{- toYaml . | nindent 4 }}
     {{- end }}
   labels:
     {{- include "velero.labels" . | indent 4 }}
@@ -17,13 +17,19 @@ spec:
   template:
     metadata:
       name: velero-upgrade-crds
-      {{- with .Values.kubectl.labels }}
       labels:
+        {{- include "velero.labels" . | indent 8 }}
+        {{- with .Values.kubectl.labels }}
         {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.kubectl.annotations }}
+        {{- end }}
+      {{- if or .Values.kubectl.annotations .Values.customAnnotations }}
       annotations:
+        {{- with .Values.kubectl.annotations }}
         {{- toYaml . | nindent 8 }}
+        {{- end }}
+        {{- with .Values.customAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       {{- end }}
     spec:
     {{- if .Values.image.imagePullSecrets }}

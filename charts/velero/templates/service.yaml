@@ -8,8 +8,8 @@ metadata:
     {{- if .Values.metrics.service.annotations }}
     {{- toYaml .Values.metrics.service.annotations | nindent 4 }}
     {{- end }}
-    {{- if .Values.customAnnotations }}
-    {{- toYaml .Values.customAnnotations | nindent 4 }}
+    {{- with .Values.customAnnotations }}
+    {{- toYaml . | nindent 4 }}
     {{- end }}
   {{- end }}
   labels:

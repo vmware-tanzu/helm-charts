@@ -6,12 +6,14 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: restic
-  {{- with .Values.restic.annotations }}
+  {{- if or .Values.restic.annotations .Values.customAnnotations }}
   annotations:
-    {{- toYaml . | nindent 4 }}
+  {{- with .Values.restic.annotations }}
+  {{- toYaml . | nindent 4 }}
   {{- end }}
-  {{- if .Values.customAnnotations }}
-  {{- toYaml .Values.customAnnotations | nindent 4 }}
+  {{- with .Values.customAnnotations }}
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
   {{- end }}
   labels:
     {{- include "velero.labels" . | indent 4 }}
@@ -26,16 +28,18 @@ spec:
     metadata:
       labels:
         name: restic
-        app.kubernetes.io/name: {{ include "velero.name" . }}
-        app.kubernetes.io/instance: {{ .Release.Name }}
-        app.kubernetes.io/managed-by: {{ .Release.Service }}
-        helm.sh/chart: {{ include "velero.chart" . }}
+        {{- include "velero.labels" . | indent 8 }}
       {{- if .Values.podLabels }}
         {{ toYaml .Values.podLabels | nindent 8 }}
       {{- end }}
-      {{- with .Values.podAnnotations }}
+      {{- if or .Values.podAnnotations .Values.customAnnotations }}
       annotations:
+        {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
+        {{- end }}
+        {{- with .Values.customAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       {{- end }}
     spec:
     {{- if .Values.image.imagePullSecrets }}
