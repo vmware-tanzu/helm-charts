@@ -1,4 +1,5 @@
 {{- range $scheduleName, $schedule := .Values.schedules }}
+{{- if (not $schedule.disabled) }}
 apiVersion: velero.io/v1
 kind: Schedule
 metadata:
@@ -38,4 +39,5 @@ spec:
     {{- toYaml . | nindent 4 }}
 {{- end }}
 ---
+{{- end }}
 {{- end }}

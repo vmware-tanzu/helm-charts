@@ -359,6 +359,7 @@ restic:
 # Eg:
 # schedules:
 #   mybackup:
+#     disabled: false
 #     labels:
 #       myenv: foo
 #     annotations:
