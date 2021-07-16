@@ -8,9 +8,9 @@ metadata:
   {{- if $schedule.annotations }}
     {{- toYaml $schedule.annotations | nindent 4 }}
   {{- end }}
-  {{- if $.Values.customAnnotations }}
-  {{- toYaml $.Values.customAnnotations | nindent 4 }}
-  {{- end }}
+    {{- with .Values.customAnnotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
     "helm.sh/hook": post-install,post-upgrade,post-rollback
     "helm.sh/hook-delete-policy": before-hook-creation
   labels:
