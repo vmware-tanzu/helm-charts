@@ -9,8 +9,8 @@ metadata:
   annotations:
     "helm.sh/hook": pre-delete
     "helm.sh/hook-delete-policy": hook-succeeded
-    {{- if .Values.customAnnotations }}
-    {{- toYaml .Values.customAnnotations | nindent 4 }}
+    {{- with .Values.customAnnotations }}
+    {{- toYaml . | nindent 4 }}
     {{- end }}
   labels:
     {{- include "velero.labels" . | indent 4 }}
