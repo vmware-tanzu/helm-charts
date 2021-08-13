@@ -10,6 +10,8 @@ sources:
 maintainers:
   - name: jenting
     email: jenting.hsiao@suse.com
+  - name: sseago
+    email: sseago@redhat.com
   - name: reasonerjt
     email: jiangd@vmware.com
   - name: ywk253100
