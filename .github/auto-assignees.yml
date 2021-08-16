@@ -9,14 +9,11 @@ reviewers:
 
   groups:
     maintainers:
-      - carlisia
       - jenting
-
-    other-maintainers:
-      - ashish-amarnath
-      - zubron
-      - dsu-igeek
+      - reasonerjt
       - sseago
+      - ywk253100
+      - zubron
 
 options:
   ignore_draft: true

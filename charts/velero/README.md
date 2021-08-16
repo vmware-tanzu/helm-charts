@@ -10,6 +10,10 @@ See the different options for installing the [Velero CLI](https://velero.io/docs
 
 ## Installing the Velero server
 
+### Installation Requirements
+
+Kubernetes v1.16+, because this helm chart uses CustomResourceDefinition `apiextensions.k8s.io/v1`. This API version was introduced in Kubernetes v1.16.
+
 ### Velero version
 
 This helm chart installs Velero version v1.6 https://velero.io/docs/v1.6/. See the [#Upgrading](#upgrading) section for information on how to upgrade from other versions.
