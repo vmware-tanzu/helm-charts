@@ -1,5 +1,5 @@
 apiVersion: v2
-appVersion: 1.6.1
+appVersion: 1.6.3
 description: A Helm chart for velero
 name: velero
 version: 2.24.0
@@ -8,11 +8,13 @@ icon: https://cdn-images-1.medium.com/max/1600/1*-9mb3AKnKdcL_QD3CMnthQ.png
 sources:
 - https://github.com/vmware-tanzu/velero
 maintainers:
-  - name: ashish-amarnath
-    email: ashisham@vmware.com
-  - name: carlisia
-    email: carlisiac@vmware.com
   - name: jenting
     email: jenting.hsiao@suse.com
-  - name: nrb
-    email: brubakern@vmware.com
+  - name: sseago
+    email: sseago@redhat.com
+  - name: reasonerjt
+    email: jiangd@vmware.com
+  - name: ywk253100
+    email: yinw@vmware.com
+  - name: zubron
+    email: bmcerlean@vmware.com
