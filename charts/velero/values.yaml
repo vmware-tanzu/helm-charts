@@ -117,10 +117,11 @@ metrics:
 kubectl:
   image:
     repository: docker.io/bitnami/kubectl
-    tag: 1.16.15
     # Digest value example: sha256:d238835e151cec91c6a811fe3a89a66d3231d9f64d09e5f3c49552672d271f38.
     # If used, it will take precedence over the kubectl.image.tag.
     # digest:
+    # kubectl image tag. If used, it will take precedence over the cluster Kubernetes version.
+    # tag: 1.16.15
   # Annotations to set for the upgrade/cleanup job. Optional.
   annotations: {}
   # Labels to set for the upgrade/cleanup job. Optional.
