@@ -53,6 +53,10 @@ spec:
               kubectl delete volumesnapshotlocation --all;
               kubectl delete podvolumerestore --all;
               kubectl delete crd -l app.kubernetes.io/name=velero;
+          {{- with .Values.kubectl.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
       restartPolicy: OnFailure
       {{- with .Values.nodeSelector }}
       nodeSelector:

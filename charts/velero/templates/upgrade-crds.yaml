@@ -45,6 +45,10 @@ spec:
             - /bin/sh
             - -c
             - /velero install --crds-only --dry-run -o yaml > /tmp/crds.yaml
+          {{- with .Values.kubectl.initResources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           volumeMounts:
             - mountPath: /tmp
               name: crds
@@ -62,6 +66,10 @@ spec:
             - /bin/sh
             - -c
             - kubectl apply -f /tmp/crds.yaml
+          {{- with .Values.kubectl.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           volumeMounts:
             - mountPath: /tmp
               name: crds

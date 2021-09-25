@@ -122,6 +122,10 @@ kubectl:
     # digest:
     # kubectl image tag. If used, it will take precedence over the cluster Kubernetes version.
     # tag: 1.16.15
+  # Resource requests/limits to specify for the upgrade/cleanup job. Optional
+  resources: {}
+  # Resource requests/limits to specify for the initContainer in the upgrade/cleanup job. Optional
+  initResources: {}
   # Annotations to set for the upgrade/cleanup job. Optional.
   annotations: {}
   # Labels to set for the upgrade/cleanup job. Optional.
