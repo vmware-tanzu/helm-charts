@@ -2,7 +2,7 @@ apiVersion: v2
 appVersion: 1.6.3
 description: A Helm chart for velero
 name: velero
-version: 2.23.10
+version: 2.23.11
 home: https://github.com/vmware-tanzu/velero
 icon: https://cdn-images-1.medium.com/max/1600/1*-9mb3AKnKdcL_QD3CMnthQ.png
 sources:
