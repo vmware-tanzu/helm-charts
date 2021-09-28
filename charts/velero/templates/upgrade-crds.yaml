@@ -59,7 +59,7 @@ spec:
           {{- else if .Values.kubectl.image.tag }}
           image: "{{ .Values.kubectl.image.repository }}:{{ .Values.kubectl.image.tag }}"
           {{- else }}
-          image: "{{ .Values.kubectl.image.repository }}:{{ .Capabilities.KubeVersion.Major }}.{{ .Capabilities.KubeVersion.Minor }}"
+          image: "{{ .Values.kubectl.image.repository }}:{{ template "chart.KubernetesVersion" . }}"
           {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
