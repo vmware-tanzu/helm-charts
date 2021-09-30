@@ -146,7 +146,7 @@ spec:
             - name: {{ default "none" $key }}
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "velero.fullname" $ }}
+                  name: {{ include "velero.secretName" $ }}
                   key: {{ default "none" $key }}
           {{- end }}
           {{- end }}
