@@ -23,7 +23,7 @@ spec:
       app.kubernetes.io/name: {{ include "velero.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
   endpoints:
-  - port: monitoring
+  - port: http-monitoring
     interval: {{ .Values.metrics.scrapeInterval }}
     scrapeTimeout: {{ .Values.metrics.scrapeTimeout }}
 {{- end }}
