@@ -326,6 +326,10 @@ restic:
   # labels to set for the Restic daemonset. Optional.
   labels: {}
 
+  # will map /scratch to emptyDir. Set to false and specify your own volume that maps
+  # to /scratch if you don't want to use emptyDir.
+  useScratchEmptyDir: true
+
   # Extra volumes for the Restic daemonset. Optional.
   extraVolumes: []
 
