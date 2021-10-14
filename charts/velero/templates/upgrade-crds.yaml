@@ -34,25 +34,6 @@ spec:
     {{- end }}
       serviceAccountName: {{ include "velero.serverServiceAccount" . }}
       initContainers:
-        - name: velero
-          {{- if .Values.image.digest }}
-          image: "{{ .Values.image.repository }}@{{ .Values.image.digest }}"
-          {{- else }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          {{- end }}
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command:
-            - /bin/sh
-            - -c
-            - /velero install --crds-only --dry-run -o yaml > /tmp/crds.yaml
-          {{- with .Values.kubectl.initResources }}
-          resources:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-          volumeMounts:
-            - mountPath: /tmp
-              name: crds
-      containers:
         - name: kubectl
           {{- if .Values.kubectl.image.digest }}
           image: "{{ .Values.kubectl.image.repository }}@{{ .Values.kubectl.image.digest }}"
@@ -65,8 +46,28 @@ spec:
           command:
             - /bin/sh
             - -c
-            - kubectl apply -f /tmp/crds.yaml
+            - cp `which sh` /tmp && cp `which kubectl` /tmp
           {{- with .Values.kubectl.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+            - mountPath: /tmp
+              name: crds
+      containers:
+        - name: velero
+          {{- if .Values.image.digest }}
+          image: "{{ .Values.image.repository }}@{{ .Values.image.digest }}"
+          {{- else }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          {{- end }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - /tmp/sh
+          args:
+            - -c
+            - /velero install --crds-only --dry-run -o yaml | /tmp/kubectl apply -f -
+          {{- with .Values.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
