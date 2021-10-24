@@ -61,8 +61,10 @@ spec:
         - name: host-pods
           hostPath:
             path: {{ .Values.restic.podVolumePath }}
+        {{- if .Values.restic.useScratchEmptyDir -}}
         - name: scratch
           emptyDir: {}
+        {{- end }}
         {{- if .Values.restic.extraVolumes }}
         {{- toYaml .Values.restic.extraVolumes | nindent 8 }}
         {{- end }}
@@ -99,8 +101,10 @@ spec:
             - name: host-pods
               mountPath: /host_pods
               mountPropagation: HostToContainer
+            {{- if .Values.restic.useScratchEmptyDir -}}
             - name: scratch
               mountPath: /scratch
+            {{- end }}
             {{- if .Values.restic.extraVolumeMounts }}
             {{- toYaml .Values.restic.extraVolumeMounts | nindent 12 }}
             {{- end }}
