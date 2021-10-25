@@ -67,7 +67,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           {{- if .Values.metrics.enabled }}
           ports:
-            - name: monitoring
+            - name: http-monitoring
               containerPort: 8085
           {{- end }}
           command:
