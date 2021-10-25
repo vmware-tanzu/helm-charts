@@ -61,7 +61,7 @@ spec:
         - name: host-pods
           hostPath:
             path: {{ .Values.restic.podVolumePath }}
-        {{- if .Values.restic.useScratchEmptyDir -}}
+        {{- if .Values.restic.useScratchEmptyDir }}
         - name: scratch
           emptyDir: {}
         {{- end }}
@@ -101,7 +101,7 @@ spec:
             - name: host-pods
               mountPath: /host_pods
               mountPropagation: HostToContainer
-            {{- if .Values.restic.useScratchEmptyDir -}}
+            {{- if .Values.restic.useScratchEmptyDir }}
             - name: scratch
               mountPath: /scratch
             {{- end }}
