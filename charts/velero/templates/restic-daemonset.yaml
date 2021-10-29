@@ -31,7 +31,7 @@ spec:
         app.kubernetes.io/managed-by: {{ .Release.Service }}
         helm.sh/chart: {{ include "velero.chart" . }}
       {{- if .Values.podLabels }}
-        {{ toYaml .Values.podLabels | nindent 8 }}
+        {{- toYaml .Values.podLabels | nindent 8 }}
       {{- end }}
       {{- with .Values.podAnnotations }}
       annotations:
