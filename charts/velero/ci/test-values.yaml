@@ -29,6 +29,76 @@ serviceAccount:
   server:
     name: velero
 
+# The Velero server
+# Annotations to Velero deployment
+annotations:
+  annotation: velero
+  foo: bar
+
+# Labels to Velero deployment
+labels:
+  label: velero
+  foo: bar
+
+# Annotations to Velero deployment's template
+podAnnotations:
+  pod-annotation: velero
+  foo: bar
+
+# Labels to Velero deployment's template
+podLabels:
+  pod-label: velero
+  foo: bar
+
+# Resources to Velero deployment
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 100m
+    memory: 128Mi
+
+# The restic daemonset
+deployRestic: true
+
+restic:
+  # Annotations to restic daemonset
+  annotations:
+    annotation: restic
+    foo: bar
+  # Labels to restic daemonset
+  labels:
+    label: restic
+    foo: bar
+  # Resources to restic daemonset
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi
+
+# The kubectl upgrade/cleanup job
+kubectl:
+  # Annotations to kubectl job
+  annotations:
+    annotation: kubectl
+    foo: bar
+  # Labels to kubectl job
+  labels:
+    label: kubectl
+    foo: bar
+  # Resources to kubectl job
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi
+
 # Whether or not to clean up CustomResourceDefintions when deleting a release.
 # Cleaning up CRDs will delete the BackupStorageLocation and VolumeSnapshotLocation instances, which would have to be reconfigured.
 # Backup data in object storage will _not_ be deleted, however Backup instances in the Kubernetes API will.
