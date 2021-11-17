@@ -246,7 +246,7 @@ configuration:
   defaultVolumesToRestic:
 
   # How often 'restic prune' is run for restic repositories by default. Default: 168h. Optional.
-  defaultResticMaintenanceFrequency: 24h
+  defaultResticMaintenanceFrequency:
 
 ##
 ## End of backup/snapshot location settings.
