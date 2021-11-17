@@ -245,6 +245,9 @@ configuration:
   # Set true for backup all pod volumes without having to apply annotation on the pod when used restic Default: false. Other option: false.
   defaultVolumesToRestic:
 
+  # How often 'restic prune' is run for restic repositories by default. Default: 168h. Optional.
+  defaultResticMaintenanceFrequency: 24h
+
 ##
 ## End of backup/snapshot location settings.
 ##
