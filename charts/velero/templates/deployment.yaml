@@ -99,6 +99,9 @@ spec:
             {{- if .defaultVolumesToRestic }}
             - --default-volumes-to-restic
             {{- end }}
+            {{- with .defaultResticMaintenanceFrequency }}
+            - --default-restic-prune-frequency={{ . }}
+            {{- end }}
             {{- with .clientQPS }}
             - --client-qps={{ . }}
             {{- end }}
