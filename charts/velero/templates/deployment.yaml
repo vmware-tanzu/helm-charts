@@ -184,7 +184,11 @@ spec:
       dnsPolicy: {{ .Values.dnsPolicy }}
 {{- if .Values.initContainers }}
       initContainers:
+        {{- if eq (typeOf .Values.initContainers) "string" }}
+        {{- tpl .Values.initContainers . | nindent 8 }}
+        {{- else }}
         {{- toYaml .Values.initContainers | nindent 8 }}
+        {{- end }}
 {{- end }}
       volumes:
         {{- if .Values.credentials.useSecret }}
