@@ -40,6 +40,27 @@ spec:
     {{- end }}
       serviceAccountName: {{ include "velero.serverServiceAccount" . }}
       initContainers:
+        - name: kubectl
+          {{- if .Values.kubectl.image.digest }}
+          image: "{{ .Values.kubectl.image.repository }}@{{ .Values.kubectl.image.digest }}"
+          {{- else if .Values.kubectl.image.tag }}
+          image: "{{ .Values.kubectl.image.repository }}:{{ .Values.kubectl.image.tag }}"
+          {{- else }}
+          image: "{{ .Values.kubectl.image.repository }}:{{ template "chart.KubernetesVersion" . }}"
+          {{- end }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - /bin/sh
+            - -c
+            - cp `which sh` /tmp && cp `which kubectl` /tmp
+          {{- with .Values.kubectl.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+            - mountPath: /tmp
+              name: crds
+      containers:
         - name: velero
           {{- if .Values.image.digest }}
           image: "{{ .Values.image.repository }}@{{ .Values.image.digest }}"
@@ -48,24 +69,14 @@ spec:
           {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
-            - /bin/sh
+            - /tmp/sh
+          args:
             - -c
-            - /velero install --crds-only --dry-run -o yaml > /tmp/crds.yaml
-          volumeMounts:
-            - mountPath: /tmp
-              name: crds
-      containers:
-        - name: kubectl
-          {{- if .Values.kubectl.image.digest }}
-          image: "{{ .Values.kubectl.image.repository }}@{{ .Values.kubectl.image.digest }}"
-          {{- else }}
-          image: "{{ .Values.kubectl.image.repository }}:{{ .Values.kubectl.image.tag }}"
+            - /velero install --crds-only --dry-run -o yaml | /tmp/kubectl apply -f -
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
           {{- end }}
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command:
-            - /bin/sh
-            - -c
-            - kubectl apply -f /tmp/crds.yaml
           volumeMounts:
             - mountPath: /tmp
               name: crds

@@ -23,7 +23,7 @@ spec:
     matchLabels:
       {{- include "velero.selectorLabels" . | indent 6 }}
   endpoints:
-  - port: monitoring
+  - port: http-monitoring
     interval: {{ .Values.metrics.scrapeInterval }}
     scrapeTimeout: {{ .Values.metrics.scrapeTimeout }}
 {{- end }}

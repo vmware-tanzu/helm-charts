@@ -30,7 +30,7 @@ spec:
         name: restic
         {{- include "velero.labels" . | indent 8 }}
       {{- if .Values.podLabels }}
-        {{ toYaml .Values.podLabels | nindent 8 }}
+        {{- toYaml .Values.podLabels | nindent 8 }}
       {{- end }}
       {{- if or .Values.podAnnotations .Values.customAnnotations }}
       annotations:
@@ -65,8 +65,10 @@ spec:
         - name: host-pods
           hostPath:
             path: {{ .Values.restic.podVolumePath }}
+        {{- if .Values.restic.useScratchEmptyDir }}
         - name: scratch
           emptyDir: {}
+        {{- end }}
         {{- if .Values.restic.extraVolumes }}
         {{- toYaml .Values.restic.extraVolumes | nindent 8 }}
         {{- end }}
@@ -103,8 +105,10 @@ spec:
             - name: host-pods
               mountPath: /host_pods
               mountPropagation: HostToContainer
+            {{- if .Values.restic.useScratchEmptyDir }}
             - name: scratch
               mountPath: /scratch
+            {{- end }}
             {{- if .Values.restic.extraVolumeMounts }}
             {{- toYaml .Values.restic.extraVolumeMounts | nindent 12 }}
             {{- end }}
@@ -150,7 +154,7 @@ spec:
             - name: {{ default "none" $key }}
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "velero.fullname" $ }}
+                  name: {{ include "velero.secretName" $ }}
                   key: {{ default "none" $key }}
           {{- end }}
           {{- end }}

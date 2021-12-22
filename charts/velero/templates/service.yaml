@@ -20,9 +20,9 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - name: monitoring
+    - name: http-monitoring
       port: 8085
-      targetPort: monitoring
+      targetPort: http-monitoring
   selector:
     {{- include "velero.selectorLabels" . | indent 4 }}
 {{- end }}
