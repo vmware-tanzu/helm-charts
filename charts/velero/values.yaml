@@ -276,9 +276,9 @@ serviceAccount:
 # should contain credentials for the cloud provider IAM account you've
 # set up for Velero.
 credentials:
-  # Whether a secret should be used as the source of IAM account
-  # credentials. Set to false if, for example, using kube2iam or
-  # kiam to provide IAM credentials for the Velero pod.
+  # Whether a secret should be used. Set to false if, for examples:
+  # - using kube2iam or kiam to provide AWS IAM credentials instead of providing the key file. (AWS only)
+  # - using workload identity instead of providing the key file. (GCP only)
   useSecret: true
   # Name of the secret to create if `useSecret` is true and `existingSecret` is empty
   name:
