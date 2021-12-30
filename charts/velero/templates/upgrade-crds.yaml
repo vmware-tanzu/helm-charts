@@ -45,6 +45,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
             - /bin/sh
+          args:
             - -c
             - cp `which sh` /tmp && cp `which kubectl` /tmp
           {{- with .Values.kubectl.resources }}
