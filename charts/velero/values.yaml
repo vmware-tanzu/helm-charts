@@ -129,6 +129,9 @@ kubectl:
     # digest:
     # kubectl image tag. If used, it will take precedence over the cluster Kubernetes version.
     # tag: 1.16.15
+  # Container Level Security Context for the 'kubectl' container of the crd jobs. Optional.
+  # See: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
+  containerSecurityContext: {}
   # Resource requests/limits to specify for the upgrade/cleanup job. Optional
   resources: {}
   # Annotations to set for the upgrade/cleanup job. Optional.
