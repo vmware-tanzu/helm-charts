@@ -139,9 +139,6 @@ kubectl:
   # Labels to set for the upgrade/cleanup job. Optional.
   labels: {}
 
-# This job upgrades the CRDs.
-upgradeCRDs: true
-
 # This job is meant primarily for cleaning up CRDs on CI systems.
 # Using this on production systems, especially those that have multiple releases of Velero, will be destructive.
 cleanUpCRDs: false
