@@ -1,6 +1,8 @@
 {{- if .Values.cleanUpCRDs }}
 # This job is meant primarily for cleaning up on CI systems.
 # Using this on production systems, especially those that have multiple releases of Velero, will be destructive.
+{{/* 'securityContext' got renamed to 'podSecurityContext', merge both dicts into one for backward compatibility */}}
+{{- $podSecurityContext := merge (.Values.podSecurityContext | default dict) (.Values.securityContext | default dict) -}}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -55,11 +57,19 @@ spec:
               kubectl delete volumesnapshotlocation --all;
               kubectl delete podvolumerestore --all;
               kubectl delete crd -l app.kubernetes.io/name=velero;
+          {{- with .Values.kubectl.containerSecurityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           {{- with .Values.kubectl.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
       restartPolicy: OnFailure
+      {{- with $podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
