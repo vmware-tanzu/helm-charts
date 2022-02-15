@@ -98,6 +98,32 @@ extraVolumes: []
 # Extra volumeMounts for the Velero deployment. Optional.
 extraVolumeMounts: []
 
+# Extra K8s manifests to deploy
+extraObjects: []
+  # - apiVersion: secrets-store.csi.x-k8s.io/v1
+  #   kind: SecretProviderClass
+  #   metadata:
+  #     name: velero-secrets-store
+  #   spec:
+  #     provider: aws
+  #     parameters:
+  #       objects: |
+  #         - objectName: "velero"
+  #           objectType: "secretsmanager"
+  #           jmesPath:
+  #               - path: "access_key"
+  #                 objectAlias: "access_key"
+  #               - path: "secret_key"
+  #                 objectAlias: "secret_key"
+  #     secretObjects:
+  #       - data:
+  #         - key: access_key
+  #           objectName: client-id
+  #         - key: client-secret
+  #           objectName: client-secret
+  #         secretName: velero-secrets-store
+  #         type: Opaque
+
 # Settings for Velero's prometheus metrics. Enabled by default.
 metrics:
   enabled: true
