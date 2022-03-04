@@ -37,13 +37,7 @@ podLabels: {}
 
 # Resource requests/limits to specify for the Velero deployment.
 # https://velero.io/docs/v1.6/customize-installation/#customize-resource-requests-and-limits
-resources:
-  requests:
-    cpu: 500m
-    memory: 128Mi
-  limits:
-    cpu: 1000m
-    memory: 512Mi
+resources: {}
 
 # Configure the dnsPolicy of the Velero deployment
 # See: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy
@@ -323,13 +317,7 @@ restic:
   priorityClassName: ""
   # Resource requests/limits to specify for the Restic daemonset deployment. Optional.
   # https://velero.io/docs/v1.6/customize-installation/#customize-resource-requests-and-limits
-  resources:
-    requests:
-      cpu: 500m
-      memory: 512Mi
-    limits:
-      cpu: 1000m
-      memory: 1024Mi
+  resources: {}
 
   # Tolerations to use for the Restic daemonset. Optional.
   tolerations: []
