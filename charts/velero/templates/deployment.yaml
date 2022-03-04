@@ -112,9 +112,16 @@ spec:
             - --disable-controllers={{ . }}
             {{- end }}
           {{- end }}
-          {{- with .Values.resources }}
           resources:
+          {{- if .Values.resources }}
             {{- toYaml . | nindent 12 }}
+          {{ else }}
+            requests:
+              cpu: 500m
+              memory: 128Mi
+            limits:
+              cpu: 1000m
+              memory: 512Mi
           {{- end }}
           {{- with .Values.containerSecurityContext }}
           securityContext:
