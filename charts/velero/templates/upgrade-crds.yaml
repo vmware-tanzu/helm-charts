@@ -74,9 +74,16 @@ spec:
           args:
             - -c
             - /velero install --crds-only --dry-run -o yaml | /tmp/kubectl apply -f -
-          {{- with .Values.resources }}
           resources:
+          {{- if .Values.resources }}
             {{- toYaml . | nindent 12 }}
+          {{- else }}
+            requests:
+              cpu: 500m
+              memory: 128Mi
+            limits:
+              cpu: 1000m
+              memory: 512Mi
           {{- end }}
           {{- with .Values.containerSecurityContext }}
           securityContext:
