@@ -6,16 +6,17 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "velero.fullname" . }}
-  {{- with .Values.annotations }}
+  {{- if or .Values.annotations .Values.customAnnotations }}
   annotations:
+    {{- with .Values.customAnnotations }}
     {{- toYaml . | nindent 4 }}
+    {{- end }}
+    {{- if .Values.annotations }}
+    {{- toYaml .Values.annotations | nindent 4 }}
+    {{- end }}
   {{- end }}
   labels:
-    app.kubernetes.io/name: {{ include "velero.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
-    helm.sh/chart: {{ include "velero.chart" . }}
-    component: velero
+    {{- include "velero.labels" . | indent 4 }}
     {{- with .Values.labels }}
       {{- toYaml . | nindent 4 }}
     {{- end }}
@@ -23,21 +24,19 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/instance: {{ .Release.Name }}
-      app.kubernetes.io/name: {{ include "velero.name" . }}
+      {{- include "velero.selectorLabels" . | indent 6 }}
   template:
     metadata:
       labels:
-        name: velero
-        app.kubernetes.io/name: {{ include "velero.name" . }}
-        app.kubernetes.io/instance: {{ .Release.Name }}
-        app.kubernetes.io/managed-by: {{ .Release.Service }}
-        helm.sh/chart: {{ include "velero.chart" . }}
+        {{- include "velero.labels" . | indent 8 }}
         {{- if .Values.podLabels }}
           {{- toYaml .Values.podLabels | nindent 8 }}
         {{- end }}
-    {{- if or .Values.podAnnotations .Values.metrics.enabled }}
+    {{- if or .Values.podAnnotations .Values.metrics.enabled .Values.customAnnotations }}
       annotations:
+      {{- with .Values.customAnnotations }}
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}

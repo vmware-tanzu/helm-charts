@@ -15,6 +15,14 @@ image:
   imagePullSecrets: []
   # - registrySecretName
 
+## Additional annotations to add to all resources
+customAnnotations: {}
+  # velerio.io: x.y.z
+
+## Additional labels to add to all resources
+customLabels: {}
+  # app: velero
+
 # Annotations to add to the Velero deployment's. Optional.
 #
 # If you are using reloader use the following annotation with your VELERO_SECRET_NAME

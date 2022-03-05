@@ -3,15 +3,17 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "velero.fullname" . }}
-  {{- with .Values.metrics.service.annotations }}
+  {{- if or .Values.customAnnotations .Values.metrics.service.annotations }}
   annotations:
+    {{- if .Values.metrics.service.annotations }}
+    {{- toYaml .Values.metrics.service.annotations | nindent 4 }}
+    {{- end }}
+    {{- with .Values.customAnnotations }}
     {{- toYaml . | nindent 4 }}
+    {{- end }}
   {{- end }}
   labels:
-    app.kubernetes.io/name: {{ include "velero.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
-    helm.sh/chart: {{ include "velero.chart" . }}
+    {{- include "velero.labels" . | indent 4 }}
     {{- with .Values.metrics.service.labels }}
       {{- toYaml . | nindent 4 }}
     {{- end }}
@@ -22,7 +24,5 @@ spec:
       port: 8085
       targetPort: http-monitoring
   selector:
-    name: velero
-    app.kubernetes.io/name: {{ include "velero.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    {{- include "velero.selectorLabels" . | indent 4 }}
 {{- end }}

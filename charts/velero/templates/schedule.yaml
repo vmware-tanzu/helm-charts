@@ -8,13 +8,13 @@ metadata:
   {{- if $schedule.annotations }}
     {{- toYaml $schedule.annotations | nindent 4 }}
   {{- end }}
+    {{- with $.Values.customAnnotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
     "helm.sh/hook": post-install,post-upgrade,post-rollback
     "helm.sh/hook-delete-policy": before-hook-creation
   labels:
-    app.kubernetes.io/name: {{ include "velero.name" $ }}
-    app.kubernetes.io/instance: {{ $.Release.Name }}
-    app.kubernetes.io/managed-by: {{ $.Release.Service }}
-    helm.sh/chart: {{ include "velero.chart" $ }}
+    {{- include "velero.labels" $ | indent 4 }}
     {{- if $schedule.labels }}
       {{- toYaml $schedule.labels | nindent 4 }}
     {{- end }}
