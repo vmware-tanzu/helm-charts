@@ -114,8 +114,8 @@ spec:
           {{- end }}
           resources:
           {{- if .Values.resources }}
-            {{- toYaml . | nindent 12 }}
-          {{ else }}
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- else }}
             requests:
               cpu: 500m
               memory: 128Mi

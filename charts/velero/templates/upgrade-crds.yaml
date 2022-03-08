@@ -76,7 +76,7 @@ spec:
             - /velero install --crds-only --dry-run -o yaml | /tmp/kubectl apply -f -
           resources:
           {{- if .Values.resources }}
-            {{- toYaml . | nindent 12 }}
+            {{- toYaml .Values.resources | nindent 12 }}
           {{- else }}
             requests:
               cpu: 500m

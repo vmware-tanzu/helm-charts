@@ -160,9 +160,9 @@ spec:
               {{- toYaml . | nindent 12 }}
             {{- end }}
           resources:
-          {{- if .Values.resources }}
-            {{- toYaml . | nindent 12 }}
-          {{ else }}
+          {{- if .Values.restic.resources }}
+            {{- toYaml .Values.restic.resources | nindent 12 }}
+          {{- else }}
             requests:
               cpu: 500m
               memory: 128Mi
