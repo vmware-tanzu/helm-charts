@@ -6,6 +6,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: restic
+  namespace: {{ .Release.Namespace }}
   {{- with .Values.restic.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
