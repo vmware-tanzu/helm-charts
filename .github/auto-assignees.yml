@@ -13,7 +13,6 @@ reviewers:
       - reasonerjt
       - sseago
       - ywk253100
-      - zubron
 
 options:
   ignore_draft: true
