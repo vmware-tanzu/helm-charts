@@ -292,6 +292,8 @@ rbac:
   create: true
   # Whether to create the cluster role binding to give administrator permissions to Velero
   clusterAdministrator: true
+  # Name of the ClusterRole.
+  clusterAdministratorName: cluster-admin
 
 # Information about the Kubernetes service account Velero uses.
 serviceAccount:

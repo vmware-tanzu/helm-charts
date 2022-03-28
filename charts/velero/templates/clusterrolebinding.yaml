@@ -15,6 +15,6 @@ subjects:
     name: {{ include "velero.serverServiceAccount" . }}
 roleRef:
   kind: ClusterRole
-  name: cluster-admin
+  name: {{ .Values.rbac.clusterAdministratorName }}
   apiGroup: rbac.authorization.k8s.io
 {{- end }}
