@@ -56,7 +56,7 @@ spec:
               kubectl delete backupstoragelocation --all;
               kubectl delete volumesnapshotlocation --all;
               kubectl delete podvolumerestore --all;
-              kubectl delete crd -l app.kubernetes.io/name=velero;
+              kubectl delete crd -l component=velero;
           {{- with .Values.kubectl.containerSecurityContext }}
           securityContext:
             {{- toYaml . | nindent 12 }}
