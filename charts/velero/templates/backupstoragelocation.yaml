@@ -16,8 +16,8 @@ spec:
   provider: {{ include "velero.backupStorageLocation.provider" . }}
   {{- with .Values.configuration.backupStorageLocation.default }}
   default: {{ . }}
-  accessMode: {{ .Values.configuration.backupStorageLocation.accessMode }}
   {{- end }}
+  accessMode: {{ .Values.configuration.backupStorageLocation.accessMode }}
 {{- with .Values.configuration.backupStorageLocation }}
   objectStorage:
     bucket: {{ .bucket | quote }}
