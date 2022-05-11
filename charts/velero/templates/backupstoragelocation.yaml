@@ -17,6 +17,7 @@ spec:
   {{- with .Values.configuration.backupStorageLocation.default }}
   default: {{ . }}
   {{- end }}
+  accessMode: {{ .Values.configuration.backupStorageLocation.accessMode }}
 {{- with .Values.configuration.backupStorageLocation }}
   objectStorage:
     bucket: {{ .bucket | quote }}

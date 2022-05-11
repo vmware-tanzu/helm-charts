@@ -202,6 +202,9 @@ configuration:
     prefix:
     # default indicates this location is the default backup storage location. Optional.
     default:
+    # accessMode determines if velero can write to this backup storage location. Optional.
+    # default to ReadWrite, ReadOnly is used during migrations and restores.
+    accessMode: ReadWrite
     # Additional provider-specific configuration. See link above
     # for details of required/optional fields for your provider.
     config: {}
