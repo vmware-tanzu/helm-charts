@@ -10,7 +10,7 @@ sources:
 - https://github.com/vmware-tanzu/velero
 maintainers:
   - name: jenting
-    email: jenting.hsiao@suse.com
+    email: hsiaoairplane@gmail.com
   - name: sseago
     email: sseago@redhat.com
   - name: reasonerjt
