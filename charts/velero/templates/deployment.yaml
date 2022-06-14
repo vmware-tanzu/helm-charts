@@ -185,10 +185,39 @@ spec:
       dnsPolicy: {{ .Values.dnsPolicy }}
 {{- if .Values.initContainers }}
       initContainers:
-        {{- if eq (typeOf .Values.initContainers) "string" }}
-        {{- tpl .Values.initContainers . | nindent 8 }}
+        {{- if eq $provider "aws" }}
+        - name: velero-plugin-for-aws
+          image: velero/velero-plugin-for-aws:v1.4.1
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - mountPath: /target
+              name: plugins
+        {{- else if eq $provider "gcp"}}
+        - name: velero-velero-plugin-for-gcp
+          image: velero/velero-plugin-for-microsoft-azure:v1.5.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - mountPath: /target
+              name: plugins
+        {{- else if eq $provider "azure" }}
+        - name: velero-velero-plugin-for-microsoft-azure
+          image: velero/velero-plugin-for-microsoft-azure:v1.4.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - mountPath: /target
+              name: plugins
+        {{- else if eq $provider "alibabacloud" }}
+        - name: velero-velero-plugin-for-alibabacloud
+          image: velero/velero-plugin-for-alibabacloud:latest
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - mountPath: /target
+              name: plugins
+        {{- end }}
+        {{- if eq (typeOf .Values.initContainers.extraSpec) "string" }}
+        {{- tpl .Values.initContainers.extraSpec . | nindent 8 }}
         {{- else }}
-        {{- toYaml .Values.initContainers | nindent 8 }}
+        {{- toYaml .Values.initContainers.extraSpec | nindent 8 }}
         {{- end }}
 {{- end }}
       volumes:
