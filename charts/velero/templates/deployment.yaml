@@ -186,38 +186,35 @@ spec:
 {{- if .Values.initContainers }}
       initContainers:
         {{- if eq $provider "aws" }}
-        - name: velero-plugin-for-aws
-          image: velero/velero-plugin-for-aws:v1.4.1
-          imagePullPolicy: IfNotPresent
-          volumeMounts:
-            - mountPath: /target
-              name: plugins
+        - name: {{ .Values.initContainers.name | default "velero-plugin-for-aws" | quote }}
+          image: {{ .Values.initContainers.name | default "velero/velero-plugin-for-aws:v1.4.1" | quote }}
+        {{- else if eq $provider "csi"}}
+        - name: {{ .Values.initContainers.name | default "velero-velero-plugin-for-csi" | quote }}
+          image: {{ .Values.initContainers.name | default "velero/velero-plugin-for-csi:v0.2.0" | quote }}
         {{- else if eq $provider "gcp"}}
-        - name: velero-velero-plugin-for-gcp
-          image: velero/velero-plugin-for-microsoft-azure:v1.5.0
-          imagePullPolicy: IfNotPresent
-          volumeMounts:
-            - mountPath: /target
-              name: plugins
+        - name: {{ .Values.initContainers.name | default "velero-velero-plugin-for-gcp" | quote }}
+          image: {{ .Values.initContainers.name | default "velero/velero-plugin-for-gcp:v1.4.1" | quote }}
         {{- else if eq $provider "azure" }}
-        - name: velero-velero-plugin-for-microsoft-azure
-          image: velero/velero-plugin-for-microsoft-azure:v1.4.0
-          imagePullPolicy: IfNotPresent
-          volumeMounts:
-            - mountPath: /target
-              name: plugins
+        - name: {{ .Values.initContainers.name | default "velero-velero-plugin-for-microsoft-azure" | quote }}
+          image: {{ .Values.initContainers.name | default "velero/velero-plugin-for-microsoft-azure:v1.4.1" | quote }}
         {{- else if eq $provider "alibabacloud" }}
-        - name: velero-velero-plugin-for-alibabacloud
-          image: velero/velero-plugin-for-alibabacloud:latest
+        - name: {{ .Values.initContainers.name | default "velero-velero-plugin-for-alibabacloud" | quote }}
+          image: {{ .Values.initContainers.name | default "registry.cn-hangzhou.aliyuncs.com/acs/velero-plugin-alibabacloud:v1.0.0" | quote }}
+        {{- else }}
+        - name: {{ .Values.initContainers.name }}
+          image: {{ .Values.initContainers.image }}
+        {{- end }}
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - mountPath: /target
               name: plugins
+        {{- with .Values.initContainers.resources }}
+          resources:
+          {{- toYaml . | nindent 12 }}
         {{- end }}
-        {{- if eq (typeOf .Values.initContainers.extraSpec) "string" }}
-        {{- tpl .Values.initContainers.extraSpec . | nindent 8 }}
-        {{- else }}
-        {{- toYaml .Values.initContainers.extraSpec | nindent 8 }}
+        {{- with .Values.initContainers.containerSecurityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
         {{- end }}
 {{- end }}
       volumes:
