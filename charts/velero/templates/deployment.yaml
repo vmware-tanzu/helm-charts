@@ -185,10 +185,36 @@ spec:
       dnsPolicy: {{ .Values.dnsPolicy }}
 {{- if .Values.initContainers }}
       initContainers:
-        {{- if eq (typeOf .Values.initContainers) "string" }}
-        {{- tpl .Values.initContainers . | nindent 8 }}
+        {{- if eq $provider "aws" }}
+        - name: {{ .Values.initContainers.name | default "velero-plugin-for-aws" | quote }}
+          image: {{ .Values.initContainers.name | default "velero/velero-plugin-for-aws:v1.4.1" | quote }}
+        {{- else if eq $provider "csi"}}
+        - name: {{ .Values.initContainers.name | default "velero-velero-plugin-for-csi" | quote }}
+          image: {{ .Values.initContainers.name | default "velero/velero-plugin-for-csi:v0.2.0" | quote }}
+        {{- else if eq $provider "gcp"}}
+        - name: {{ .Values.initContainers.name | default "velero-velero-plugin-for-gcp" | quote }}
+          image: {{ .Values.initContainers.name | default "velero/velero-plugin-for-gcp:v1.4.1" | quote }}
+        {{- else if eq $provider "azure" }}
+        - name: {{ .Values.initContainers.name | default "velero-velero-plugin-for-microsoft-azure" | quote }}
+          image: {{ .Values.initContainers.name | default "velero/velero-plugin-for-microsoft-azure:v1.4.1" | quote }}
+        {{- else if eq $provider "alibabacloud" }}
+        - name: {{ .Values.initContainers.name | default "velero-velero-plugin-for-alibabacloud" | quote }}
+          image: {{ .Values.initContainers.name | default "registry.cn-hangzhou.aliyuncs.com/acs/velero-plugin-alibabacloud:v1.0.0" | quote }}
         {{- else }}
-        {{- toYaml .Values.initContainers | nindent 8 }}
+        - name: {{ .Values.initContainers.name }}
+          image: {{ .Values.initContainers.image }}
+        {{- end }}
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - mountPath: /target
+              name: plugins
+        {{- with .Values.initContainers.resources }}
+          resources:
+          {{- toYaml . | nindent 12 }}
+        {{- end }}
+        {{- with .Values.initContainers.containerSecurityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
         {{- end }}
 {{- end }}
       volumes:
