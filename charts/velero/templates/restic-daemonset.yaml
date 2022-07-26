@@ -155,6 +155,12 @@ spec:
                   key: {{ default "none" $key }}
           {{- end }}
           {{- end }}
+          {{- with .Values.restic.extraEnvVars }}
+          {{- range $key, $value := . }}
+            - name: {{ default "none" $key }}
+              value: {{ default "none" $value | quote }}
+          {{- end }}
+          {{- end }}
           securityContext:
             privileged: {{ .Values.restic.privileged }}
             {{- with $containerSecurityContext }}
