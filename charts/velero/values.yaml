@@ -382,6 +382,9 @@ restic:
   # Extra volumeMounts for the Restic daemonset. Optional.
   extraVolumeMounts: []
 
+  # Key/value pairs to be used as environment variables for the Restic daemonset. Optional.
+  extraEnvVars: {}
+
   # Configure the dnsPolicy of the Restic daemonset
   # See: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy
   dnsPolicy: ClusterFirst
