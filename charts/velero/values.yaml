@@ -92,6 +92,9 @@ affinity: {}
 # Node selector to use for the Velero deployment. Optional.
 nodeSelector: {}
 
+# DNS configuration to use for the Velero deployment. Optional.
+dnsConfig: {}
+
 # Extra volumes for the Velero deployment. Optional.
 extraVolumes: []
 
@@ -402,6 +405,9 @@ restic:
 
   # Node selector to use for the Restic daemonset. Optional.
   nodeSelector: {}
+
+  # DNS configuration to use for the Restic daemonset. Optional.
+  dnsConfig: {}
 
 # Backup schedules to create.
 # Eg:
