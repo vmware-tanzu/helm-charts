@@ -262,6 +262,8 @@ configuration:
   # `velero server` default: 30
   clientBurst:
   # `velero server` default: empty
+  clientPageSize:
+  # `velero server` default: empty
   disableControllers:
   #
 
