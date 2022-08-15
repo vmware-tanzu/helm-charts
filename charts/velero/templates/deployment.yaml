@@ -109,6 +109,9 @@ spec:
             {{- with .clientBurst }}
             - --client-burst={{ . }}
             {{- end }}
+            {{- with .clientPageSize }}
+            - --client-page-size={{ . }}
+            {{- end }}
             {{- with .disableControllers }}
             - --disable-controllers={{ . }}
             {{- end }}
