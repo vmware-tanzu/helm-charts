@@ -115,6 +115,9 @@ spec:
             {{- with .disableControllers }}
             - --disable-controllers={{ . }}
             {{- end }}
+            {{- with .storeValidationFrequency }}
+            - --store-validation-frequency={{ . }}
+            {{- end }}
           {{- end }}
           {{- with .Values.resources }}
           resources:
