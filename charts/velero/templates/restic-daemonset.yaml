@@ -178,6 +178,10 @@ spec:
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.restic.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}      
     {{- with .Values.restic.dnsConfig }}
     dnsConfig:
       {{- toYaml . | nindent 8 }}

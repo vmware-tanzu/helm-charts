@@ -410,6 +410,9 @@ restic:
   # Node selector to use for the Restic daemonset. Optional.
   nodeSelector: {}
 
+  # Affinity to use with Restic daemonset. Optional.
+  affinity: {}
+
   # DNS configuration to use for the Restic daemonset. Optional.
   dnsConfig: {}
 
