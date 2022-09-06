@@ -150,6 +150,31 @@ metrics:
     # ServiceMonitor namespace. Default to Velero namespace.
     # namespace:
 
+  prometheusRule:
+    enabled: false
+    # Additional labels to add to deployed PrometheusRule
+    additionalLabels: {}
+    # PrometheusRule namespace. Defaults to Velero namespace.
+    # namespace: ""
+    # Rules to be deployed
+    spec: []
+    # - alert: VeleroBackupPartialFailures
+    #   annotations:
+    #     message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} partialy failed backups.
+    #   expr: |-
+    #     velero_backup_partial_failure_total{schedule!=""} / velero_backup_attempt_total{schedule!=""} > 0.25
+    #   for: 15m
+    #   labels:
+    #     severity: warning
+    # - alert: VeleroBackupFailures
+    #   annotations:
+    #     message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} failed backups.
+    #   expr: |-
+    #     velero_backup_failure_total{schedule!=""} / velero_backup_attempt_total{schedule!=""} > 0.25
+    #   for: 15m
+    #   labels:
+    #     severity: warning
+
 kubectl:
   image:
     repository: docker.io/bitnami/kubectl
