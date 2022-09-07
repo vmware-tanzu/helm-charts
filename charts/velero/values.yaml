@@ -80,6 +80,9 @@ containerSecurityContext: {}
   #   add: []
   # readOnlyRootFilesystem: true
 
+# Container Lifecycle Hooks to use for the Velero deployment. Optional.
+lifecycle: {}
+
 # Pod priority class name to use for the Velero deployment. Optional.
 priorityClassName: ""
 
