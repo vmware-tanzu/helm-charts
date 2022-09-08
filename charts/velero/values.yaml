@@ -435,6 +435,9 @@ restic:
   # See: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
   containerSecurityContext: {}
 
+  # Container Lifecycle Hooks to use for the Restic daemonset. Optional.
+  lifecycle: {}
+
   # Node selector to use for the Restic daemonset. Optional.
   nodeSelector: {}
 

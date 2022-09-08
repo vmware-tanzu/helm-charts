@@ -161,6 +161,9 @@ spec:
               value: {{ default "none" $value | quote }}
           {{- end }}
           {{- end }}
+          {{- if .Values.lifecycle }}
+          lifecycle: {{ toYaml .Values.restic.lifecycle | nindent 12 }}
+          {{- end }}
           securityContext:
             privileged: {{ .Values.restic.privileged }}
             {{- with $containerSecurityContext }}
