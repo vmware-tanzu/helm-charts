@@ -80,6 +80,9 @@ containerSecurityContext: {}
   #   add: []
   # readOnlyRootFilesystem: true
 
+# Container Lifecycle Hooks to use for the Velero deployment. Optional.
+lifecycle: {}
+
 # Pod priority class name to use for the Velero deployment. Optional.
 priorityClassName: ""
 
@@ -431,6 +434,9 @@ restic:
   # Container Level Security Context for the 'restic' container of the restic DaemonSet. Optional.
   # See: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
   containerSecurityContext: {}
+
+  # Container Lifecycle Hooks to use for the Restic daemonset. Optional.
+  lifecycle: {}
 
   # Node selector to use for the Restic daemonset. Optional.
   nodeSelector: {}

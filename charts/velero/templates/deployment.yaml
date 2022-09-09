@@ -188,6 +188,9 @@ spec:
                   key: {{ default "none" $key }}
           {{- end }}
           {{- end }}
+          {{- if .Values.lifecycle }}
+          lifecycle: {{ toYaml .Values.lifecycle | nindent 12 }}
+          {{- end }}
       dnsPolicy: {{ .Values.dnsPolicy }}
 {{- if .Values.initContainers }}
       initContainers:
