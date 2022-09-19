@@ -26,4 +26,11 @@ spec:
   - port: http-monitoring
     interval: {{ .Values.metrics.scrapeInterval }}
     scrapeTimeout: {{ .Values.metrics.scrapeTimeout }}
+    {{- if .Values.metrics.serviceMonitor.scheme }}
+    scheme: {{ .Values.metrics.serviceMonitor.scheme }}
+    {{- end }}
+    {{- if .Values.metrics.serviceMonitor.tlsConfig }}
+    tlsConfig:
+      {{- toYaml .Values.metrics.serviceMonitor.tlsConfig | nindent 6 }}
+    {{- end }}
 {{- end }}
