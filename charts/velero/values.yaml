@@ -148,15 +148,14 @@ metrics:
     prometheus.io/path: "/metrics"
 
   serviceMonitor:
-    enabled: true
+    enabled: false
     additionalLabels: {}
     # ServiceMonitor namespace. Default to Velero namespace.
     # namespace:
     # ServiceMonitor connection scheme. Defaults to HTTP.
-    scheme: "https"
+    # scheme: ""
     # ServiceMonitor connection tlsConfig. Defaults to {}.
-    tlsConfig:
-      caFile: /etc/ssl/HAHA.pem
+    # tlsConfig: {}
 
   prometheusRule:
     enabled: false
