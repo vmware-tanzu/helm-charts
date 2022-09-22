@@ -152,6 +152,10 @@ metrics:
     additionalLabels: {}
     # ServiceMonitor namespace. Default to Velero namespace.
     # namespace:
+    # ServiceMonitor connection scheme. Defaults to HTTP.
+    # scheme: ""
+    # ServiceMonitor connection tlsConfig. Defaults to {}.
+    # tlsConfig: {}
 
   prometheusRule:
     enabled: false
