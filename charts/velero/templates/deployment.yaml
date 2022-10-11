@@ -121,6 +121,12 @@ spec:
             {{- with .storeValidationFrequency }}
             - --store-validation-frequency={{ . }}
             {{- end }}
+            {{- with .garbageCollectionFrequency }}
+            - --garbage-collection-frequency={{ . }}
+            {{- end }}
+            {{- with .extraArgs }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
           {{- end }}
           {{- with .Values.resources }}
           resources:
