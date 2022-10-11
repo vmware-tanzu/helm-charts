@@ -53,6 +53,7 @@ spec:
       {{- if .Values.restic.priorityClassName }}
       priorityClassName: {{ include "velero.restic.priorityClassName" . }}
       {{- end }}
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       volumes:
         {{- if .Values.credentials.useSecret }}
         - name: cloud-credentials
