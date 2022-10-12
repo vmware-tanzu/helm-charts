@@ -22,6 +22,8 @@ metadata:
     {{- end }}
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app.kubernetes.io/instance: {{ .Release.Name }}
