@@ -1,5 +1,6 @@
 # Set provider name and backup storage location bucket name
 configuration:
+  disableControllers: backup-deletion
   provider: aws
   backupStorageLocation:
     name: primary
