@@ -302,6 +302,8 @@ configuration:
   disableControllers:
   # `velero server` default: 1m
   storeValidationFrequency:
+  # `velero server` default: 1h
+  garbageCollectionFrequency:
   #
 
   # additional key/value pairs to be used as environment variables such as "AWS_CLUSTER_NAME: 'yourcluster.domain.tld'"

@@ -121,6 +121,9 @@ spec:
             {{- with .storeValidationFrequency }}
             - --store-validation-frequency={{ . }}
             {{- end }}
+            {{- with .garbageCollectionFrequency }}
+            - --garbage-collection-frequency={{ . }}
+            {{- end }}
           {{- end }}
           {{- with .Values.resources }}
           resources:
