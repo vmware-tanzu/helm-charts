@@ -79,11 +79,16 @@ spec:
           args:
             - server
           {{- with .Values.configuration }}
+            {{- if .uploaderType }}
+            - --uploader-type={{ . }}
+            {{- else }}
+            - --uploader-type=restic
+            {{- end }}
             {{- with .backupSyncPeriod }}
             - --backup-sync-period={{ . }}
             {{- end }}
-            {{- with .resticTimeout }}
-            - --restic-timeout={{ . }}
+            {{- with .fsBackupTimeout }}
+            - --fs-backup-timeout={{ . }}
             {{- end }}
             {{- if .restoreOnlyMode }}
             - --restore-only
@@ -100,11 +105,11 @@ spec:
             {{- with .logFormat }}
             - --log-format={{ . }}
             {{- end }}
-            {{- if .defaultVolumesToRestic }}
-            - --default-volumes-to-restic
+            {{- if .defaultVolumesToFsBackup }}
+            - --default-volumes-to-fs-backup
             {{- end }}
-            {{- with .defaultResticPruneFrequency }}
-            - --default-restic-prune-frequency={{ . }}
+            {{- with .defaultRepoMaintainFrequency }}
+            - --default-repo-maintain-frequency={{ . }}
             {{- end }}
             {{- with .clientQPS }}
             - --client-qps={{ . }}

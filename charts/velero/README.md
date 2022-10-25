@@ -6,7 +6,7 @@ Velero has two main components: a CLI, and a server-side Kubernetes deployment.
 
 ## Installing the Velero CLI
 
-See the different options for installing the [Velero CLI](https://velero.io/docs/v1.9/basic-install/#install-the-cli).
+See the different options for installing the [Velero CLI](https://velero.io/docs/v1.10/basic-install/#install-the-cli).
 
 ## Installing the Velero server
 
@@ -16,7 +16,7 @@ Kubernetes v1.16+, because this helm chart uses CustomResourceDefinition `apiext
 
 ### Velero version
 
-This helm chart installs Velero version v1.9 https://velero.io/docs/v1.9/. See the [#Upgrading](#upgrading) section for information on how to upgrade from other versions.
+This helm chart installs Velero version v1.10 https://velero.io/docs/v1.10/. See the [#Upgrading](#upgrading) section for information on how to upgrade from other versions.
 
 ### Provider credentials
 
@@ -26,7 +26,7 @@ When installing using the Helm chart, the provider's credential information will
 
 The default configuration values for this chart are listed in values.yaml.
 
-See Velero's full [official documentation](https://velero.io/docs/v1.9/basic-install/). More specifically, find your provider in the Velero list of [supported providers](https://velero.io/docs/v1.9/supported-providers/) for specific configuration information and examples.
+See Velero's full [official documentation](https://velero.io/docs/v1.10/basic-install/). More specifically, find your provider in the Velero list of [supported providers](https://velero.io/docs/v1.10/supported-providers/) for specific configuration information and examples.
 
 #### Set up Helm
 
@@ -88,6 +88,10 @@ helm upgrade vmware-tanzu/velero <RELEASE NAME> --reuse-values --set configurati
 ```
 
 ## Upgrading
+
+### Upgrading to v1.10
+
+The [instructions found here](https://velero.io/docs/v1.10/upgrade-to-1.10/) will assist you in upgrading from version v1.9.x to v1.10.
 
 ### Upgrading to v1.9
 

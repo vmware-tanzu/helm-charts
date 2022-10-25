@@ -1,13 +1,13 @@
-{{- if .Values.deployRestic }}
+{{- if .Values.defaultNodeAgent }}
 {{- $provider := .Values.configuration.provider -}}
-{{/* 'restic.securityContext' got renamed to 'restic.containerSecurityContext', merge both dicts into one for backward compatibility */}}
-{{- $containerSecurityContext := merge (.Values.restic.containerSecurityContext | default dict) (.Values.restic.securityContext | default dict) -}}
+{{/* 'nodeAgent.securityContext' got renamed to 'nodeAgent.containerSecurityContext', merge both dicts into one for backward compatibility */}}
+{{- $containerSecurityContext := merge (.Values.nodeAgent.containerSecurityContext | default dict) (.Values.nodeAgent.securityContext | default dict) -}}
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: restic
+  name: node-agent
   namespace: {{ .Release.Namespace }}
-  {{- with .Values.restic.annotations }}
+  {{- with .Values.nodeAgent.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
@@ -16,17 +16,17 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
     helm.sh/chart: {{ include "velero.chart" . }}
-    {{- with .Values.restic.labels }}
+    {{- with .Values.nodeAgent.labels }}
       {{- toYaml . | nindent 4 }}
     {{- end }}
 spec:
   selector:
     matchLabels:
-      name: restic
+      name: node-agent
   template:
     metadata:
       labels:
-        name: restic
+        name: node-agent
         app.kubernetes.io/name: {{ include "velero.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
         app.kubernetes.io/managed-by: {{ .Release.Service }}
@@ -46,12 +46,12 @@ spec:
       {{- end }}
     {{- end }}
       serviceAccountName: {{ include "velero.serverServiceAccount" . }}
-      {{- with .Values.restic.podSecurityContext }}
+      {{- with .Values.nodeAgent.podSecurityContext }}
       securityContext:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- if .Values.restic.priorityClassName }}
-      priorityClassName: {{ include "velero.restic.priorityClassName" . }}
+      {{- if .Values.nodeAgent.priorityClassName }}
+      priorityClassName: {{ include "velero.nodeAgent.priorityClassName" . }}
       {{- end }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       volumes:
@@ -62,17 +62,17 @@ spec:
         {{- end }}
         - name: host-pods
           hostPath:
-            path: {{ .Values.restic.podVolumePath }}
-        {{- if .Values.restic.useScratchEmptyDir }}
+            path: {{ .Values.nodeAgent.podVolumePath }}
+        {{- if .Values.nodeAgent.useScratchEmptyDir }}
         - name: scratch
           emptyDir: {}
         {{- end }}
-        {{- if .Values.restic.extraVolumes }}
-        {{- toYaml .Values.restic.extraVolumes | nindent 8 }}
+        {{- if .Values.nodeAgent.extraVolumes }}
+        {{- toYaml .Values.nodeAgent.extraVolumes | nindent 8 }}
         {{- end }}
-      dnsPolicy: {{ .Values.restic.dnsPolicy }}
+      dnsPolicy: {{ .Values.nodeAgent.dnsPolicy }}
       containers:
-        - name: restic
+        - name: node-agent
         {{- if .Values.image.digest }}
           image: "{{ .Values.image.repository }}@{{ .Values.image.digest }}"
         {{- else }}
@@ -82,7 +82,7 @@ spec:
           command:
             - /velero
           args:
-            - restic
+            - node-agent
             - server
           {{- with .Values.configuration }}
             {{- with .features }}
@@ -103,12 +103,12 @@ spec:
             - name: host-pods
               mountPath: /host_pods
               mountPropagation: HostToContainer
-            {{- if .Values.restic.useScratchEmptyDir }}
+            {{- if .Values.nodeAgent.useScratchEmptyDir }}
             - name: scratch
               mountPath: /scratch
             {{- end }}
-            {{- if .Values.restic.extraVolumeMounts }}
-            {{- toYaml .Values.restic.extraVolumeMounts | nindent 12 }}
+            {{- if .Values.nodeAgent.extraVolumeMounts }}
+            {{- toYaml .Values.nodeAgent.extraVolumeMounts | nindent 12 }}
             {{- end }}
         {{- if .Values.credentials.extraSecretRef }}
           envFrom:
@@ -156,37 +156,37 @@ spec:
                   key: {{ default "none" $key }}
           {{- end }}
           {{- end }}
-          {{- with .Values.restic.extraEnvVars }}
+          {{- with .Values.nodeAgent.extraEnvVars }}
           {{- range $key, $value := . }}
             - name: {{ default "none" $key }}
               value: {{ default "none" $value | quote }}
           {{- end }}
           {{- end }}
           {{- if .Values.lifecycle }}
-          lifecycle: {{ toYaml .Values.restic.lifecycle | nindent 12 }}
+          lifecycle: {{ toYaml .Values.nodeAgent.lifecycle | nindent 12 }}
           {{- end }}
           securityContext:
-            privileged: {{ .Values.restic.privileged }}
+            privileged: {{ .Values.nodeAgent.privileged }}
             {{- with $containerSecurityContext }}
               {{- toYaml . | nindent 12 }}
             {{- end }}
-          {{- with .Values.restic.resources }}
+          {{- with .Values.nodeAgent.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-      {{- with .Values.restic.tolerations }}
+      {{- with .Values.nodeAgent.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.restic.nodeSelector }}
+      {{- with .Values.nodeAgent.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.restic.affinity }}
+      {{- with .Values.nodeAgent.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
       {{- end }}      
-    {{- with .Values.restic.dnsConfig }}
+    {{- with .Values.nodeAgent.dnsConfig }}
     dnsConfig:
       {{- toYaml . | nindent 8 }}
     {{- end }}

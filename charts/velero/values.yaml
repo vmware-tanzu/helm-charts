@@ -3,10 +3,10 @@
 ##
 
 # Details of the container image to use in the Velero deployment & daemonset (if
-# enabling restic). Required.
+# enabling node-agent). Required.
 image:
   repository: velero/velero
-  tag: v1.9.3
+  tag: v1.10.0
   # Digest value example: sha256:d238835e151cec91c6a811fe3a89a66d3231d9f64d09e5f3c49552672d271f38.
   # If used, it will take precedence over the image.tag.
   # digest:
@@ -284,10 +284,12 @@ configuration:
   # here if using a non-default value. The `velero server` default values are shown in the
   # comments below.
   # --------------------
+  # `velero server` default: restic
+  uploaderType:
   # `velero server` default: 1m
   backupSyncPeriod:
   # `velero server` default: 1h
-  resticTimeout:
+  fsBackupTimeout:
   # `velero server` default: namespaces,persistentvolumes,persistentvolumeclaims,secrets,configmaps,serviceaccounts,limitranges,pods
   restoreResourcePriorities:
   # `velero server` default: false
@@ -319,11 +321,11 @@ configuration:
   # Set log-format for Velero pod. Default: text. Other option: json.
   logFormat:
 
-  # Set true for backup all pod volumes without having to apply annotation on the pod when used restic Default: false. Other option: false.
-  defaultVolumesToRestic:
+  # Set true for backup all pod volumes without having to apply annotation on the pod when used file system backup Default: false. Other option: false.
+  defaultVolumesToFsBackup:
 
-  # How often 'restic prune' is run for restic repositories by default. Default: 168h. Optional.
-  defaultResticPruneFrequency:
+  # How often repository maintain is run for repositories by default.
+  defaultRepoMaintainFrequency:
 
 ##
 ## End of backup/snapshot location settings.
@@ -379,7 +381,7 @@ credentials:
   # additional key/value pairs to be used as environment variables such as "DIGITALOCEAN_TOKEN: <your-key>". Values will be stored in the secret.
   extraEnvVars: {}
   # Name of a pre-existing secret (if any) in the Velero namespace
-  # that will be used to load environment variables into velero and restic.
+  # that will be used to load environment variables into velero and node-agent.
   # Secret should be in format - https://kubernetes.io/docs/concepts/configuration/secret/#use-case-as-container-environment-variables
   extraSecretRef: ""
 
@@ -388,15 +390,15 @@ backupsEnabled: true
 # Whether to create volumesnapshotlocation crd, if false => disable snapshot feature
 snapshotsEnabled: true
 
-# Whether to deploy the restic daemonset.
-deployRestic: false
+# Whether to deploy the node-agent daemonset.
+defaultNodeAgent: false
 
-restic:
+nodeAgent:
   podVolumePath: /var/lib/kubelet/pods
   privileged: false
-  # Pod priority class name to use for the Restic daemonset. Optional.
+  # Pod priority class name to use for the node-agent daemonset. Optional.
   priorityClassName: ""
-  # Resource requests/limits to specify for the Restic daemonset deployment. Optional.
+  # Resource requests/limits to specify for the node-agent daemonset deployment. Optional.
   # https://velero.io/docs/v1.6/customize-installation/#customize-resource-requests-and-limits
   resources:
     requests:
@@ -406,13 +408,13 @@ restic:
       cpu: 1000m
       memory: 1024Mi
 
-  # Tolerations to use for the Restic daemonset. Optional.
+  # Tolerations to use for the node-agent daemonset. Optional.
   tolerations: []
 
-  # Annotations to set for the Restic daemonset. Optional.
+  # Annotations to set for the node-agent daemonset. Optional.
   annotations: {}
 
-  # labels to set for the Restic daemonset. Optional.
+  # labels to set for the node-agent daemonset. Optional.
   labels: {}
 
   # will map /scratch to emptyDir. Set to false and specify your own volume
@@ -420,16 +422,16 @@ restic:
   # if you don't want to use emptyDir.
   useScratchEmptyDir: true
 
-  # Extra volumes for the Restic daemonset. Optional.
+  # Extra volumes for the node-agent daemonset. Optional.
   extraVolumes: []
 
-  # Extra volumeMounts for the Restic daemonset. Optional.
+  # Extra volumeMounts for the node-agent daemonset. Optional.
   extraVolumeMounts: []
 
-  # Key/value pairs to be used as environment variables for the Restic daemonset. Optional.
+  # Key/value pairs to be used as environment variables for the node-agent daemonset. Optional.
   extraEnvVars: {}
 
-  # Configure the dnsPolicy of the Restic daemonset
+  # Configure the dnsPolicy of the node-agent daemonset
   # See: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy
   dnsPolicy: ClusterFirst
 
@@ -440,20 +442,20 @@ restic:
     runAsUser: 0
     # fsGroup: 1337
 
-  # Container Level Security Context for the 'restic' container of the restic DaemonSet. Optional.
+  # Container Level Security Context for the 'node-agent' container of the node-agent daemonset. Optional.
   # See: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
   containerSecurityContext: {}
 
-  # Container Lifecycle Hooks to use for the Restic daemonset. Optional.
+  # Container Lifecycle Hooks to use for the node-agent daemonset. Optional.
   lifecycle: {}
 
-  # Node selector to use for the Restic daemonset. Optional.
+  # Node selector to use for the node-agent daemonset. Optional.
   nodeSelector: {}
 
-  # Affinity to use with Restic daemonset. Optional.
+  # Affinity to use with node-agent daemonset. Optional.
   affinity: {}
 
-  # DNS configuration to use for the Restic daemonset. Optional.
+  # DNS configuration to use for the node-agent daemonset. Optional.
   dnsConfig: {}
 
 # Backup schedules to create.
@@ -476,12 +478,12 @@ schedules: {}
 # Velero ConfigMaps.
 # Eg:
 # configMaps:
-#   restic-restore-action-config:
+#   fs-restore-action-config:
 #     labels:
 #       velero.io/plugin-config: ""
-#       velero.io/restic: RestoreItemAction
+#       velero.io/pod-volume-restore: RestoreItemAction
 #     data:
-#       image: velero/velero-restic-restore-helper:v1.9.3
+#       image: velero/velero-restore-helper:v1.10.0
 configMaps: {}
 
 ##
