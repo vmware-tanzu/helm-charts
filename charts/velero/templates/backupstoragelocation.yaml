@@ -1,24 +1,25 @@
 {{- if .Values.backupsEnabled }}
+{{- range .Values.configuration.backupStorageLocation }}
+---
 apiVersion: velero.io/v1
 kind: BackupStorageLocation
 metadata:
-  name: {{ include "velero.backupStorageLocation.name" . }}
-  namespace: {{ .Release.Namespace }}
+  name: {{ .name }}
+  namespace: {{ $.Release.Namespace }}
   annotations:
     "helm.sh/hook": post-install,post-upgrade,post-rollback
     "helm.sh/hook-delete-policy": before-hook-creation
   labels:
-    app.kubernetes.io/name: {{ include "velero.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
-    helm.sh/chart: {{ include "velero.chart" . }}
+    app.kubernetes.io/name: {{ include "velero.name" $ }}
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    app.kubernetes.io/managed-by: {{ $.Release.Service }}
+    helm.sh/chart: {{ include "velero.chart" $ }}
 spec:
-  provider: {{ include "velero.backupStorageLocation.provider" . }}
-  {{- with .Values.configuration.backupStorageLocation.default }}
-  default: {{ . }}
-  {{- end }}
-  accessMode: {{ .Values.configuration.backupStorageLocation.accessMode }}
-{{- with .Values.configuration.backupStorageLocation }}
+  credential: 
+    name: {{ .credential.name }}
+    key: {{ .credential.key }}
+  provider: {{ .provider }}
+  accessMode: {{ .accessMode }}
   objectStorage:
     bucket: {{ .bucket | quote }}
     {{- with .prefix }}

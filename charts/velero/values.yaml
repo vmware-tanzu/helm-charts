@@ -228,7 +228,7 @@ configuration:
   backupStorageLocation:
     # name is the name of the backup storage location where backups should be stored. If a name is not provided,
     # a backup storage location will be created with the name "default". Optional.
-    name:
+  - name:
     # provider is the name for the backup storage location provider. If omitted
     # `configuration.provider` will be used instead.
     provider:
@@ -263,7 +263,7 @@ configuration:
   # https://velero.io/docs/v1.6/api-types/volumesnapshotlocation/
   volumeSnapshotLocation:
     # name is the name of the volume snapshot location where snapshots are being taken. Required.
-    name:
+  - name:
     # provider is the name for the volume snapshot provider. If omitted
     # `configuration.provider` will be used instead.
     provider:
@@ -469,6 +469,7 @@ restic:
 #     useOwnerReferencesInBackup: false
 #     template:
 #       ttl: "240h"
+#       storageLocation: default
 #       includedNamespaces:
 #       - foo
 schedules: {}
