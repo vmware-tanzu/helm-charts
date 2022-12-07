@@ -138,3 +138,5 @@ Note: when you uninstall the Velero server, all backups remain untouched.
 ```bash
 helm uninstall <RELEASE NAME> -n <YOUR NAMESPACE>
 ```
+### Note
+Since from velero v1.10.0, it has supported both Restic and Kopia to do file-system level backup and restore, some configuration that contains the keyword Restic is not suitable anymore, which means from chart version 3.0.0 is not backward compatible, and we've done a configure filed name validation.

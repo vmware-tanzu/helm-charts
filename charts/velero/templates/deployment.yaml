@@ -79,10 +79,8 @@ spec:
           args:
             - server
           {{- with .Values.configuration }}
-            {{- if .uploaderType }}
+            {{- with .uploaderType }}
             - --uploader-type={{ . }}
-            {{- else }}
-            - --uploader-type=restic
             {{- end }}
             {{- with .backupSyncPeriod }}
             - --backup-sync-period={{ . }}

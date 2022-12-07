@@ -23,4 +23,5 @@ rules:
     - patch
     - update
     - get
+    - list
 {{- end }}
