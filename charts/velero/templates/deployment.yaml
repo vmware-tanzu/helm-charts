@@ -129,6 +129,9 @@ spec:
             {{- with .garbageCollectionFrequency }}
             - --garbage-collection-frequency={{ . }}
             {{- end }}
+            {{- with .namespace }}
+            - --namespace={{ . }}
+            {{- end }}
           {{- end }}
           {{- with .Values.resources }}
           resources:
