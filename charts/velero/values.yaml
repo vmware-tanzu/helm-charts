@@ -290,12 +290,6 @@ configuration:
   backupSyncPeriod:
   # `velero server` default: 4h
   fsBackupTimeout:
-  # `velero server` default: namespaces,persistentvolumes,persistentvolumeclaims,secrets,configmaps,serviceaccounts,limitranges,pods
-  restoreResourcePriorities:
-  # `velero server` default: false
-  restoreOnlyMode:
-  # `velero server` default: 20.0
-  clientQPS:
   # `velero server` default: 30
   clientBurst:
   # `velero server` default: 500
@@ -338,16 +332,6 @@ configuration:
 
   # additional key/value pairs to be used as environment variables such as "AWS_CLUSTER_NAME: 'yourcluster.domain.tld'"
   extraEnvVars: {}
-
-  # Comma separated list of velero feature flags. default: empty
-  # features: EnableCSI
-  features:
-
-  # Set log-level for Velero pod. Default: info. Other options: debug, warning, error, fatal, panic.
-  logLevel:
-
-  # Set log-format for Velero pod. Default: text. Other option: json.
-  logFormat:
 
   # Set true for backup all pod volumes without having to apply annotation on the pod when used file system backup Default: false. Other option: false.
   defaultVolumesToFsBackup:
