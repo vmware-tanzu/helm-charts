@@ -78,6 +78,7 @@ spec:
             - /velero
           args:
             - server
+            ### Flags
           {{- with .Values.configuration }}
             {{- with .uploaderType }}
             - --uploader-type={{ . }}
@@ -88,20 +89,23 @@ spec:
             {{- with .fsBackupTimeout }}
             - --fs-backup-timeout={{ . }}
             {{- end }}
-            {{- if .restoreOnlyMode }}
-            - --restore-only
+            {{- with .clientBurst }}
+            - --client-burst={{ . }}
             {{- end }}
-            {{- with .restoreResourcePriorities }}
-            - --restore-resource-priorities={{ . }}
+            {{- with .clientPageSize }}
+            - --client-page-size={{ . }}
             {{- end }}
-            {{- with .features }}
-            - --features={{ . }}
+            {{- with .clientQPS }}
+            - --client-qps={{ . }}
             {{- end }}
-            {{- with .logLevel }}
-            - --log-level={{ . }}
+            {{- with .defaultBackupStorageLocation }}
+            - --default-backup-storage-location={{ . }}
             {{- end }}
-            {{- with .logFormat }}
-            - --log-format={{ . }}
+            {{- with .defaultBackupTTL }}
+            - --default-backup-ttl={{ . }}
+            {{- end }}
+            {{- with .defaultVolumeSnapshotLocations }}
+            - --default-volume-snapshot-locations={{ . }}
             {{- end }}
             {{- if .defaultVolumesToFsBackup }}
             - --default-volumes-to-fs-backup
@@ -109,23 +113,42 @@ spec:
             {{- with .defaultRepoMaintainFrequency }}
             - --default-repo-maintain-frequency={{ . }}
             {{- end }}
-            {{- with .clientQPS }}
-            - --client-qps={{ . }}
-            {{- end }}
-            {{- with .clientBurst }}
-            - --client-burst={{ . }}
-            {{- end }}
-            {{- with .clientPageSize }}
-            - --client-page-size={{ . }}
-            {{- end }}
             {{- with .disableControllers }}
             - --disable-controllers={{ . }}
+            {{- end }}
+            {{- with .garbageCollectionFrequency }}
+            - --garbage-collection-frequency={{ . }}
+            {{- end }}
+            {{- with .logFormat }}
+            - --log-format={{ . }}
+            {{- end }}
+            {{- with .logLevel }}
+            - --log-level={{ . }}
+            {{- end }}
+            {{- with .metricsAddress }}
+            - --metrics-address={{ . }}
+            {{- end }}
+            {{- with .pluginDir }}
+            - --plugin-dir={{ . }}
+            {{- end }}
+            {{- with .profilerAddress }}
+            - --profiler-address={{ . }}
+            {{- end }}
+            {{- if .restoreOnlyMode }}
+            - --restore-only
+            {{- end }}
+            {{- with .restoreResourcePriorities }}
+            - --restore-resource-priorities={{ . }}
             {{- end }}
             {{- with .storeValidationFrequency }}
             - --store-validation-frequency={{ . }}
             {{- end }}
-            {{- with .garbageCollectionFrequency }}
-            - --garbage-collection-frequency={{ . }}
+            {{- with .terminatingResourceTimeout }}
+            - --terminating-resource-timeout={{ . }}
+            {{- end }}
+            ### Global Flags
+            {{- with .features }}
+            - --features={{ . }}
             {{- end }}
             {{- with .namespace }}
             - --namespace={{ . }}
@@ -197,7 +220,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: {{ include "velero.secretName" $ }}
-                  key: {{ default "none" $key }}
+                  key: {{ default "none" $value }}
           {{- end }}
           {{- end }}
           {{- if .Values.lifecycle }}

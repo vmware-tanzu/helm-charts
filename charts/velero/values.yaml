@@ -284,11 +284,11 @@ configuration:
   # here if using a non-default value. The `velero server` default values are shown in the
   # comments below.
   # --------------------
-  # `velero server` not empty
+  # `velero server` not empty. kopia or restic
   uploaderType:
   # `velero server` default: 1m
   backupSyncPeriod:
-  # `velero server` default: 1h
+  # `velero server` default: 4h
   fsBackupTimeout:
   # `velero server` default: namespaces,persistentvolumes,persistentvolumeclaims,secrets,configmaps,serviceaccounts,limitranges,pods
   restoreResourcePriorities:
@@ -298,17 +298,43 @@ configuration:
   clientQPS:
   # `velero server` default: 30
   clientBurst:
-  # `velero server` default: empty
+  # `velero server` default: 500
   clientPageSize:
+  # `velero server` default: 20.0
+  clientQPS:
+  # Name of the default backup storage location. Default: default
+  defaultBackupStorageLocation:
+  # How long to wait by default before backups can be garbage collected. Default: 72h
+  defaultBackupTTL:
+  # Name of the default volume snapshot location.
+  defaultVolumeSnapshotLocations:
   # `velero server` default: empty
   disableControllers:
-  # `velero server` default: 1m
-  storeValidationFrequency:
   # `velero server` default: 1h
   garbageCollectionFrequency:
+  # Set log-format for Velero pod. Default: text. Other option: json.
+  logFormat:
+  # Set log-level for Velero pod. Default: info. Other options: debug, warning, error, fatal, panic.
+  logLevel:
+  # The address to expose prometheus metrics. Default: :8085
+  metricsAddress:
+  # Directory containing Velero plugins. Default: /plugins
+  pluginDir:
+  # The address to expose the pprof profiler. Default: localhost:6060
+  profilerAddress:
+  # `velero server` default: false
+  restoreOnlyMode:
+  # `velero server` default: customresourcedefinitions,namespaces,storageclasses,volumesnapshotclass.snapshot.storage.k8s.io,volumesnapshotcontents.snapshot.storage.k8s.io,volumesnapshots.snapshot.storage.k8s.io,persistentvolumes,persistentvolumeclaims,secrets,configmaps,serviceaccounts,limitranges,pods,replicasets.apps,clusterclasses.cluster.x-k8s.io,clusters.cluster.x-k8s.io,clusterresourcesets.addons.cluster.x-k8s.io
+  restoreResourcePriorities:
+  # `velero server` default: 1m
+  storeValidationFrequency:
+  # How long to wait on persistent volumes and namespaces to terminate during a restore before timing out. Default: 10m
+  terminatingResourceTimeout:
+  # Comma separated list of velero feature flags. default: empty
+  # features: EnableCSI
+  features:
   # `velero server` default: velero
   namespace:
-  #
 
   # additional key/value pairs to be used as environment variables such as "AWS_CLUSTER_NAME: 'yourcluster.domain.tld'"
   extraEnvVars: {}
