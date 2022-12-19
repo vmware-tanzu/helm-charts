@@ -78,9 +78,55 @@ spec:
             - /velero
           args:
             - server
+            ### Flags
           {{- with .Values.configuration }}
             {{- with .backupSyncPeriod }}
             - --backup-sync-period={{ . }}
+            {{- end }}
+            {{- with .clientBurst }}
+            - --client-burst={{ . }}
+            {{- end }}
+            {{- with .clientPageSize }}
+            - --client-page-size={{ . }}
+            {{- end }}
+            {{- with .clientQPS }}
+            - --client-qps={{ . }}
+            {{- end }}
+            {{- with .defaultBackupStorageLocation }}
+            - --default-backup-storage-location={{ . }}
+            {{- end }}
+            {{- with .defaultBackupTTL }}
+            - --default-backup-ttl={{ . }}
+            {{- end }}
+            {{- with .defaultResticPruneFrequency }}
+            - --default-restic-prune-frequency={{ . }}
+            {{- end }}
+            {{- with .defaultVolumeSnapshotLocations }}
+            - --default-volume-snapshot-locations={{ . }}
+            {{- end }}
+            {{- if .defaultVolumesToRestic }}
+            - --default-volumes-to-restic
+            {{- end }}
+            {{- with .disableControllers }}
+            - --disable-controllers={{ . }}
+            {{- end }}
+            {{- with .garbageCollectionFrequency }}
+            - --garbage-collection-frequency={{ . }}
+            {{- end }}
+            {{- with .logFormat }}
+            - --log-format={{ . }}
+            {{- end }}
+            {{- with .logLevel }}
+            - --log-level={{ . }}
+            {{- end }}
+            {{- with .metricsAddress }}
+            - --metrics-address={{ . }}
+            {{- end }}
+            {{- with .pluginDir }}
+            - --plugin-dir={{ . }}
+            {{- end }}
+            {{- with .profilerAddress }}
+            - --profiler-address={{ . }}
             {{- end }}
             {{- with .resticTimeout }}
             - --restic-timeout={{ . }}
@@ -91,38 +137,15 @@ spec:
             {{- with .restoreResourcePriorities }}
             - --restore-resource-priorities={{ . }}
             {{- end }}
-            {{- with .features }}
-            - --features={{ . }}
-            {{- end }}
-            {{- with .logLevel }}
-            - --log-level={{ . }}
-            {{- end }}
-            {{- with .logFormat }}
-            - --log-format={{ . }}
-            {{- end }}
-            {{- if .defaultVolumesToRestic }}
-            - --default-volumes-to-restic
-            {{- end }}
-            {{- with .defaultResticPruneFrequency }}
-            - --default-restic-prune-frequency={{ . }}
-            {{- end }}
-            {{- with .clientQPS }}
-            - --client-qps={{ . }}
-            {{- end }}
-            {{- with .clientBurst }}
-            - --client-burst={{ . }}
-            {{- end }}
-            {{- with .clientPageSize }}
-            - --client-page-size={{ . }}
-            {{- end }}
-            {{- with .disableControllers }}
-            - --disable-controllers={{ . }}
-            {{- end }}
             {{- with .storeValidationFrequency }}
             - --store-validation-frequency={{ . }}
             {{- end }}
-            {{- with .garbageCollectionFrequency }}
-            - --garbage-collection-frequency={{ . }}
+            {{- with .terminatingResourceTimeout }}
+            - --terminating-resource-timeout={{ . }}
+            {{- end }}
+            ### Global Flags
+            {{- with .features }}
+            - --features={{ . }}
             {{- end }}
             {{- with .namespace }}
             - --namespace={{ . }}
