@@ -80,8 +80,12 @@ spec:
             - server
             ### Flags
           {{- with .Values.configuration }}
+            - --uploader-type={{ default "restic" .uploaderType }}
             {{- with .backupSyncPeriod }}
             - --backup-sync-period={{ . }}
+            {{- end }}
+            {{- with .fsBackupTimeout }}
+            - --fs-backup-timeout={{ . }}
             {{- end }}
             {{- with .clientBurst }}
             - --client-burst={{ . }}
@@ -98,14 +102,14 @@ spec:
             {{- with .defaultBackupTTL }}
             - --default-backup-ttl={{ . }}
             {{- end }}
-            {{- with .defaultResticPruneFrequency }}
-            - --default-restic-prune-frequency={{ . }}
-            {{- end }}
             {{- with .defaultVolumeSnapshotLocations }}
             - --default-volume-snapshot-locations={{ . }}
             {{- end }}
-            {{- if .defaultVolumesToRestic }}
-            - --default-volumes-to-restic
+            {{- if .defaultVolumesToFsBackup }}
+            - --default-volumes-to-fs-backup
+            {{- end }}
+            {{- with .defaultRepoMaintainFrequency }}
+            - --default-repo-maintain-frequency={{ . }}
             {{- end }}
             {{- with .disableControllers }}
             - --disable-controllers={{ . }}
@@ -127,9 +131,6 @@ spec:
             {{- end }}
             {{- with .profilerAddress }}
             - --profiler-address={{ . }}
-            {{- end }}
-            {{- with .resticTimeout }}
-            - --restic-timeout={{ . }}
             {{- end }}
             {{- if .restoreOnlyMode }}
             - --restore-only
