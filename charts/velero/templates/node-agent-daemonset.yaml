@@ -1,4 +1,4 @@
-{{- if .Values.defaultNodeAgent }}
+{{- if .Values.deployNodeAgent }}
 {{- $provider := .Values.configuration.provider -}}
 {{/* 'nodeAgent.securityContext' got renamed to 'nodeAgent.containerSecurityContext', merge both dicts into one for backward compatibility */}}
 {{- $containerSecurityContext := merge (.Values.nodeAgent.containerSecurityContext | default dict) (.Values.nodeAgent.securityContext | default dict) -}}

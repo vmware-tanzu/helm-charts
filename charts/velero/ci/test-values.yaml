@@ -60,7 +60,7 @@ resources:
     memory: 128Mi
 
 # The node-agent daemonset
-defaultNodeAgent: true
+deployNodeAgent: true
 
 nodeAgent:
   # Annotations to node-agent daemonset

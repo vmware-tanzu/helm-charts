@@ -39,7 +39,7 @@ More info on the official site: https://velero.io/docs
 {{- end }}
 
 {{- if hasKey .Values "deployRestic" }}
-{{- $breaking = print $breaking "\n\nREMOVED: deployRestic has been removed, and it is named defaultNodeAgent" }}
+{{- $breaking = print $breaking "\n\nREMOVED: deployRestic has been removed, and it is named deployNodeAgent" }}
 {{- end }}
 
 {{- if hasKey .Values "restic" }}

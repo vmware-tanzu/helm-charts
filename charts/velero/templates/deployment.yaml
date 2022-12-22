@@ -80,9 +80,7 @@ spec:
             - server
             ### Flags
           {{- with .Values.configuration }}
-            {{- with .uploaderType }}
-            - --uploader-type={{ . }}
-            {{- end }}
+            - --uploader-type={{ default "restic" .uploaderType }}
             {{- with .backupSyncPeriod }}
             - --backup-sync-period={{ . }}
             {{- end }}

@@ -284,7 +284,7 @@ configuration:
   # here if using a non-default value. The `velero server` default values are shown in the
   # comments below.
   # --------------------
-  # `velero server` not empty. kopia or restic
+  # `velero server` default: restic
   uploaderType:
   # `velero server` default: 1m
   backupSyncPeriod:
@@ -333,7 +333,7 @@ configuration:
   # additional key/value pairs to be used as environment variables such as "AWS_CLUSTER_NAME: 'yourcluster.domain.tld'"
   extraEnvVars: {}
 
-  # Set true for backup all pod volumes without having to apply annotation on the pod when used file system backup Default: false. Other option: false.
+  # Set true for backup all pod volumes without having to apply annotation on the pod when used file system backup Default: false.
   defaultVolumesToFsBackup:
 
   # How often repository maintain is run for repositories by default.
@@ -403,7 +403,7 @@ backupsEnabled: true
 snapshotsEnabled: true
 
 # Whether to deploy the node-agent daemonset.
-defaultNodeAgent: false
+deployNodeAgent: false
 
 nodeAgent:
   podVolumePath: /var/lib/kubelet/pods
