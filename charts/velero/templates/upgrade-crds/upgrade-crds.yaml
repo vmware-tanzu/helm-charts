@@ -7,7 +7,8 @@ metadata:
   name: {{ template "velero.fullname" . }}-upgrade-crds
   namespace: {{ .Release.Namespace }}
   annotations:
-    "helm.sh/hook": post-install,post-upgrade,post-rollback
+    "helm.sh/hook": pre-install,pre-upgrade,pre-rollback
+    "helm.sh/hook-weight": "5"
     "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
   labels:
     app.kubernetes.io/name: {{ include "velero.name" . }}
@@ -34,7 +35,7 @@ spec:
         - name: {{ . }}
       {{- end }}
     {{- end }}
-      serviceAccountName: {{ include "velero.serverServiceAccount" . }}
+      serviceAccountName: {{ include "velero.serverServiceAccount" . }}-upgrade-crds
       initContainers:
         - name: kubectl
           {{- if .Values.kubectl.image.digest }}

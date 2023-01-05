@@ -59,19 +59,19 @@ resources:
     cpu: 100m
     memory: 128Mi
 
-# The restic daemonset
-deployRestic: true
+# The node-agent daemonset
+deployNodeAgent: true
 
-restic:
-  # Annotations to restic daemonset
+nodeAgent:
+  # Annotations to node-agent daemonset
   annotations:
-    annotation: restic
+    annotation: node-agent
     foo: bar
-  # Labels to restic daemonset
+  # Labels to node-agent daemonset
   labels:
-    label: restic
+    label: node-agent
     foo: bar
-  # Resources to restic daemonset
+  # Resources to node-agent daemonset
   resources:
     requests:
       cpu: 100m

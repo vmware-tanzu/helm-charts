@@ -65,11 +65,11 @@ Create the Velero priority class name.
 {{- end -}}
 
 {{/*
-Create the Restic priority class name.
+Create the node-Agent priority class name.
 */}}
-{{- define "velero.restic.priorityClassName" -}}
-{{- if .Values.restic.priorityClassName -}}
-  {{- .Values.restic.priorityClassName -}}
+{{- define "velero.nodeAgent.priorityClassName" -}}
+{{- if .Values.nodeAgent.priorityClassName -}}
+  {{- .Values.nodeAgent.priorityClassName -}}
 {{- else -}}
   {{- include "velero.fullname" . -}}
 {{- end -}}
