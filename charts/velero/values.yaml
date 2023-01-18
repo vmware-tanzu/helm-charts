@@ -152,6 +152,7 @@ metrics:
 
   serviceMonitor:
     enabled: false
+    annotations: {}
     additionalLabels: {}
     # ServiceMonitor namespace. Default to Velero namespace.
     # namespace:
