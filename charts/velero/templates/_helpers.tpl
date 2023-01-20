@@ -89,7 +89,11 @@ Create the backup storage location provider
 */}}
 {{- define "velero.backupStorageLocation.provider" -}}
 {{- with .Values.configuration -}}
+{{- if and .backupStorageLocation (kindIs "slice" .backupStorageLocation) -}}
+{{ default .provider }}
+{{- else -}}
 {{ default .provider .backupStorageLocation.provider }}
+{{- end -}}
 {{- end -}}
 {{- end -}}
 
@@ -107,7 +111,11 @@ Create the volume snapshot location provider
 */}}
 {{- define "velero.volumeSnapshotLocation.provider" -}}
 {{- with .Values.configuration -}}
+{{- if and .volumeSnapshotLocation (kindIs "slice" .volumeSnapshotLocation) -}}
+{{ default .provider }}
+{{- else -}}
 {{ default .provider .volumeSnapshotLocation.provider }}
+{{- end -}}
 {{- end -}}
 {{- end -}}
 
