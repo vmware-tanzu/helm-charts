@@ -19,13 +19,19 @@ spec:
   credential: 
     name: {{ .credential.name }}
     key: {{ .credential.key }}
-  {{- if .provider }}
+  {{ if $.provider }}
   provider: {{ .provider }}
-  {{- else -}}
-  provider: {{ include "velero.backupStorageLocation.provider" . }}
+  {{ else -}}
+  provider: {{ include "velero.backupStorageLocation.provider" $ }}
   {{- end }}
+  {{ if .accessMode -}}
   accessMode: {{ .accessMode }}
-  default: {{ .default }}
+  {{- else -}}
+  accessMode: ReadWrite
+  {{- end }}
+  {{- with .default }}
+  default: {{ . }}
+  {{- end }}
   objectStorage:
     bucket: {{ .bucket | quote }}
     {{- with .prefix }}
