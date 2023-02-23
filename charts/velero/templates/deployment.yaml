@@ -209,7 +209,7 @@ spec:
           {{- with .Values.configuration.extraEnvVars }}
           {{- range $key, $value := . }}
             - name: {{ default "none" $key }}
-              value: {{ default "none" $value | quote }}
+              value: {{ default "none" $key | quote }}
           {{- end }}
           {{- end }}
           {{- with .Values.credentials.extraEnvVars }}
@@ -218,7 +218,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: {{ include "velero.secretName" $ }}
-                  key: {{ default "none" $value }}
+                  key: {{ default "none" $key }}
           {{- end }}
           {{- end }}
           {{- if .Values.lifecycle }}
