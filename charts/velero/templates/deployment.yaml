@@ -209,7 +209,7 @@ spec:
           {{- with .Values.configuration.extraEnvVars }}
           {{- range $key, $value := . }}
             - name: {{ default "none" $key }}
-              value: {{ default "none" $key | quote }}
+              value: {{ default "none" $value | quote }}
           {{- end }}
           {{- end }}
           {{- with .Values.credentials.extraEnvVars }}
