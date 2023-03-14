@@ -11,9 +11,9 @@ sources:
 maintainers:
   - name: jenting
     email: hsiaoairplane@gmail.com
-  - name: sseago
-    email: sseago@redhat.com
   - name: reasonerjt
     email: jiangd@vmware.com
+  - name: qiuming-best
+    email: mqiu@vmware.com
   - name: ywk253100
     email: yinw@vmware.com
