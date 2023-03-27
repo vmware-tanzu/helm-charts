@@ -55,8 +55,10 @@ More info on the official site: https://velero.io/docs
 {{- if hasKey $value.labels "velero.io/restic" }}
 {{- $breaking = print $breaking "\n\nREMOVED: velero.io/restic has been removed, and it is named velero.io/pod-volume-restore" }}
 {{- end }}
+{{- if and $value.data.image }}
 {{- if contains "velero-restic-restore-helper" $value.data.image }}
 {{- $breaking = print $breaking "\n\nREMOVED: restore helper image velero-restic-restore-helper has been changed to velero-restore-helper" }}
+{{- end }}
 {{- end }}
 {{- end }}
 
