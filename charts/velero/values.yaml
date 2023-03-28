@@ -485,7 +485,7 @@ nodeAgent:
 
   # DNS configuration to use for the node-agent daemonset. Optional.
   dnsConfig: {}
-  
+
 # Backup schedules to create.
 # Eg:
 # schedules:
