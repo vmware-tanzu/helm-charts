@@ -1,5 +1,4 @@
 {{- if .Values.snapshotsEnabled }}
-{{- if and .Values.configuration.volumeSnapshotLocation (kindIs "slice" .Values.configuration.volumeSnapshotLocation) }}
 {{- range .Values.configuration.volumeSnapshotLocation }}
 ---
 apiVersion: velero.io/v1
@@ -16,11 +15,7 @@ metadata:
     app.kubernetes.io/managed-by: {{ $.Release.Service }}
     helm.sh/chart: {{ include "velero.chart" $ }}
 spec:
-  {{ if $.provider }}
   provider: {{ .provider }}
-  {{ else -}}
-  provider: {{ include "velero.volumeSnapshotLocation.provider" $ }}
-  {{- end }}
 {{- with .config }}
   config:
 {{- range $key, $value := . }}
@@ -28,28 +23,4 @@ spec:
 {{- end }}
 {{- end -}}
 {{- end }}
-{{- else }}
----
-apiVersion: velero.io/v1
-kind: VolumeSnapshotLocation
-metadata:
-  name: {{ include "velero.volumeSnapshotLocation.name" . }}
-  namespace: {{ .Release.Namespace }}
-  annotations:
-    "helm.sh/hook": post-install,post-upgrade,post-rollback
-    "helm.sh/hook-delete-policy": before-hook-creation
-  labels:
-    app.kubernetes.io/name: {{ include "velero.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
-    helm.sh/chart: {{ include "velero.chart" . }}
-spec:
-  provider: {{ include "velero.volumeSnapshotLocation.provider" . }}
-{{- with .Values.configuration.volumeSnapshotLocation.config }}
-  config:
-{{- range $key, $value := . }}
-{{- $key | nindent 4 }}: {{ $value | quote }}
 {{- end }}
-{{- end -}}
-{{- end }}
-{{- end -}}
