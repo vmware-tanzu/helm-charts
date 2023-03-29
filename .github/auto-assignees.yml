@@ -11,9 +11,8 @@ reviewers:
     maintainers:
       - jenting
       - reasonerjt
-      - sseago
+      - qiuming-best
       - ywk253100
-      - shubham-pampattiwar
 
 options:
   ignore_draft: true
