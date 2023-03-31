@@ -1,10 +1,14 @@
 {{- if .Values.backupsEnabled }}
-{{- range .Values.configuration.backupStorageLocation }}
+{{- range $i, $location := (.Values.configuration.backupStorageLocation) }}
 ---
 apiVersion: velero.io/v1
 kind: BackupStorageLocation
 metadata:
+  {{ if .name -}}
   name: {{ .name }}
+  {{- else -}}
+  name: {{ include "velero.backupStorageLocation.name" . }}-{{ $i }}
+  {{- end }}
   namespace: {{ $.Release.Namespace }}
   annotations:
     "helm.sh/hook": post-install,post-upgrade,post-rollback

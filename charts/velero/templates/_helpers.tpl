@@ -79,18 +79,14 @@ Create the node-Agent priority class name.
 Create the backup storage location name
 */}}
 {{- define "velero.backupStorageLocation.name" -}}
-{{- with .Values.configuration.backupStorageLocation -}}
 {{ default "default" .name }}
-{{- end -}}
 {{- end -}}
 
 {{/*
 Create the volume snapshot location name
 */}}
 {{- define "velero.volumeSnapshotLocation.name" -}}
-{{- with .Values.configuration.volumeSnapshotLocation -}}
 {{ default "default" .name }}
-{{- end -}}
 {{- end -}}
 
 {{/*
