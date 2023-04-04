@@ -4,11 +4,7 @@
 apiVersion: velero.io/v1
 kind: BackupStorageLocation
 metadata:
-  {{ if .name -}}
-  name: {{ .name }}
-  {{- else -}}
-  name: {{ include "velero.backupStorageLocation.name" . }}-{{ $i }}
-  {{- end }}
+  name: {{ include "velero.backupStorageLocation.name" . }}
   namespace: {{ $.Release.Namespace }}
   annotations:
     "helm.sh/hook": post-install,post-upgrade,post-rollback
@@ -19,7 +15,7 @@ metadata:
     app.kubernetes.io/managed-by: {{ $.Release.Service }}
     helm.sh/chart: {{ include "velero.chart" $ }}
 spec:
-  credential: 
+  credential:
     name: {{ .credential.name }}
     key: {{ .credential.key }}
   provider: {{ .provider }}

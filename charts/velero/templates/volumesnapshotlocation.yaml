@@ -4,11 +4,7 @@
 apiVersion: velero.io/v1
 kind: VolumeSnapshotLocation
 metadata:
-  {{ if .name -}}
-  name: {{ .name }}
-  {{- else -}}
-  name: {{ include "velero.volumeSnapshotLocation.name" . }}-{{ $i }}
-  {{- end }}
+  name: {{ include "velero.volumeSnapshotLocation.name" . }}
   namespace: {{ $.Release.Namespace }}
   annotations:
     "helm.sh/hook": post-install,post-upgrade,post-rollback
