@@ -1,14 +1,14 @@
 # Set provider name and backup storage location bucket name
 configuration:
-  provider: aws
   backupStorageLocation:
-    name: primary
+  - name: primary
     bucket: velero
     default: true
     config:
       region: us-west-1
       profile: test
   volumeSnapshotLocation:
+  - name: primary
     provider: aws
     config:
       bucket: velero
