@@ -4,6 +4,7 @@ configuration:
   - name: primary
     bucket: velero
     default: true
+    provider: aws
     credential:
       name: test-credential
       key: test-key
