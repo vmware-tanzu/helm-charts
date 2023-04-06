@@ -4,6 +4,9 @@ configuration:
   - name: primary
     bucket: velero
     default: true
+    credential:
+      name: test-credential
+      key: test-key
     config:
       region: us-west-1
       profile: test
