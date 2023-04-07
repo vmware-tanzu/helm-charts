@@ -19,11 +19,7 @@ spec:
     name: {{ .credential.name }}
     key: {{ .credential.key }}
   provider: {{ .provider }}
-  {{ if .accessMode -}}
-  accessMode: {{ .accessMode }}
-  {{- else -}}
-  accessMode: ReadWrite
-  {{- end }}
+  accessMode: {{ include "velero.backupStorageLocation.accessMode" . }}
   {{- with .default }}
   default: {{ . }}
   {{- end }}

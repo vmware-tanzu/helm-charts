@@ -100,3 +100,10 @@ For examples:
 {{- $minorVersion := .Capabilities.KubeVersion.Minor | regexFind "[0-9]+" -}}
 {{- printf "%s.%s" .Capabilities.KubeVersion.Major $minorVersion -}}
 {{- end -}}
+
+{{/*
+Create the BackupStorageLocation accessMode
+*/}}
+{{- define "velero.backupStorageLocation.accessMode" -}}
+{{ default "ReadWrite" .accessMode }}
+{{- end -}}
