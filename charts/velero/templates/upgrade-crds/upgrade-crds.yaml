@@ -64,7 +64,7 @@ spec:
         - name: kubectl
           {{- if .Values.kubectl.image.digest }}
           image: "{{ .Values.kubectl.image.repository }}@{{ .Values.kubectl.image.digest }}"
-          {{- else .Values.kubectl.image.tag }}
+          {{- else if .Values.kubectl.image.tag }}
           image: "{{ .Values.kubectl.image.repository }}:{{ .Values.kubectl.image.tag }}"
           {{- else }}
           image: "{{ .Values.kubectl.image.repository }}:{{ template "chart.KubernetesVersion" . }}"
