@@ -79,6 +79,11 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if .Values.metrics.enabled }}
+          ports:
+            - name: http-monitoring
+              containerPort: 8085
+          {{- end }}
           command:
             - /velero
           args:
