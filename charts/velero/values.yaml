@@ -2,6 +2,9 @@
 ## Configuration settings that directly affect the Velero deployment YAML.
 ##
 
+# Number of Velero server to deploy
+replicas: 1
+
 # Details of the container image to use in the Velero deployment & daemonset (if
 # enabling node-agent). Required.
 image:
