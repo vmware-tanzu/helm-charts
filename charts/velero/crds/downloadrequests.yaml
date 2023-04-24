@@ -48,10 +48,13 @@ spec:
                     - BackupLog
                     - BackupContents
                     - BackupVolumeSnapshots
-                    - BackupItemSnapshots
+                    - BackupItemOperations
                     - BackupResourceList
+                    - BackupResults
                     - RestoreLog
                     - RestoreResults
+                    - RestoreResourceList
+                    - RestoreItemOperations
                     - CSIBackupVolumeSnapshots
                     - CSIBackupVolumeSnapshotContents
                     type: string
