@@ -58,7 +58,7 @@ spec:
                 nullable: true
                 type: array
               existingResourcePolicy:
-                description: ExistingResourcePolicy specifies the restore behaviour
+                description: ExistingResourcePolicy specifies the restore behavior
                   for the kubernetes resource to be restored
                 nullable: true
                 type: string
@@ -240,6 +240,10 @@ spec:
                   type: string
                 nullable: true
                 type: array
+              itemOperationTimeout:
+                description: ItemOperationTimeout specifies the time used to wait
+                  for RestoreItemAction operations The default value is 1 hour.
+                type: string
               labelSelector:
                 description: LabelSelector is a metav1.LabelSelector to filter with
                   when restoring individual objects from the backup. If empty or nil,
@@ -357,7 +361,7 @@ spec:
                 type: boolean
               restorePVs:
                 description: RestorePVs specifies whether to restore all included
-                  PVs from snapshot (via the cloudprovider).
+                  PVs from snapshot
                 nullable: true
                 type: boolean
               restoreStatus:
@@ -414,6 +418,8 @@ spec:
                 - New
                 - FailedValidation
                 - InProgress
+                - WaitingForPluginOperations
+                - WaitingForPluginOperationsPartiallyFailed
                 - Completed
                 - PartiallyFailed
                 - Failed
@@ -434,6 +440,20 @@ spec:
                       due to plugins that return additional related items to restore
                     type: integer
                 type: object
+              restoreItemOperationsAttempted:
+                description: RestoreItemOperationsAttempted is the total number of
+                  attempted async RestoreItemAction operations for this restore.
+                type: integer
+              restoreItemOperationsCompleted:
+                description: RestoreItemOperationsCompleted is the total number of
+                  successfully completed async RestoreItemAction operations for this
+                  restore.
+                type: integer
+              restoreItemOperationsFailed:
+                description: RestoreItemOperationsFailed is the total number of async
+                  RestoreItemAction operations for this restore which ended with an
+                  error.
+                type: integer
               startTimestamp:
                 description: StartTimestamp records the time the restore operation
                   was started. The server's time is used for StartTimestamps

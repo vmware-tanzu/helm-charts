@@ -86,6 +86,24 @@ spec:
                       entirely in future. Use DefaultVolumesToFsBackup instead."
                     nullable: true
                     type: boolean
+                  excludedClusterScopedResources:
+                    description: ExcludedClusterScopedResources is a slice of cluster-scoped
+                      resource type names to exclude from the backup. If set to "*",
+                      all cluster-scoped resource types are excluded. The default
+                      value is empty.
+                    items:
+                      type: string
+                    nullable: true
+                    type: array
+                  excludedNamespaceScopedResources:
+                    description: ExcludedNamespaceScopedResources is a slice of namespace-scoped
+                      resource type names to exclude from the backup. If set to "*",
+                      all namespace-scoped resource types are excluded. The default
+                      value is empty.
+                    items:
+                      type: string
+                    nullable: true
+                    type: array
                   excludedNamespaces:
                     description: ExcludedNamespaces contains a list of namespaces
                       that are not included in the backup.
@@ -296,6 +314,24 @@ spec:
                       resources should be included for consideration in the backup.
                     nullable: true
                     type: boolean
+                  includedClusterScopedResources:
+                    description: IncludedClusterScopedResources is a slice of cluster-scoped
+                      resource type names to include in the backup. If set to "*",
+                      all cluster-scoped resource types are included. The default
+                      value is empty, which means only related cluster-scoped resources
+                      are included.
+                    items:
+                      type: string
+                    nullable: true
+                    type: array
+                  includedNamespaceScopedResources:
+                    description: IncludedNamespaceScopedResources is a slice of namespace-scoped
+                      resource type names to include in the backup. The default value
+                      is "*".
+                    items:
+                      type: string
+                    nullable: true
+                    type: array
                   includedNamespaces:
                     description: IncludedNamespaces is a slice of namespace names
                       to include objects from. If empty, all namespaces are included.
@@ -310,6 +346,11 @@ spec:
                       type: string
                     nullable: true
                     type: array
+                  itemOperationTimeout:
+                    description: ItemOperationTimeout specifies the time used to wait
+                      for asynchronous BackupItemAction operations The default value
+                      is 1 hour.
+                    type: string
                   labelSelector:
                     description: LabelSelector is a metav1.LabelSelector to filter
                       with when adding individual objects to the backup. If empty
@@ -423,14 +464,34 @@ spec:
                     additionalProperties:
                       type: string
                     description: OrderedResources specifies the backup order of resources
-                      of specific Kind. The map key is the Kind name and value is
-                      a list of resource names separated by commas. Each resource
-                      name has format "namespace/resourcename".  For cluster resources,
-                      simply use "resourcename".
+                      of specific Kind. The map key is the resource name and value
+                      is a list of object names separated by commas. Each resource
+                      name has format "namespace/objectname".  For cluster resources,
+                      simply use "objectname".
                     nullable: true
                     type: object
+                  resourcePolicy:
+                    description: ResourcePolicy specifies the referenced resource
+                      policies that backup should follow
+                    properties:
+                      apiGroup:
+                        description: APIGroup is the group for the resource being
+                          referenced. If APIGroup is not specified, the specified
+                          Kind must be in the core API group. For any other third-party
+                          types, APIGroup is required.
+                        type: string
+                      kind:
+                        description: Kind is the type of resource being referenced
+                        type: string
+                      name:
+                        description: Name is the name of resource being referenced
+                        type: string
+                    required:
+                    - kind
+                    - name
+                    type: object
                   snapshotVolumes:
-                    description: SnapshotVolumes specifies whether to take cloud snapshots
+                    description: SnapshotVolumes specifies whether to take snapshots
                       of any PV's referenced in the set of objects included in the
                       Backup.
                     nullable: true
