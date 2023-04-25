@@ -15,9 +15,11 @@ metadata:
     app.kubernetes.io/managed-by: {{ $.Release.Service }}
     helm.sh/chart: {{ include "velero.chart" $ }}
 spec:
+  {{- if and .credential .credential.name .credential.key }}
   credential:
     name: {{ .credential.name }}
     key: {{ .credential.key }}
+  {{- end }}
   provider: {{ .provider }}
   accessMode: {{ include "velero.backupStorageLocation.accessMode" . }}
   {{- with .default }}
