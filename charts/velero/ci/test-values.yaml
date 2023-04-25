@@ -13,7 +13,6 @@ configuration:
       profile: us-east-1-profile
   - name: backups-secondary
     bucket: velero-backups
-    default: true
     provider: aws
     config:
       region: us-west-1
