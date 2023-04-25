@@ -1,10 +1,12 @@
 {{- if .Values.backupsEnabled }}
-{{- range $i, $location := (.Values.configuration.backupStorageLocation) }}
+
+{{- if typeIs "[]interface {}" .Values.configuration.backupStorageLocation }}
+{{- range .Values.configuration.backupStorageLocation }}
 ---
 apiVersion: velero.io/v1
 kind: BackupStorageLocation
 metadata:
-  name: {{ include "velero.backupStorageLocation.name" . }}
+  name: {{ .name | default "default" }}
   namespace: {{ $.Release.Namespace }}
   annotations:
     "helm.sh/hook": post-install,post-upgrade,post-rollback
@@ -25,7 +27,7 @@ spec:
     {{- end }}
   {{- end }}
   provider: {{ .provider }}
-  accessMode: {{ include "velero.backupStorageLocation.accessMode" . }}
+  accessMode: {{ .accessMode | default "ReadWrite" }}
   {{- with .default }}
   default: {{ . }}
   {{- end }}
@@ -41,6 +43,7 @@ spec:
   config:
 {{- range $key, $value := . }}
 {{- $key | nindent 4 }}: {{ $value | quote }}
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
