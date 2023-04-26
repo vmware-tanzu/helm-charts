@@ -1,18 +1,31 @@
 # Set provider name and backup storage location bucket name
 configuration:
-  provider: aws
   backupStorageLocation:
-    name: primary
-    bucket: velero
+  - name: backups-primary
+    bucket: velero-backups
     default: true
+    provider: aws
+    credential:
+      name: test-credential
+      key: test-key
     config:
-      region: us-west-1
-      profile: test
-  volumeSnapshotLocation:
+      region: us-east-1
+      profile: us-east-1-profile
+  - name: backups-secondary
+    bucket: velero-backups
     provider: aws
     config:
-      bucket: velero
       region: us-west-1
+      profile: us-west-1-profile
+  volumeSnapshotLocation:
+  - name: ebs-us-east-1
+    provider: aws
+    config:
+      region: us-east-1
+  - name: portworx-cloud
+    provider: portworx
+    config:
+      type: cloud
 
 schedules:
   mybackup:

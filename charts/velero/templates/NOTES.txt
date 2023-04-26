@@ -26,6 +26,18 @@ More info on the official site: https://velero.io/docs
 {{- $breaking_title = print $breaking_title "\n######             the `helm template` command.                             #####" }}
 {{- $breaking_title = print $breaking_title "\n#################################################################################" }}
 
+{{- if typeIs "map[string]interface {}" .Values.configuration.backupStorageLocation }}
+{{- $breaking = print $breaking "\n\nERROR: Please make .configuration.backupStorageLocation from map to slice" }}
+{{- end }}
+
+{{- if typeIs "map[string]interface {}" .Values.configuration.volumeSnapshotLocation }}
+{{- $breaking = print $breaking "\n\nERROR: Please make .configuration.volumeSnapshotLocation from map to slice" }}
+{{- end }}
+
+{{- if hasKey .Values.configuration "provider" }}
+{{- $breaking = print $breaking "\n\nREMOVED: .configuration.provider has been removed, instead each backupStorageLocation and volumeSnapshotLocation has a provider configured" }}
+{{- end }}
+
 {{- if hasKey .Values "resticTimeout" }}
 {{- $breaking = print $breaking "\n\nREMOVED: resticTimeout has been removed, and it is named fsBackupTimeout" }}
 {{- end }}

@@ -76,42 +76,6 @@ Create the node-Agent priority class name.
 {{- end -}}
 
 {{/*
-Create the backup storage location name
-*/}}
-{{- define "velero.backupStorageLocation.name" -}}
-{{- with .Values.configuration.backupStorageLocation -}}
-{{ default "default" .name }}
-{{- end -}}
-{{- end -}}
-
-{{/*
-Create the backup storage location provider
-*/}}
-{{- define "velero.backupStorageLocation.provider" -}}
-{{- with .Values.configuration -}}
-{{ default .provider .backupStorageLocation.provider }}
-{{- end -}}
-{{- end -}}
-
-{{/*
-Create the volume snapshot location name
-*/}}
-{{- define "velero.volumeSnapshotLocation.name" -}}
-{{- with .Values.configuration.volumeSnapshotLocation -}}
-{{ default "default" .name }}
-{{- end -}}
-{{- end -}}
-
-{{/*
-Create the volume snapshot location provider
-*/}}
-{{- define "velero.volumeSnapshotLocation.provider" -}}
-{{- with .Values.configuration -}}
-{{ default .provider .volumeSnapshotLocation.provider }}
-{{- end -}}
-{{- end -}}
-
-{{/*
 Kubernetes version
 Built-in object .Capabilities.KubeVersion.Minor can provide non-number output
 For examples:
