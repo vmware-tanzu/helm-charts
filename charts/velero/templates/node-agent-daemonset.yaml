@@ -1,5 +1,4 @@
 {{- if .Values.deployNodeAgent }}
-{{- $provider := .Values.configuration.provider -}}
 {{/* 'nodeAgent.securityContext' got renamed to 'nodeAgent.containerSecurityContext', merge both dicts into one for backward compatibility */}}
 {{- $containerSecurityContext := merge (.Values.nodeAgent.containerSecurityContext | default dict) (.Values.nodeAgent.securityContext | default dict) -}}
 apiVersion: apps/v1
@@ -132,19 +131,14 @@ spec:
             - name: VELERO_SCRATCH_DIR
               value: /scratch
           {{- if .Values.credentials.useSecret }}
-            {{- if eq $provider "aws" }}
             - name: AWS_SHARED_CREDENTIALS_FILE
               value: /credentials/cloud
-            {{- else if eq $provider "gcp" }}
             - name: GOOGLE_APPLICATION_CREDENTIALS
               value: /credentials/cloud
-            {{- else if eq $provider "azure" }}
             - name: AZURE_CREDENTIALS_FILE
               value: /credentials/cloud
-            {{- else if eq $provider "alibabacloud" }}
             - name: ALIBABA_CLOUD_CREDENTIALS_FILE
               value: /credentials/cloud
-            {{- end }}
           {{- end }}
           {{- with .Values.configuration.extraEnvVars }}
           {{- range $key, $value := . }}
