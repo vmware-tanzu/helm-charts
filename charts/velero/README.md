@@ -16,7 +16,7 @@ Kubernetes v1.16+, because this helm chart uses CustomResourceDefinition `apiext
 
 ### Velero version
 
-This helm chart installs Velero version v1.10 https://velero.io/docs/v1.11/. See the [#Upgrading](#upgrading) section for information on how to upgrade from other versions.
+This helm chart installs Velero version v1.11 https://velero.io/docs/v1.11/. See the [#Upgrading](#upgrading) section for information on how to upgrade from other versions.
 
 ### Provider credentials
 
@@ -78,7 +78,7 @@ helm upgrade <RELEASE NAME> vmware-tanzu/velero --namespace <YOUR NAMESPACE> --r
 
 #### Using Helm 2
 
-We're no longer support Helm v2 since it's deprecated in November 2020.
+We're no longer supporting Helm v2 since it was deprecated in November 2020.
 
 ##### Upgrade the configuration
 
