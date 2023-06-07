@@ -78,7 +78,7 @@ helm upgrade <RELEASE NAME> vmware-tanzu/velero --namespace <YOUR NAMESPACE> --r
 
 #### Using Helm 2
 
-We're no longer support Helm v2 since it's deprecated in November 2020.
+We're no longer supporting Helm v2 since it was deprecated in November 2020.
 
 ##### Upgrade the configuration
 
