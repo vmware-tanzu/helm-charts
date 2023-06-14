@@ -276,24 +276,22 @@ configuration:
     #  flag. For Velero client Command like velero backup describe, velero backup logs needs to add the flag --insecure-skip-tls-verify
     #  insecureSkipTLSVerify:
 
-  # Parameters for the VolumeSnapshotLocation(s). Configure multiple by adding other element(s) to the volumeSnapshotLocation slice.
+  # Parameters for the VolumeSnapshotLocation(s). Configure multiple by adding element(s) to the volumeSnapshotLocation slice.
+  # Defaults to no volume snapshot locations (empty list).
   # See https://velero.io/docs/v1.6/api-types/volumesnapshotlocation/
-  volumeSnapshotLocation:
-    # name is the name of the volume snapshot location where snapshots are being taken. Required.
-  - name:
-    # provider is the name for the volume snapshot provider.
-    provider:
-    # Additional provider-specific configuration. See link above
-    # for details of required/optional fields for your provider.
-    config: {}
-  #    region:
-  #    apiTimeout:
-  #    resourceGroup:
-  #    The ID of the subscription where volume snapshots should be stored, if different from the cluster’s subscription. If specified, also requires `configuration.volumeSnapshotLocation.config.resourceGroup`to be set. (Azure only)
-  #    subscriptionId:
-  #    incremental:
-  #    snapshotLocation:
-  #    project:
+  volumeSnapshotLocation: []
+    # Example:
+    # - name: foo
+    #   provider: aws
+    #   config:
+    #     region:
+    #     apiTimeout:
+    #     resourceGroup:
+    #     # The ID of the subscription where volume snapshots should be stored, if different from the cluster’s subscription. If specified, also requires `configuration.volumeSnapshotLocation.config.resourceGroup`to be set. (Azure only)
+    #     subscriptionId:
+    #     incremental:
+    #     snapshotLocation:
+    #     project:
 
   # These are server-level settings passed as CLI flags to the `velero server` command. Velero
   # uses default values if they're not passed in, so they only need to be explicitly specified
