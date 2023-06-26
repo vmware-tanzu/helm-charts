@@ -89,6 +89,30 @@ priorityClassName: ""
 # The number of seconds to allow for graceful termination of the pod. Optional.
 terminationGracePeriodSeconds: 3600
 
+# Liveness probe of the pod
+livenessProbe:
+  httpGet:
+    path: /metrics
+    port: http-monitoring
+    scheme: HTTP
+  initialDelaySeconds: 10
+  periodSeconds: 30
+  timeoutSeconds: 5
+  successThreshold: 1
+  failureThreshold: 5
+
+# Readiness probe of the pod
+readinessProbe:
+  httpGet:
+    path: /metrics
+    port: http-monitoring
+    scheme: HTTP
+  initialDelaySeconds: 10
+  periodSeconds: 30
+  timeoutSeconds: 5
+  successThreshold: 1
+  failureThreshold: 5
+
 # Tolerations to use for the Velero deployment. Optional.
 tolerations: []
 
