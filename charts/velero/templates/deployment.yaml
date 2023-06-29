@@ -154,11 +154,13 @@ spec:
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          {{- if .Values.metrics.enabled }}
           {{- with .Values.livenessProbe }}
           livenessProbe: {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- with .Values.readinessProbe }}
           readinessProbe: {{- toYaml . | nindent 12 }}
+          {{- end }}
           {{- end }}
           {{- with .Values.containerSecurityContext }}
           securityContext:
