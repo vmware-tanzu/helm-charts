@@ -531,12 +531,26 @@ schedules: {}
 # Velero ConfigMaps.
 # Eg:
 # configMaps:
+    # See: https://velero.io/docs/v1.11/file-system-backup/
 #   fs-restore-action-config:
 #     labels:
 #       velero.io/plugin-config: ""
 #       velero.io/pod-volume-restore: RestoreItemAction
 #     data:
 #       image: velero/velero-restore-helper:v1.10.2
+#       cpuRequest: 200m
+#       memRequest: 128Mi
+#       cpuLimit: 200m
+#       memLimit: 128Mi
+#       secCtx: |
+#         capabilities:
+#           drop:
+#           - ALL
+#           add: []
+#         allowPrivilegeEscalation: false
+#         readOnlyRootFilesystem: true
+#         runAsUser: 1001
+#         runAsGroup: 999
 configMaps: {}
 
 ##
