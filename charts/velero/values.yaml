@@ -273,6 +273,8 @@ configuration:
     prefix:
     # default indicates this location is the default backup storage location. Optional.
     default:
+    # validationFrequency defines how frequently Velero should validate the object storage. Optional.
+    validationFrequency:
     # accessMode determines if velero can write to this backup storage location. Optional.
     # default to ReadWrite, ReadOnly is used during migrations and restores.
     accessMode: ReadWrite

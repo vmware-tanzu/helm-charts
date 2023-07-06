@@ -31,6 +31,9 @@ spec:
   {{- with .default }}
   default: {{ . }}
   {{- end }}
+  {{- with .validationFrequency }}
+  validationFrequency: {{ . }}
+  {{- end }}
   objectStorage:
     bucket: {{ .bucket | quote }}
     {{- with .prefix }}
