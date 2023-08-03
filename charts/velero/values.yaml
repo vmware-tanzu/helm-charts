@@ -201,6 +201,7 @@ metrics:
     # tlsConfig: {}
 
   prometheusRule:
+    autodetect: true
     enabled: false
     # Additional labels to add to deployed PrometheusRule
     additionalLabels: {}
