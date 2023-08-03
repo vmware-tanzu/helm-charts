@@ -1,0 +1,52 @@
+name: Check Velero Manifest
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check-velero-manifest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Create kind cluster
+        uses: helm/kind-action@v1.5.0
+
+      - name: Install velero
+        run: |
+          wget https://github.com/vmware-tanzu/velero/releases/download/v1.11.1/velero-v1.11.1-linux-amd64.tar.gz
+          tar -xvf velero-v1.11.1-linux-amd64.tar.gz
+          cd velero-v1.11.1-linux-amd64
+          sudo cp velero /usr/local/bin
+          velero version
+
+      - name: Compare manifests
+        run: |
+          cd charts/velero
+          mkdir diff_workspace
+
+          echo "Generate velero manifest file"
+          velero install --crds-only --dry-run -o yaml | kubectl apply --dry-run=client -f - -o yaml > diff_workspace/velero_manifest.yaml
+          echo "Generate crds manifest file"
+          kubectl apply --dry-run=client -f crds/ -o yaml > diff_workspace/crds_manifest.yaml
+
+          echo "Compare the two files using diff"
+          difference=$(diff diff_workspace/velero_manifest.yaml diff_workspace/crds_manifest.yaml) || true
+          if [ -z "$difference" ]; then
+            echo "Files are synced. No differences found."
+          else
+            echo "Differences between velero_manifest.yaml and crds_manifest.yaml:"
+            echo "$difference"
+            echo "$difference" > diff_workspace/diff_manifest.txt
+            exit 1
+          fi
+
+      - name: Archive manifests
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: diff_output
+          path: |
+            charts/velero/diff_workspace
