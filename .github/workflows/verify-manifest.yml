@@ -16,9 +16,13 @@ jobs:
 
       - name: Install velero
         run: |
-          wget https://github.com/vmware-tanzu/velero/releases/download/v1.11.1/velero-v1.11.1-linux-amd64.tar.gz
-          tar -xvf velero-v1.11.1-linux-amd64.tar.gz
-          cd velero-v1.11.1-linux-amd64
+          echo "Determine the velero version"
+          VERSION=$(yq eval ".image.tag" charts/velero/values.yaml)
+
+          echo "Install velero $VERSION"
+          wget https://github.com/vmware-tanzu/velero/releases/download/${VERSION}/velero-${VERSION}-linux-amd64.tar.gz
+          tar -xvf velero-${VERSION}-linux-amd64.tar.gz
+          cd velero-${VERSION}-linux-amd64
           sudo cp velero /usr/local/bin
           velero version
 
