@@ -15,6 +15,9 @@ image:
   imagePullSecrets: []
   # - registrySecretName
 
+nameOverride: ""
+fullnameOverride: ""
+
 # Annotations to add to the Velero deployment's. Optional.
 #
 # If you are using reloader use the following annotation with your VELERO_SECRET_NAME
