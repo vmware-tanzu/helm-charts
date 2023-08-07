@@ -182,6 +182,12 @@ metrics:
     enabled: false
     annotations: {}
     additionalLabels: {}
+
+    # metrics.serviceMonitor.metricRelabelings Specify Metric Relabelings to add to the scrape endpoint
+    # ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#relabelconfig
+    # metricRelabelings: []
+    # metrics.serviceMonitor.relabelings [array] Prometheus relabeling rules
+    # relabelings: []
     # ServiceMonitor namespace. Default to Velero namespace.
     # namespace:
     # ServiceMonitor connection scheme. Defaults to HTTP.
