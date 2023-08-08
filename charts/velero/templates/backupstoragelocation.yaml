@@ -9,8 +9,10 @@ metadata:
   name: {{ .name | default "default" }}
   namespace: {{ $.Release.Namespace }}
   annotations:
+    {{- if $.Values.helmHookAnnotations }}
     "helm.sh/hook": post-install,post-upgrade,post-rollback
     "helm.sh/hook-delete-policy": before-hook-creation
+    {{- end }}
   labels:
     app.kubernetes.io/name: {{ include "velero.name" $ }}
     app.kubernetes.io/instance: {{ $.Release.Name }}
