@@ -30,6 +30,11 @@ jobs:
           cd charts/velero
           mkdir diff_workspace
 
+          echo "Filter non-required values"
+          for yaml_file in crds/*.yaml; do
+            yq -i 'del(.status)' "$yaml_file"
+          done
+
           echo "Generate velero manifest file"
           velero install --crds-only --dry-run -o yaml | kubectl apply --dry-run=client -f - -o yaml > diff_workspace/velero_manifest.yaml
           echo "Generate crds manifest file"
