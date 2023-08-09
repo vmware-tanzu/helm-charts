@@ -1,0 +1,51 @@
+name: Check Velero Manifest
+
+on: pull_request
+
+jobs:
+  check-velero-manifest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Create kind cluster
+        uses: helm/kind-action@v1.5.0
+
+      - name: Install velero
+        run: |
+          echo "Determine the velero version"
+          VERSION=$(yq eval ".image.tag" charts/velero/values.yaml)
+
+          echo "Install velero $VERSION"
+          wget https://github.com/vmware-tanzu/velero/releases/download/${VERSION}/velero-${VERSION}-linux-amd64.tar.gz
+          tar -xvf velero-${VERSION}-linux-amd64.tar.gz
+          cd velero-${VERSION}-linux-amd64
+          sudo cp velero /usr/local/bin
+          velero version
+
+      - name: Compare manifests
+        run: |
+          cd charts/velero
+          mkdir diff_workspace
+
+          echo "Filter non-required values"
+          for yaml_file in crds/*.yaml; do
+            yq -i 'del(.status)' "$yaml_file"
+          done
+
+          echo "Generate velero manifest file"
+          velero install --crds-only --dry-run -o yaml | kubectl apply --dry-run=client -f - -o yaml > diff_workspace/velero_manifest.yaml
+          echo "Generate crds manifest file"
+          kubectl apply --dry-run=client -f crds/ -o yaml > diff_workspace/crds_manifest.yaml
+
+          echo "Compare the two files using diff"
+          difference=$(diff diff_workspace/velero_manifest.yaml diff_workspace/crds_manifest.yaml) || true
+          if [ -z "$difference" ]; then
+            echo "Files are synced. No differences found."
+          else
+            echo "Differences between velero_manifest.yaml and crds_manifest.yaml:"
+            echo "$difference"
+            exit 1
+          fi
