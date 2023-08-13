@@ -27,10 +27,6 @@ annotations: {}
 # Labels to add to the Velero deployment's. Optional.
 labels: {}
 
-# helmHookAnnotations is required to deploy CustomResources after deploying CRDs. If you manage your CRDs outside of this helm chart
-# or using ArgoCD, you are able to disable the helm hooks annotations.
-helmHookAnnotations: true
-
 # Annotations to add to the Velero deployment's pod template. Optional.
 #
 # If using kube2iam or kiam, use the following annotation with your AWS_ACCOUNT_ID
