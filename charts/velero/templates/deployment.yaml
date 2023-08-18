@@ -45,8 +45,10 @@ spec:
       {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.metrics.podAnnotations }}
-        {{- toYaml . | nindent 8 }}
+      {{- if and (.Values.metrics.enabled) (not .Values.metrics.serviceMonitor.enabled) }}
+        {{- with .Values.metrics.podAnnotations }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
       {{- end }}
     {{- end }}
     spec:
