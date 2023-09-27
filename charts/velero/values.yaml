@@ -2,13 +2,23 @@
 ## Configuration settings related to Velero installation namespace
 ##
 
-# Annotatiions labels settings in namespace
-namespace: {}
-  # name: "velero"
-  # labels:
-  #   pod-security.kubernetes.io/enforce: privileged
-  #   ppod-security.kubernetes.io/enforce-version: latest
-  # annotations: {}
+# Labels settings in namespace
+namespace:
+  labels: {}
+    # Enforce Pod Security Standards with Namespace Labels
+    # https://kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-namespace-labels/
+    # - key: pod-security.kubernetes.io/enforce
+    #   value: privileged
+    # - key: pod-security.kubernetes.io/enforce-version
+    #   value: latest
+    # - key: pod-security.kubernetes.io/audit
+    #   value: privileged
+    # - key: pod-security.kubernetes.io/audit-version
+    #   value: latest
+    # - key: pod-security.kubernetes.io/warn
+    #   value: privileged
+    # - key: pod-security.kubernetes.io/warn-version
+    #   value: latest
 
 ##
 ## End of namespace-related settings.
