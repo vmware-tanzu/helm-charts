@@ -1,39 +1,41 @@
-{{- if .Values.namespace.labels }}
-apiVersion: batch/v1
-kind: Job
-metadata:
-  name: {{ template "velero.fullname" . }}-label-namespace
-  namespace: {{ .Release.Namespace }}
-  annotations:
-    "helm.sh/hook": post-install,post-upgrade,post-rollback
-    "helm.sh/hook-delete-policy": hook-succeeded
-  labels:
-    app.kubernetes.io/name: {{ include "velero.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
-    helm.sh/chart: {{ include "velero.chart" . }}
-spec:
-  template:
-    spec:
-      serviceAccountName: {{ include "velero.serverServiceAccount" . }}
-      containers:
-      - name: label-namespace
-        {{- if .Values.kubectl.image.digest }}
-        image: "{{ .Values.kubectl.image.repository }}@{{ .Values.kubectl.image.digest }}"
-        {{- else if .Values.kubectl.image.tag }}
-        image: "{{ .Values.kubectl.image.repository }}:{{ .Values.kubectl.image.tag }}"
-        {{- else }}
-        image: "{{ .Values.kubectl.image.repository }}:{{ template "chart.KubernetesVersion" . }}"
-        {{- end }}
-        command:
-        - sh
-        - -c
-        - |
-          {{- with .Values.namespace }}
-          {{- range .labels }}
-          kubectl label namespace {{ $.Release.Namespace }} {{ .key }}={{ .value }}
+{{- if hasKey .Values "namespace" }}
+  {{- if hasKey .Values.namespace "labels" }}
+  apiVersion: batch/v1
+  kind: Job
+  metadata:
+    name: {{ template "velero.fullname" . }}-label-namespace
+    namespace: {{ .Release.Namespace }}
+    annotations:
+      "helm.sh/hook": post-install,post-upgrade,post-rollback
+      "helm.sh/hook-delete-policy": hook-succeeded
+    labels:
+      app.kubernetes.io/name: {{ include "velero.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/managed-by: {{ .Release.Service }}
+      helm.sh/chart: {{ include "velero.chart" . }}
+  spec:
+    template:
+      spec:
+        serviceAccountName: {{ include "velero.serverServiceAccount" . }}
+        containers:
+        - name: label-namespace
+          {{- if .Values.kubectl.image.digest }}
+          image: "{{ .Values.kubectl.image.repository }}@{{ .Values.kubectl.image.digest }}"
+          {{- else if .Values.kubectl.image.tag }}
+          image: "{{ .Values.kubectl.image.repository }}:{{ .Values.kubectl.image.tag }}"
+          {{- else }}
+          image: "{{ .Values.kubectl.image.repository }}:{{ template "chart.KubernetesVersion" . }}"
           {{- end }}
-          {{- end }}
-      restartPolicy: Never
-  backoffLimit: 3
+          command:
+          - sh
+          - -c
+          - |
+            {{- with .Values.namespace }}
+            {{- range .labels }}
+            kubectl label namespace {{ $.Release.Namespace }} {{ .key }}={{ .value }}
+            {{- end }}
+            {{- end }}
+        restartPolicy: Never
+    backoffLimit: 3
+  {{- end }}
 {{- end }}
