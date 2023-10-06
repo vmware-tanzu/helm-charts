@@ -28,17 +28,21 @@ jobs:
       - name: Compare manifests
         run: |
           cd charts/velero
-          mkdir diff_workspace
-
-          echo "Filter non-required values"
-          for yaml_file in crds/*.yaml; do
-            yq -i 'del(.status)' "$yaml_file"
-          done
+          mkdir -p diff_workspace
 
           echo "Generate velero manifest file"
           velero install --crds-only --dry-run -o yaml | kubectl apply --dry-run=client -f - -o yaml > diff_workspace/velero_manifest.yaml
+
           echo "Generate crds manifest file"
           kubectl apply --dry-run=client -f crds/ -o yaml > diff_workspace/crds_manifest.yaml
+
+          echo "Filter non-required values"
+          for yaml_file in diff_workspace/*.yaml; do
+            yq -i '.items |= sort_by(.metadata.name)' "$yaml_file"
+            yq -i 'del(.items[].metadata.creationTimestamp)' "$yaml_file"
+            yq -i 'del(.items[].metadata.annotations."kubectl.kubernetes.io/last-applied-configuration")' "$yaml_file"
+            yq -i 'del(.status)' "$yaml_file"
+          done
 
           echo "Compare the two files using diff"
           difference=$(diff diff_workspace/velero_manifest.yaml diff_workspace/crds_manifest.yaml) || true
