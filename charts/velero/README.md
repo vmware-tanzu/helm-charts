@@ -90,6 +90,10 @@ helm upgrade vmware-tanzu/velero <RELEASE NAME> --reuse-values --set configurati
 
 ## Upgrading
 
+### Upgrading to 5.1.1
+
+This version removes the `nodeAgent.privileged` field, you should use `nodeAgent.containerSecurityContext.privileged` instead
+
 ### Upgrading to v1.13
 
 The [instructions found here](https://velero.io/docs/v1.13/upgrade-to-1.13/) will assist you in upgrading from version v1.12.x to v1.13.
