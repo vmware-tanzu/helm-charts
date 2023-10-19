@@ -51,6 +51,9 @@ fullnameOverride: ""
 annotations: {}
 # secret.reloader.stakater.com/reload: "<VELERO_SECRET_NAME>"
 
+# Annotations to add to secret
+secretAnnotations: {}
+
 # Labels to add to the Velero deployment's. Optional.
 labels: {}
 
