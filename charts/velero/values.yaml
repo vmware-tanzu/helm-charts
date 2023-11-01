@@ -81,6 +81,15 @@ resources:
     cpu: 1000m
     memory: 512Mi
 
+# Resource requests/limits to specify for the upgradeCRDs job pod.
+upgradeJobResources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 100m
+    memory: 128Mi
+
 # Configure the dnsPolicy of the Velero deployment
 # See: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy
 dnsPolicy: ClusterFirst
