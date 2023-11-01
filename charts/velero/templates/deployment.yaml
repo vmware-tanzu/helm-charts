@@ -155,7 +155,7 @@ spec:
             - --namespace={{ . }}
             {{- end }}
           {{- end }}
-          {{- with .Values.resources.server }}
+          {{- with .Values.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}

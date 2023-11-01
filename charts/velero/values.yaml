@@ -71,25 +71,24 @@ podLabels: {}
 # Number of old history to retain to allow rollback (If not set, default Kubernetes value is set to 10)
 # revisionHistoryLimit: 1
 
-# Resource requests/limits to specify for the Velero deployment and the upgrade CRDs job.
+# Resource requests/limits to specify for the Velero deployment.
 # https://velero.io/docs/v1.6/customize-installation/#customize-resource-requests-and-limits
 resources:
-# Resource requests for the Velero deployment
-  server:
-    requests:
-      cpu: 500m
-      memory: 128Mi
-    limits:
-      cpu: 1000m
-      memory: 512Mi
-# Resource requests for the upgrade CRDs job
-  upgradeJob:
-    requests:
-      cpu: 50m
-      memory: 64Mi
-    limits:
-      cpu: 100m
-      memory: 128Mi
+  requests:
+    cpu: 500m
+    memory: 128Mi
+  limits:
+    cpu: 1000m
+    memory: 512Mi
+
+# Resource requests/limits to specify for the upgradeCRDs job pod.
+upgradeJobResources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 100m
+    memory: 128Mi
 
 # Configure the dnsPolicy of the Velero deployment
 # See: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy
