@@ -147,6 +147,9 @@ spec:
             {{- with .terminatingResourceTimeout }}
             - --terminating-resource-timeout={{ . }}
             {{- end }}
+            {{- with .defaultSnapshotMoveData }}
+            - --default-snapshot-move-data={{ . }}
+            {{- end }}
             ### Global Flags
             {{- with .features }}
             - --features={{ . }}
