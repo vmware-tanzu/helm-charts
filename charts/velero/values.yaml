@@ -471,7 +471,7 @@ serviceAccount:
 credentials:
   # Whether a secret should be used. Set to false if, for examples:
   # - using kube2iam or kiam to provide AWS IAM credentials instead of providing the key file. (AWS only)
-  # - using workload identity instead of providing the key file. (GCP only)
+  # - using workload identity instead of providing the key file. (Azure/GCP only)
   useSecret: true
   # Name of the secret to create if `useSecret` is true and `existingSecret` is empty
   name:
@@ -497,6 +497,12 @@ credentials:
   # that will be used to load environment variables into velero and node-agent.
   # Secret should be in format - https://kubernetes.io/docs/concepts/configuration/secret/#use-case-as-container-environment-variables
   extraSecretRef: ""
+  # If true, the velero controller will be restarted if the secret has been changed.
+  restartOnChange: false
+  # Pass the secretContents and extraSecretRef configuration directives through Helm's templating engine.
+  # If the configuration contains {{, they'll need to be properly escaped so that they are not interpreted by Helm
+  # ref: https://helm.sh/docs/developing_charts/#using-the-tpl-function
+  tplConfig: false
 
 # Whether to create backupstoragelocation crd, if false => do not create a default backup location
 backupsEnabled: true
