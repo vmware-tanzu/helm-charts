@@ -499,10 +499,6 @@ credentials:
   extraSecretRef: ""
   # If true, the velero controller will be restarted if the secret has been changed.
   restartOnChange: false
-  # Pass the secretContents and extraSecretRef configuration directives through Helm's templating engine.
-  # If the configuration contains {{, they'll need to be properly escaped so that they are not interpreted by Helm
-  # ref: https://helm.sh/docs/developing_charts/#using-the-tpl-function
-  tplConfig: false
 
 # Whether to create backupstoragelocation crd, if false => do not create a default backup location
 backupsEnabled: true
