@@ -497,8 +497,6 @@ credentials:
   # that will be used to load environment variables into velero and node-agent.
   # Secret should be in format - https://kubernetes.io/docs/concepts/configuration/secret/#use-case-as-container-environment-variables
   extraSecretRef: ""
-  # If true, the velero controller will be restarted if the secret has been changed.
-  restartOnChange: false
 
 # Whether to create backupstoragelocation crd, if false => do not create a default backup location
 backupsEnabled: true

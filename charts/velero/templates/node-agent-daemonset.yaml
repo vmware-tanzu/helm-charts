@@ -33,7 +33,7 @@ spec:
       {{- if .Values.podLabels }}
         {{- toYaml .Values.podLabels | nindent 8 }}
       {{- end }}
-    {{- if or .Values.podAnnotations .Values.metrics.enabled (and .Values.credentials.useSecret (not .Values.credentials.existingSecret) .Values.credentials.restartOnChange) }}
+    {{- if or .Values.podAnnotations .Values.metrics.enabled (and .Values.credentials.useSecret (not .Values.credentials.existingSecret)) }}
       annotations:
       {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
@@ -43,8 +43,8 @@ spec:
           {{- toYaml . | nindent 8 }}
         {{- end }}
       {{- end }}
-      {{- if and .Values.credentials.useSecret (not .Values.credentials.existingSecret) .Values.credentials.restartOnChange }}
-        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+      {{- if and .Values.credentials.useSecret (not .Values.credentials.existingSecret) }}
+        checksum/secret: {{ template "chart.config-checksum" . }}
       {{- end }}
     {{- end }}
     spec:
