@@ -89,6 +89,14 @@ upgradeJobResources: {}
 #   limits:
 #     cpu: 100m
 #     memory: 256Mi
+upgradeCRDsJob:
+  # Extra volumes for the Upgrade CRDs Job. Optional.
+  extraVolumes: []
+  # Extra volumeMounts for the Upgrade CRDs Job. Optional.
+  extraVolumeMounts: []
+  # Extra key/value pairs to be used as environment variables. Optional.
+  extraEnvVars: {}
+
 
 # Configure the dnsPolicy of the Velero deployment
 # See: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy
