@@ -86,9 +86,24 @@ spec:
           volumeMounts:
             - mountPath: /tmp
               name: crds
+          {{- if (.Values.upgradeCRDsJob).extraVolumeMounts }}
+          {{- toYaml .Values.upgradeCRDsJob.extraVolumeMounts | nindent 12 }}
+          {{- end }}
+          {{- if (.Values.upgradeCRDsJob).extraEnvVars }}
+          env:
+          {{- with .Values.upgradeCRDsJob.extraEnvVars }}
+          {{- range $key, $value := . }}
+            - name: {{ default "none" $key }}
+              value: {{ default "none" $value | quote }}
+          {{- end }}
+          {{- end }}
+          {{- end }}
       volumes:
         - name: crds
           emptyDir: {}
+        {{- if (.Values.upgradeCRDsJob).extraVolumes }}
+        {{- toYaml .Values.upgradeCRDsJob.extraVolumes | nindent 8 }}
+        {{- end }}
       restartPolicy: OnFailure
       {{- with $podSecurityContext }}
       securityContext:
