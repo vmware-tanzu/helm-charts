@@ -86,3 +86,11 @@ For examples:
 {{- $minorVersion := .Capabilities.KubeVersion.Minor | regexFind "[0-9]+" -}}
 {{- printf "%s.%s" .Capabilities.KubeVersion.Major $minorVersion -}}
 {{- end -}}
+
+
+{{/*
+Calculate the checksum of the credentials secret.
+*/}}
+{{- define "chart.config-checksum" -}}
+{{- tpl (print .Values.credentials.secretContents .Values.credentials.extraEnvVars ) $ | sha256sum -}}
+{{- end -}}

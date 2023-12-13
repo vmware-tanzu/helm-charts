@@ -479,7 +479,7 @@ serviceAccount:
 credentials:
   # Whether a secret should be used. Set to false if, for examples:
   # - using kube2iam or kiam to provide AWS IAM credentials instead of providing the key file. (AWS only)
-  # - using workload identity instead of providing the key file. (GCP only)
+  # - using workload identity instead of providing the key file. (Azure/GCP only)
   useSecret: true
   # Name of the secret to create if `useSecret` is true and `existingSecret` is empty
   name:
