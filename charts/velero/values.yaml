@@ -88,7 +88,7 @@ upgradeJobResources: {}
 #     memory: 128Mi
 #   limits:
 #     cpu: 100m
-#     memory: 256Mi
+#     memory: 512Mi
 upgradeCRDsJob:
   # Extra volumes for the Upgrade CRDs Job. Optional.
   extraVolumes: []
