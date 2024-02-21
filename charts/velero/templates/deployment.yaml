@@ -108,6 +108,9 @@ spec:
             {{- with .defaultBackupTTL }}
             - --default-backup-ttl={{ . }}
             {{- end }}
+            {{- with .defaultItemOperationTimeout }}
+            - --default-item-operation-timeout={{ . }}
+            {{- end }}
             {{- with .defaultVolumeSnapshotLocations }}
             - --default-volume-snapshot-locations={{ . }}
             {{- end }}
