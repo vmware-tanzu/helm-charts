@@ -86,7 +86,7 @@ spec:
             - server
             ### Flags
           {{- with .Values.configuration }}
-            - --uploader-type={{ default "restic" .uploaderType }}
+            - --uploader-type={{ default "kopia" .uploaderType }}
             {{- with .backupSyncPeriod }}
             - --backup-sync-period={{ . }}
             {{- end }}
