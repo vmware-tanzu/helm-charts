@@ -391,7 +391,7 @@ configuration:
   # here if using a non-default value. The `velero server` default values are shown in the
   # comments below.
   # --------------------
-  # `velero server` default: restic
+  # `velero server` default: kopia
   uploaderType:
   # `velero server` default: 1m
   backupSyncPeriod:
