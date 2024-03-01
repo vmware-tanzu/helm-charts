@@ -87,8 +87,13 @@ If a value needs to be added or changed, you may do so with the `upgrade` comman
 ```bash
 helm upgrade vmware-tanzu/velero <RELEASE NAME> --reuse-values --set configuration.backupStorageLocation[0].provider=<NEW PROVIDER>
 ```
+## Upgrading Chart
 
-## Upgrading
+### Upgrading to 6.0.0
+
+This version removes the `nodeAgent.privileged` field, you should use `nodeAgent.containerSecurityContext.privileged` instead
+
+## Upgrading Velero
 
 ### Upgrading to v1.13
 

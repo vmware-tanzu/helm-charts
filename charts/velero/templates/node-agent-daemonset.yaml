@@ -175,7 +175,6 @@ spec:
           lifecycle: {{ toYaml .Values.nodeAgent.lifecycle | nindent 12 }}
           {{- end }}
           securityContext:
-            privileged: {{ .Values.nodeAgent.privileged }}
             {{- with $containerSecurityContext }}
               {{- toYaml . | nindent 12 }}
             {{- end }}
