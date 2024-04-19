@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - velero-helm-charts-v*
 
 permissions:
   contents: write
