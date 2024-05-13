@@ -123,6 +123,9 @@ spec:
             {{- with .disableControllers }}
             - --disable-controllers={{ . }}
             {{- end }}
+            {{- with .disableInformerCache }}
+            - --disable-informer-cache={{ . }}
+            {{- end }}
             {{- with .garbageCollectionFrequency }}
             - --garbage-collection-frequency={{ . }}
             {{- end }}
@@ -162,6 +165,10 @@ spec:
             {{- end }}
             {{- with .namespace }}
             - --namespace={{ . }}
+            {{- end }}
+            {{- with .extraArgs }}
+            ### User-supplied overwrite flags
+            {{- toYaml . | nindent 12 }}
             {{- end }}
           {{- end }}
           {{- with .Values.resources }}
