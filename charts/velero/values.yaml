@@ -413,6 +413,8 @@ configuration:
   defaultVolumeSnapshotLocations:
   # `velero server` default: empty
   disableControllers:
+  # `velero server` default: false
+  disableInformerCache: false
   # `velero server` default: 1h
   garbageCollectionFrequency:
   # Set log-format for Velero pod. Default: text. Other option: json.
@@ -440,6 +442,9 @@ configuration:
   features:
   # `velero server` default: velero
   namespace:
+  # additional command-line arguments that will be passed to the `velero server`
+  # e.g.: extraArgs: ["--foo=bar"]
+  extraArgs: []
 
   # additional key/value pairs to be used as environment variables such as "AWS_CLUSTER_NAME: 'yourcluster.domain.tld'"
   extraEnvVars: {}
