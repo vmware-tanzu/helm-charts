@@ -18,6 +18,9 @@ metadata:
       {{- toYaml $schedule.labels | nindent 4 }}
     {{- end }}
 spec:
+{{- if $schedule.paused }}
+  paused: {{ $schedule.paused }}
+{{- end }}
 {{- if $schedule.useOwnerReferencesInBackup }}
   useOwnerReferencesInBackup: {{ $schedule.useOwnerReferencesInBackup }}
 {{- end }}
