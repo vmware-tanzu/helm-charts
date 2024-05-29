@@ -362,6 +362,9 @@ configuration:
     #  flag. For Velero client Command like velero backup describe, velero backup logs needs to add the flag --insecure-skip-tls-verify
     #  insecureSkipTLSVerify:
 
+    # annotations allows adding arbitrary annotations to this BackupStorageLocation resource. Optional.
+    annotations: {}
+
   # Parameters for the VolumeSnapshotLocation(s). Configure multiple by adding other element(s) to the volumeSnapshotLocation slice.
   # See https://velero.io/docs/v1.6/api-types/volumesnapshotlocation/
   volumeSnapshotLocation:
@@ -385,6 +388,9 @@ configuration:
   #    incremental:
   #    snapshotLocation:
   #    project:
+
+    # annotations allows adding arbitrary annotations to this VolumeSnapshotLocation resource. Optional.
+    annotations: {}
 
   # These are server-level settings passed as CLI flags to the `velero server` command. Velero
   # uses default values if they're not passed in, so they only need to be explicitly specified
