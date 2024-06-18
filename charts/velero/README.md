@@ -22,6 +22,10 @@ This helm chart installs Velero version v1.13 https://velero.io/docs/v1.13/. See
 
 When installing using the Helm chart, the provider's credential information will need to be appended into your values. The easiest way to do this is with the `--set-file` argument, available in Helm 2.10 and higher. See your cloud provider's documentation for the contents and creation of the `credentials-velero` file.
 
+### Azure resources
+
+When using the Azure plug-in, requests and limits must be set. See https://github.com/vmware-tanzu/velero/issues/3234 and https://github.com/vmware-tanzu/helm-charts/issues/469 for details.
+
 ### Installing
 
 The default configuration values for this chart are listed in values.yaml.
