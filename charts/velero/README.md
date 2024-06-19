@@ -95,6 +95,10 @@ helm upgrade vmware-tanzu/velero <RELEASE NAME> --reuse-values --set configurati
 
 ### Upgrading to 7.0.0
 
+### Upgrading to 6.0.0
+
+This version removes the `nodeAgent.privileged` field, you should use `nodeAgent.containerSecurityContext.privileged` instead
+
 ## Upgrading Velero
 
 ### Upgrading to v1.14
