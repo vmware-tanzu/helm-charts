@@ -95,6 +95,9 @@ helm upgrade vmware-tanzu/velero <RELEASE NAME> --reuse-values --set configurati
 
 ### Upgrading to 7.0.0
 
+Delete the CSI plugin. Because the Velero CSI plugin is already merged into the Velero, need to remove the existing CSI plugin InitContainer. Otherwise, the Velero server plugin would fail to start due to same plugin registered twice.
+CSI plugin has been merged into velero repo in v1.14 release. It will be installed by default as an internal plugin.
+
 ### Upgrading to 6.0.0
 
 This version removes the `nodeAgent.privileged` field, you should use `nodeAgent.containerSecurityContext.privileged` instead
