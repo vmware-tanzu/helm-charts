@@ -16,7 +16,7 @@ Kubernetes v1.16+, because this helm chart uses CustomResourceDefinition `apiext
 
 ### Velero version
 
-This helm chart installs Velero version v1.13 https://velero.io/docs/v1.13/. See the [#Upgrading](#upgrading) section for information on how to upgrade from other versions.
+This helm chart installs Velero version v1.14 https://velero.io/docs/v1.14/. See the [#Upgrading](#upgrading) section for information on how to upgrade from other versions.
 
 ### Provider credentials
 
@@ -93,11 +93,20 @@ helm upgrade vmware-tanzu/velero <RELEASE NAME> --reuse-values --set configurati
 ```
 ## Upgrading Chart
 
+### Upgrading to 7.0.0
+
+Delete the CSI plugin. Because the Velero CSI plugin is already merged into the Velero, need to remove the existing CSI plugin InitContainer. Otherwise, the Velero server plugin would fail to start due to same plugin registered twice.
+CSI plugin has been merged into velero repo in v1.14 release. It will be installed by default as an internal plugin.
+
 ### Upgrading to 6.0.0
 
 This version removes the `nodeAgent.privileged` field, you should use `nodeAgent.containerSecurityContext.privileged` instead
 
 ## Upgrading Velero
+
+### Upgrading to v1.14
+
+The [instructions found here](https://velero.io/docs/v1.14/upgrade-to-1.14/) will assist you in upgrading from version v1.13.x to v1.14.
 
 ### Upgrading to v1.13
 
