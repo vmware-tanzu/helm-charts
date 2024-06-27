@@ -109,6 +109,9 @@ spec:
             - --log-format={{ . }}
             {{- end }}
           {{- end }}
+          {{- with .Values.nodeAgent.extraArgs }}
+          {{- toYaml . | nindent 12 }}
+          {{- end }}
           volumeMounts:
             {{- if .Values.credentials.useSecret }}
             - name: cloud-credentials
