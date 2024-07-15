@@ -68,7 +68,7 @@ Create the Velero priority class name.
 Create the name of the node agent.
 */}}
 {{- define "velero.nodeAgent" -}}
-  {{ default (printf "%s-%s" (include "velero.fullname" .) "node-agent") .Values.serviceAccount.server.name }}
+  {{ printf "%s-%s" (include "velero.fullname" .) "node-agent" }}
 {{- end -}}
 
 {{/*
