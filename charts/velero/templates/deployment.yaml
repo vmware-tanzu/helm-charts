@@ -166,6 +166,14 @@ spec:
             {{- with .namespace }}
             - --namespace={{ . }}
             {{- end }}
+            {{- with .repositoryMaintenanceJob.requests }}
+            - --maintenance-job-cpu-request={{ .cpu }}
+            - --maintenance-job-mem-request={{ .memory }}
+            {{- end }}
+            {{- with .repositoryMaintenanceJob.limits }}
+            - --maintenance-job-cpu-limit={{ .cpu }}
+            - --maintenance-job-mem-limit={{ .memory }}
+            {{- end }}
             {{- with .extraArgs }}
             ### User-supplied overwrite flags
             {{- toYaml . | nindent 12 }}

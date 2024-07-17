@@ -440,6 +440,15 @@ configuration:
   # Comma separated list of velero feature flags. default: empty
   # features: EnableCSI
   features:
+  # Resource requests/limits to specify for the repository-maintenance job. Optional.
+  # https://velero.io/docs/v1.14/repository-maintenance/#resource-limitation
+  repositoryMaintenanceJob:
+    requests:
+    #   cpu: 500m
+    #   memory: 512Mi
+    limits:
+    #   cpu: 1000m
+    #   memory: 1024Mi
   # `velero server` default: velero
   namespace:
   # additional command-line arguments that will be passed to the `velero server`
