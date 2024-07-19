@@ -183,6 +183,7 @@ spec:
             - --maintenance-job-mem-limit={{ . }}
             {{- end }}
             {{- end }}
+            - --keep-latest-maintenance-jobs={{ .keepLatestJobsCount }}
             {{- end }}
             {{- with .extraArgs }}
             ### User-supplied overwrite flags

@@ -449,6 +449,7 @@ configuration:
     limits:
     #   cpu: 1000m
     #   memory: 1024Mi
+    keepLatestJobsCount: 3
   # `velero server` default: velero
   namespace:
   # additional command-line arguments that will be passed to the `velero server`
