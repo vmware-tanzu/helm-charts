@@ -449,6 +449,7 @@ configuration:
     limits:
     #   cpu: 1000m
     #   memory: 1024Mi
+    # Number of latest maintenance jobs to keep for each repository
     keepLatestJobsCount: 3
   # `velero server` default: velero
   namespace:
