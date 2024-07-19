@@ -450,7 +450,7 @@ configuration:
     #   cpu: 1000m
     #   memory: 1024Mi
     # Number of latest maintenance jobs to keep for each repository
-    keepLatestJobsCount: 3
+    latestJobsCount: 3
   # `velero server` default: velero
   namespace:
   # additional command-line arguments that will be passed to the `velero server`
