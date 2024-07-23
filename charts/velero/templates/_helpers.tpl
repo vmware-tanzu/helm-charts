@@ -65,6 +65,13 @@ Create the Velero priority class name.
 {{- end -}}
 
 {{/*
+Create the name of the node agent.
+*/}}
+{{- define "velero.nodeAgent" -}}
+  {{ printf "%s-%s" (include "velero.fullname" .) "node-agent" }}
+{{- end -}}
+
+{{/*
 Create the node-Agent priority class name.
 */}}
 {{- define "velero.nodeAgent.priorityClassName" -}}
