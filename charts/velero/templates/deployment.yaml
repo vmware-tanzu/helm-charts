@@ -169,10 +169,10 @@ spec:
             {{- with .repositoryMaintenanceJob }}
             {{- with .requests }}
             {{- with .cpu }}
-            - --maintenance-job-cpu-request={{ .cpu }}
+            - --maintenance-job-cpu-request={{ . }}
             {{- end }}
             {{- with .memory }}
-            - --maintenance-job-mem-request={{ .memory }}
+            - --maintenance-job-mem-request={{ . }}
             {{- end }}
             {{- end }}
             {{- with .limits }}
