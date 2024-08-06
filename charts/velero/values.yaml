@@ -619,6 +619,11 @@ nodeAgent:
 #       storageLocation: default
 #       includedNamespaces:
 #       - foo
+#       # See: https://velero.io/docs/v1.14/resource-filtering/#excludes
+#       excludedNamespaceScopedResources:
+#       - persistentVolumeClaims
+#       excludedClusterScopedResources:
+#       - persistentVolumes
 schedules: {}
 
 # Velero ConfigMaps.
