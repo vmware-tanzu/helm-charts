@@ -5,8 +5,8 @@ kind: Schedule
 metadata:
   name: {{ include "velero.fullname" $ }}-{{ $scheduleName }}
   namespace: {{ $.Release.Namespace }}
-  annotations:
   {{- if $schedule.annotations }}
+  annotations:
     {{- toYaml $schedule.annotations | nindent 4 }}
   {{- end }}
   labels:
