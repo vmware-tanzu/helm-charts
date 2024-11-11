@@ -16,7 +16,7 @@ Kubernetes v1.16+, because this helm chart uses CustomResourceDefinition `apiext
 
 ### Velero version
 
-This helm chart installs Velero version v1.14 https://velero.io/docs/v1.14/. See the [#Upgrading](#upgrading) section for information on how to upgrade from other versions.
+This helm chart installs Velero version v1.15 https://velero.io/docs/v1.15/. See the [#Upgrading](#upgrading) section for information on how to upgrade from other versions.
 
 ### Provider credentials
 
@@ -103,6 +103,10 @@ CSI plugin has been merged into velero repo in v1.14 release. It will be install
 This version removes the `nodeAgent.privileged` field, you should use `nodeAgent.containerSecurityContext.privileged` instead
 
 ## Upgrading Velero
+
+### Upgrading to v1.15
+
+The [instructions found here](https://velero.io/docs/v1.15/upgrade-to-1.15/) will assist you in upgrading from version v1.14.x to v1.15.
 
 ### Upgrading to v1.14
 
