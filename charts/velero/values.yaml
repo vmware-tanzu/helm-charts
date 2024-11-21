@@ -602,6 +602,9 @@ nodeAgent:
   # DNS configuration to use for the node-agent daemonset. Optional.
   dnsConfig: {}
 
+  # Update strategy to use for the node-agent daemonset. Optional.
+  updateStrategy: {}
+
 # Backup schedules to create.
 # Eg:
 # schedules:
