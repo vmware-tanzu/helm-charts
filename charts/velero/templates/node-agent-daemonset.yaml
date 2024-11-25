@@ -201,4 +201,8 @@ spec:
     dnsConfig:
       {{- toYaml . | nindent 8 }}
     {{- end }}
+  {{- with .Values.nodeAgent.updateStrategy }}
+  updateStrategy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 {{- end }}
