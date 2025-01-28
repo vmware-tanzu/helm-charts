@@ -6,10 +6,6 @@ kind: DaemonSet
 metadata:
   name: node-agent
   namespace: {{ .Release.Namespace }}
-  {{- with .Values.nodeAgent.annotations }}
-  annotations:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
   labels:
     app.kubernetes.io/name: {{ include "velero.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
@@ -33,9 +29,9 @@ spec:
       {{- if .Values.podLabels }}
         {{- toYaml .Values.podLabels | nindent 8 }}
       {{- end }}
-    {{- if or .Values.podAnnotations .Values.metrics.enabled (and .Values.credentials.useSecret (not .Values.credentials.existingSecret)) }}
+    {{- if or .Values.nodeAgent.annotations .Values.metrics.enabled (and .Values.credentials.useSecret (not .Values.credentials.existingSecret)) }}
       annotations:
-      {{- with .Values.podAnnotations }}
+      {{- with .Values.nodeAgent.annotations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- if and (.Values.metrics.enabled) (not .Values.metrics.nodeAgentPodMonitor.enabled) }}
