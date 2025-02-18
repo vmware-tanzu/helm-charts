@@ -27,7 +27,7 @@ spec:
       app.kubernetes.io/name: {{ include "velero.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
       name: node-agent
-    {{- with .Values.nodeAgent.labels }}
+    {{- with .Values.nodeAgent.podLabels }}
       {{- toYaml . | nindent 6 }}
     {{- end }}
   podMetricsEndpoints:
