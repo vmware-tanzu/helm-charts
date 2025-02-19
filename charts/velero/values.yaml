@@ -557,6 +557,10 @@ nodeAgent:
   # labels to set for the node-agent daemonset. Optional.
   labels: {}
 
+  # Additional pod labels for the node-agent daemonset. Optional
+  # ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+  podLabels: {}
+
   # will map /scratch to emptyDir. Set to false and specify your own volume
   # via extraVolumes and extraVolumeMounts that maps to /scratch
   # if you don't want to use emptyDir.

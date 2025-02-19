@@ -30,8 +30,8 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
         app.kubernetes.io/managed-by: {{ .Release.Service }}
         helm.sh/chart: {{ include "velero.chart" . }}
-      {{- if .Values.podLabels }}
-        {{- toYaml .Values.podLabels | nindent 8 }}
+      {{- if .Values.nodeAgent.podLabels }}
+        {{- toYaml .Values.nodeAgent.podLabels | nindent 8 }}
       {{- end }}
     {{- if or .Values.podAnnotations .Values.metrics.enabled (and .Values.credentials.useSecret (not .Values.credentials.existingSecret)) }}
       annotations:
