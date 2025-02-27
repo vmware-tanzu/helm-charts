@@ -536,6 +536,7 @@ deployNodeAgent: false
 
 nodeAgent:
   podVolumePath: /var/lib/kubelet/pods
+  pluginVolumePath: /var/lib/kubelet/plugins
   # Pod priority class name to use for the node-agent daemonset. Optional.
   priorityClassName: ""
   # Resource requests/limits to specify for the node-agent daemonset deployment. Optional.
