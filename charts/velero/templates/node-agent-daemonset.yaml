@@ -72,6 +72,9 @@ spec:
         - name: host-pods
           hostPath:
             path: {{ .Values.nodeAgent.podVolumePath }}
+        - name: host-plugins
+          hostPath:
+            path: {{ .Values.nodeAgent.pluginVolumePath | default "/var/lib/kubelet/plugins" }}
         {{- if .Values.nodeAgent.useScratchEmptyDir }}
         - name: scratch
           emptyDir: {}
@@ -119,6 +122,9 @@ spec:
             {{- end }}
             - name: host-pods
               mountPath: /host_pods
+              mountPropagation: HostToContainer
+            - name: host-plugins
+              mountPath: /host_plugins
               mountPropagation: HostToContainer
             {{- if .Values.nodeAgent.useScratchEmptyDir }}
             - name: scratch
