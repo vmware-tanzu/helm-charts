@@ -621,6 +621,7 @@ nodeAgent:
 #     schedule: "0 0 * * *"
 #     useOwnerReferencesInBackup: false
 #     paused: false
+#     skipImmediately: false
 #     template:
 #       ttl: "240h"
 #       storageLocation: default
