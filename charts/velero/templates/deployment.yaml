@@ -68,6 +68,9 @@ spec:
       {{- if .Values.priorityClassName }}
       priorityClassName: {{ include "velero.priorityClassName" . }}
       {{- end }}
+      {{- if .Values.runtimeClassName }}
+      runtimeClassName: {{ include "velero.runtimeClassName" . }}
+      {{- end }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       containers:
         - name: velero

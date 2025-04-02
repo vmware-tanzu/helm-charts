@@ -133,6 +133,9 @@ lifecycle: {}
 # Pod priority class name to use for the Velero deployment. Optional.
 priorityClassName: ""
 
+# Pod runtime class name to use for the Velero deployment. Optional.
+runtimeClassName: ""
+
 # The number of seconds to allow for graceful termination of the pod. Optional.
 terminationGracePeriodSeconds: 3600
 
