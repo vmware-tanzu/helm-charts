@@ -2,10 +2,11 @@
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.16.5
+  creationTimestamp: null
   labels:
     component: velero
-  annotations:
-    controller-gen.kubebuilder.io/version: v0.14.0
   name: datauploads.velero.io
 spec:
   group: velero.io
@@ -35,8 +36,8 @@ spec:
       jsonPath: .status.progress.totalBytes
       name: Total Bytes
       type: integer
-    - description: Name of the Backup Storage Location where this backup should be
-        stored
+    - description: Name of the Backup Storage Location where this backup should
+        be stored
       jsonPath: .spec.backupStorageLocation
       name: Storage Location
       type: string
@@ -51,8 +52,8 @@ spec:
     name: v2alpha1
     schema:
       openAPIV3Schema:
-        description: DataUpload acts as the protocol between data mover plugins and
-          data mover controller for the datamover backup operation
+        description: DataUpload acts as the protocol between data mover plugins
+          and data mover controller for the datamover backup operation
         properties:
           apiVersion:
             description: |-
@@ -90,8 +91,8 @@ spec:
                 nullable: true
                 properties:
                   snapshotClass:
-                    description: SnapshotClass is the name of the snapshot class that
-                      the volume snapshot is created with
+                    description: SnapshotClass is the name of the snapshot class
+                      that the volume snapshot is created with
                     type: string
                   storageClass:
                     description: StorageClass is the name of the storage class of
@@ -132,8 +133,8 @@ spec:
                   It is the same namespace for SourcePVC and CSI namespaced objects.
                 type: string
               sourcePVC:
-                description: SourcePVC is the name of the PVC which the snapshot is
-                  taken for.
+                description: SourcePVC is the name of the PVC which the snapshot
+                  is taken for.
                 type: string
             required:
             - backupStorageLocation
@@ -145,6 +146,17 @@ spec:
           status:
             description: DataUploadStatus is the current status of a DataUpload.
             properties:
+              acceptedByNode:
+                description: AcceptedByNode is name of the node where the DataUpload
+                  is prepared.
+                type: string
+              acceptedTimestamp:
+                description: |-
+                  AcceptedTimestamp records the time the DataUpload is to be prepared.
+                  The server's time is used for AcceptedTimestamp
+                format: date-time
+                nullable: true
+                type: string
               completionTimestamp:
                 description: |-
                   CompletionTimestamp records the time a backup was completed.
@@ -167,9 +179,16 @@ spec:
               node:
                 description: Node is name of the node where the DataUpload is processed.
                 type: string
+              nodeOS:
+                description: NodeOS is OS of the node where the DataUpload is processed.
+                enum:
+                - auto
+                - linux
+                - windows
+                type: string
               path:
-                description: Path is the full path of the snapshot volume being backed
-                  up.
+                description: Path is the full path of the snapshot volume being
+                  backed up.
                 type: string
               phase:
                 description: Phase is the current state of the DataUpload.

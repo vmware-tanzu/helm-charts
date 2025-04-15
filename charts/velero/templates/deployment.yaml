@@ -134,6 +134,9 @@ spec:
             {{- with .garbageCollectionFrequency }}
             - --garbage-collection-frequency={{ . }}
             {{- end }}
+            {{- with .itemBlockWorkerCount }}
+            - --item-block-worker-count={{ . }}
+            {{- end }}
             {{- with .logFormat }}
             - --log-format={{ . }}
             {{- end }}
