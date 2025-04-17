@@ -2,10 +2,11 @@
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.16.5
+  creationTimestamp: null
   labels:
     component: velero
-  annotations:
-    controller-gen.kubebuilder.io/version: v0.14.0
   name: podvolumebackups.velero.io
 spec:
   group: velero.io
@@ -41,8 +42,8 @@ spec:
       jsonPath: .spec.uploaderType
       name: Uploader Type
       type: string
-    - description: Name of the Backup Storage Location where this backup should be
-        stored
+    - description: Name of the Backup Storage Location where this backup should
+        be stored
       jsonPath: .spec.backupStorageLocation
       name: Storage Location
       type: string
@@ -83,8 +84,8 @@ spec:
                   on.
                 type: string
               pod:
-                description: Pod is a reference to the pod containing the volume to
-                  be backed up.
+                description: Pod is a reference to the pod containing the volume
+                  to be backed up.
                 properties:
                   apiVersion:
                     description: API version of the referent.
@@ -98,7 +99,6 @@ spec:
                       the event) or if no container name is specified "spec.containers[2]" (container with
                       index 2 in this pod). This syntax is chosen only to have some well-defined way of
                       referencing a part of an object.
-                      TODO: this design is not final and this field is subject to change in the future.
                     type: string
                   kind:
                     description: |-
@@ -146,8 +146,8 @@ spec:
                 nullable: true
                 type: object
               uploaderType:
-                description: UploaderType is the type of the uploader to handle the
-                  data transfer.
+                description: UploaderType is the type of the uploader to handle
+                  the data transfer.
                 enum:
                 - kopia
                 - restic
@@ -178,7 +178,8 @@ spec:
                 nullable: true
                 type: string
               message:
-                description: Message is a message about the pod volume backup's status.
+                description: Message is a message about the pod volume backup's
+                  status.
                 type: string
               path:
                 description: Path is the full path within the controller pod being

@@ -2,10 +2,11 @@
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.16.5
+  creationTimestamp: null
   labels:
     component: velero
-  annotations:
-    controller-gen.kubebuilder.io/version: v0.14.0
   name: backupstoragelocations.velero.io
 spec:
   group: velero.io
@@ -23,8 +24,8 @@ spec:
       jsonPath: .status.phase
       name: Phase
       type: string
-    - description: LastValidationTime is the last time the backup store location was
-        validated
+    - description: LastValidationTime is the last time the backup store location
+        was validated
       jsonPath: .status.lastValidationTime
       name: Last Validated
       type: date
@@ -59,8 +60,8 @@ spec:
           metadata:
             type: object
           spec:
-            description: BackupStorageLocationSpec defines the desired state of a
-              Velero BackupStorageLocation
+            description: BackupStorageLocationSpec defines the desired state of
+              a Velero BackupStorageLocation
             properties:
               accessMode:
                 description: AccessMode defines the permissions for the backup storage
@@ -84,14 +85,17 @@ spec:
                   to be used with this location
                 properties:
                   key:
-                    description: The key of the secret to select from.  Must be a
-                      valid secret key.
+                    description: The key of the secret to select from.  Must be
+                      a valid secret key.
                     type: string
                   name:
+                    default: ""
                     description: |-
                       Name of the referent.
+                      This field is effectively required, but due to backwards compatibility is
+                      allowed to be empty. Instances of this type with an empty value here are
+                      almost certainly wrong.
                       More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-                      TODO: Add other useful fields. apiVersion, kind, uid?
                     type: string
                   optional:
                     description: Specify whether the Secret or its key must be defined
@@ -136,13 +140,12 @@ spec:
             - provider
             type: object
           status:
-            description: BackupStorageLocationStatus defines the observed state of
-              BackupStorageLocation
+            description: BackupStorageLocationStatus defines the observed state
+              of BackupStorageLocation
             properties:
               accessMode:
                 description: |-
                   AccessMode is an unused field.
-
 
                   Deprecated: there is now an AccessMode field on the Spec and this field
                   will be removed entirely as of v2.0.
@@ -154,7 +157,6 @@ spec:
                 description: |-
                   LastSyncedRevision is the value of the `metadata/revision` file in the backup
                   storage location the last time the BSL's contents were synced into the cluster.
-
 
                   Deprecated: this field is no longer updated or used for detecting changes to
                   the location's contents and will be removed entirely in v2.0.
