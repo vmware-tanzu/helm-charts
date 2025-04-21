@@ -87,6 +87,17 @@ Create the node-Agent priority class name.
 {{- end -}}
 
 {{/*
+Create the node-Agent runtime class name.
+*/}}
+{{- define "velero.nodeAgent.runtimeClassName" -}}
+{{- if .Values.nodeAgent.runtimeClassName -}}
+  {{- .Values.nodeAgent.runtimeClassName -}}
+{{- else -}}
+  {{- include "velero.fullname" . -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Kubernetes version
 Built-in object .Capabilities.KubeVersion.Minor can provide non-number output
 For examples:

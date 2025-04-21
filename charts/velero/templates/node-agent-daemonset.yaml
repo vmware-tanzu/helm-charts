@@ -63,6 +63,9 @@ spec:
       {{- if .Values.nodeAgent.priorityClassName }}
       priorityClassName: {{ include "velero.nodeAgent.priorityClassName" . }}
       {{- end }}
+      {{- if .Values.runtimeClassName }}
+      runtimeClassName: {{ include "velero.nodeAgent.runtimeClassName" . }}
+      {{- end }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       volumes:
         {{- if .Values.credentials.useSecret }}

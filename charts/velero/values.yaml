@@ -544,6 +544,8 @@ nodeAgent:
   pluginVolumePath: /var/lib/kubelet/plugins
   # Pod priority class name to use for the node-agent daemonset. Optional.
   priorityClassName: ""
+  # Pod runtime class name to use for the node-agent daemonset. Optional.
+  runtimeClassName: ""
   # Resource requests/limits to specify for the node-agent daemonset deployment. Optional.
   # https://velero.io/docs/v1.6/customize-installation/#customize-resource-requests-and-limits
   resources: {}
