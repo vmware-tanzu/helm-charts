@@ -26,6 +26,7 @@ spec:
     metadata:
       labels:
         name: node-agent
+        role: node-agent
         app.kubernetes.io/name: {{ include "velero.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
         app.kubernetes.io/managed-by: {{ .Release.Service }}
