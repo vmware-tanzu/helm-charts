@@ -39,6 +39,7 @@ spec:
       {{- end }}
     {{- end }}
       serviceAccountName: {{ include "velero.serverServiceAccount" . }}-upgrade-crds
+      automountServiceAccountToken: {{ .Values.upgradeCRDsJob.automountServiceAccountToken }}
       initContainers:
         - name: kubectl
           {{- if .Values.kubectl.image.digest }}

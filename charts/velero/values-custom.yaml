@@ -1,0 +1,108 @@
+namespace:
+  labels:
+    - key: app
+      value: velero
+
+serviceAccount:
+  server:
+    automountServiceAccountToken: false
+extraVolumes:
+  - name: service-account-token
+    projected:
+      defaultMode: 0444
+      sources:
+        - serviceAccountToken:
+            expirationSeconds: 3600
+            path: token
+        - configMap:
+            name: kube-root-ca.crt
+            items:
+              - key: ca.crt
+                path: ca.crt
+        - downwardAPI:
+            items:
+              - path: namespace
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+extraVolumeMounts:
+  - name: service-account-token
+    mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+    readOnly: true
+
+upgradeCRDsJob:
+  automountServiceAccountToken: false
+  extraVolumes:
+    - name: service-account-token
+      projected:
+        defaultMode: 0444
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3600
+              path: token
+          - configMap:
+              name: kube-root-ca.crt
+              items:
+                - key: ca.crt
+                  path: ca.crt
+          - downwardAPI:
+              items:
+                - path: namespace
+                  fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+  extraVolumeMounts:
+    - name: service-account-token
+      mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      readOnly: true
+
+kubectl:
+  extraVolumes:
+    - name: service-account-token
+      projected:
+        defaultMode: 0444
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3600
+              path: token
+          - configMap:
+              name: kube-root-ca.crt
+              items:
+                - key: ca.crt
+                  path: ca.crt
+          - downwardAPI:
+              items:
+                - path: namespace
+                  fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+  extraVolumeMounts:
+    - name: service-account-token
+      mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      readOnly: true
+
+deployNodeAgent: true
+nodeAgent:
+  extraVolumes:
+    - name: service-account-token
+      projected:
+        defaultMode: 0444
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3600
+              path: token
+          - configMap:
+              name: kube-root-ca.crt
+              items:
+                - key: ca.crt
+                  path: ca.crt
+          - downwardAPI:
+              items:
+                - path: namespace
+                  fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+  extraVolumeMounts:
+    - name: service-account-token
+      mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      readOnly: true

@@ -17,6 +17,7 @@ spec:
   template:
     spec:
       serviceAccountName: {{ include "velero.serverServiceAccount" . }}
+      automountServiceAccountToken: {{ .Values.serviceAccount.server.automountServiceAccountToken }}
       containers:
       - name: label-namespace
         {{- if .Values.kubectl.image.digest }}
@@ -33,7 +34,15 @@ spec:
           {{- range .Values.namespace.labels }}
           kubectl label namespace {{ $.Release.Namespace }} {{ .key }}={{ .value }}
           {{- end }}
+        {{- if .Values.kubectl.extraVolumeMounts }}
+        volumeMounts:
+        {{- toYaml .Values.kubectl.extraVolumeMounts | nindent 8 }}
+        {{- end }}
       restartPolicy: Never
+      {{- if .Values.kubectl.extraVolumes }}
+      volumes:
+      {{- toYaml .Values.kubectl.extraVolumes | nindent 6 }}
+      {{- end }}
   backoffLimit: 3
 {{- end }}
 {{- end }}
