@@ -96,7 +96,8 @@ upgradeCRDsJob:
   extraVolumeMounts: []
   # Extra key/value pairs to be used as environment variables. Optional.
   extraEnvVars: {}
-
+  # Configure if API credential for Service Account is automounted.
+  automountServiceAccountToken: true
 
 # Configure the dnsPolicy of the Velero deployment
 # See: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy
@@ -296,6 +297,10 @@ kubectl:
   annotations: {}
   # Labels to set for the upgrade/cleanup job. Optional.
   labels: {}
+  # Extra volumes for the upgrade/cleanup job. Optional.
+  extraVolumes: []
+  # Extra volumeMounts for the upgrade/cleanup job.. Optional.
+  extraVolumeMounts: []
 
 # This job upgrades the CRDs.
 upgradeCRDs: true
@@ -497,6 +502,8 @@ serviceAccount:
     labels:
     imagePullSecrets: []
     # - registrySecretName
+    # Configure if API credential for Service Account is automounted.
+    automountServiceAccountToken: true
 
 # Info about the secret to be used by the Velero deployment, which
 # should contain credentials for the cloud provider IAM account you've
