@@ -98,6 +98,9 @@ upgradeCRDsJob:
   extraEnvVars: {}
   # Configure if API credential for Service Account is automounted.
   automountServiceAccountToken: true
+  # Configure the shell cmd in case you are using custom image
+  # shellCmd: /tmp/sh
+  # updateCmd: /velero install --crds-only --dry-run -o yaml | /tmp/kubectl apply -f -
 
 # Configure the dnsPolicy of the Velero deployment
 # See: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy
