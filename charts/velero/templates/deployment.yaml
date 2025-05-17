@@ -259,10 +259,7 @@ spec:
               value: /credentials/cloud
           {{- end }}
           {{- with .Values.configuration.extraEnvVars }}
-          {{- range $key, $value := . }}
-            - name: {{ default "none" $key }}
-              value: {{ tpl (default "none" $value) $ | quote }}
-          {{- end }}
+          {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- with .Values.credentials.extraEnvVars }}
           {{- range $key, $value := . }}

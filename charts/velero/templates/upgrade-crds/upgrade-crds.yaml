@@ -96,10 +96,7 @@ spec:
           {{- if (.Values.upgradeCRDsJob).extraEnvVars }}
           env:
           {{- with .Values.upgradeCRDsJob.extraEnvVars }}
-          {{- range $key, $value := . }}
-            - name: {{ default "none" $key }}
-              value: {{ default "none" $value | quote }}
-          {{- end }}
+          {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- end }}
       volumes:
