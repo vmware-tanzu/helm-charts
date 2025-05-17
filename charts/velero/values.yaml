@@ -94,8 +94,18 @@ upgradeCRDsJob:
   extraVolumes: []
   # Extra volumeMounts for the Upgrade CRDs Job. Optional.
   extraVolumeMounts: []
-  # Extra key/value pairs to be used as environment variables. Optional.
-  extraEnvVars: {}
+  # Additional values to be used as environment variables. Optional.
+  extraEnvVars: []
+    # Simple value
+    # - name: SIMPLE_VAR
+    #   value: "simple-value"
+
+    # FieldRef example
+    # - name: MY_POD_LABEL
+    #   valueFrom:
+    #     fieldRef:
+    #       fieldPath: metadata.labels['my_label']
+
   # Configure if API credential for Service Account is automounted.
   automountServiceAccountToken: true
   # Configure the shell cmd in case you are using custom image
@@ -470,8 +480,17 @@ configuration:
   # e.g.: extraArgs: ["--foo=bar"]
   extraArgs: []
 
-  # additional key/value pairs to be used as environment variables such as "AWS_CLUSTER_NAME: 'yourcluster.domain.tld'"
-  extraEnvVars: {}
+  # Additional values to be used as environment variables. Optional.
+  extraEnvVars: []
+    # Simple value
+    # - name: SIMPLE_VAR
+    #   value: "simple-value"
+
+    # FieldRef example
+    # - name: MY_POD_LABEL
+    #   valueFrom:
+    #     fieldRef:
+    #       fieldPath: metadata.labels['my_label']
 
   # Set true for backup all pod volumes without having to apply annotation on the pod when used file system backup Default: false.
   defaultVolumesToFsBackup:
@@ -590,8 +609,17 @@ nodeAgent:
   # Extra volumeMounts for the node-agent daemonset. Optional.
   extraVolumeMounts: []
 
-  # Key/value pairs to be used as environment variables for the node-agent daemonset. Optional.
-  extraEnvVars: {}
+  # Additional values to be used as environment variables for node-agent daemonset. Optional.
+  extraEnvVars: []
+    # Simple key/value
+    # - name: SIMPLE_VAR
+    #   value: "simple-value"
+
+    # FieldRef example
+    # - name: MY_POD_LABEL
+    #   valueFrom:
+    #     fieldRef:
+    #       fieldPath: metadata.labels['my_label']
 
   # Additional command-line arguments that will be passed to the node-agent. Optional.
   # e.g.: extraArgs: ["--foo=bar"]
