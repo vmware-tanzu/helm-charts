@@ -114,6 +114,9 @@ spec:
             {{- with .features }}
             - --features={{ . }}
             {{- end }}
+            {{- with .dataMoverPrepareTimeout }}
+            - --data-mover-prepare-timeout={{ . }}
+            {{- end }}
             {{- with .logLevel }}
             - --log-level={{ . }}
             {{- end }}
