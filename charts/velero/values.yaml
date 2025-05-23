@@ -463,6 +463,8 @@ configuration:
   # Comma separated list of velero feature flags. default: empty
   # features: EnableCSI
   features:
+  # Configures the timeout for provisioning the volume created from the CSI snapshot. Default: 30m
+  dataMoverPrepareTimeout:
   # Resource requests/limits to specify for the repository-maintenance job. Optional.
   # https://velero.io/docs/v1.14/repository-maintenance/#resource-limitation
   repositoryMaintenanceJob:
