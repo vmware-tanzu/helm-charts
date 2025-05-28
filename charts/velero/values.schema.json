@@ -105,7 +105,7 @@
             "type": "string"
         },
         "initContainers": {
-            "type": "array",
+            "type": ["array", "null"],
             "items": {}
         },
         "podSecurityContext": {
@@ -364,43 +364,33 @@
                         "type": "object",
                         "properties": {
                             "name": {
-                                "type": "string"
+                                "type": ["string", "null"]
                             },
                             "provider": {
-                                "type": "string"
+                                "type": ["string", "null"]
                             },
                             "bucket": {
-                                "type": "string"
+                                "type": ["string", "null"]
                             },
                             "caCert": {
-                                "type": "string"
+                                "type": ["string", "null"]
                             },
                             "prefix": {
-                                "type": "string"
+                                "type": ["string", "null"]
                             },
                             "default": {
-                                "type": "boolean"
+                                "type": ["boolean", "null"]
                             },
                             "validationFrequency": {
-                                "type": "string"
+                                "type": ["string", "null"]
                             },
                             "accessMode": {
-                                "type": "string"
+                                "type": ["string", "null"]
                             },
                             "credential": {
                                 "type": "object",
-                                "properties": {
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "key": {
-                                        "type": "string"
-                                    }
-                                },
-                                "required": [
-                                    "name",
-                                    "key"
-                                ]
+                                "properties": {},
+                                "required": []
                             },
                             "config": {
                                 "type": "object",
@@ -426,25 +416,15 @@
                         "type": "object",
                         "properties": {
                             "name": {
-                                "type": "string"
+                                "type": ["string", "null"]
                             },
                             "provider": {
-                                "type": "string"
+                                "type": ["string", "null"]
                             },
                             "credential": {
                                 "type": "object",
-                                "properties": {
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "key": {
-                                        "type": "string"
-                                    }
-                                },
-                                "required": [
-                                    "name",
-                                    "key"
-                                ]
+                                "properties": {},
+                                "required": []
                             },
                             "config": {
                                 "type": "object",
@@ -468,7 +448,7 @@
                     "type": "object",
                     "properties": {
                         "requests": {
-                            "type": "object",
+                            "type": ["object", "null"],
                             "properties": {
                                 "cpu": {
                                     "type": "string"
@@ -480,7 +460,7 @@
                             "required": []
                         },
                         "limits": {
-                            "type": "object",
+                            "type": ["object", "null"],
                             "properties": {
                                 "cpu": {
                                     "type": "string"
@@ -498,7 +478,7 @@
                     "required": []
                 },
                 "namespace": {
-                    "type": "string"
+                    "type": ["string", "null"]
                 },
                 "extraArgs": {
                     "type": "array",
@@ -540,15 +520,15 @@
                             "type": "boolean"
                         },
                         "name": {
-                            "type": "string"
+                            "type": ["string", "null"]
                         },
                         "annotations": {
-                            "type": "object",
+                            "type": ["object", "null"],
                             "properties": {},
                             "required": []
                         },
                         "labels": {
-                            "type": "object",
+                            "type": ["object", "null"],
                             "properties": {},
                             "required": []
                         },
@@ -564,7 +544,6 @@
                     },
                     "required": [
                         "create",
-                        "name",
                         "automountServiceAccountToken"
                     ]
                 }
@@ -580,10 +559,10 @@
                     "type": "boolean"
                 },
                 "name": {
-                    "type": "string"
+                    "type": ["string", "null"]
                 },
                 "existingSecret": {
-                    "type": "string"
+                    "type": ["string", "null"]
                 },
                 "secretContents": {
                     "type": "object",
@@ -728,7 +707,6 @@
         "image",
         "upgradeCRDsJob",
         "dnsPolicy",
-        "initContainers",
         "metrics",
         "kubectl",
         "configuration",
