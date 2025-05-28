@@ -118,7 +118,7 @@ dnsPolicy: ClusterFirst
 
 # Init containers to add to the Velero deployment's pod spec. At least one plugin provider image is required.
 # If the value is a string then it is evaluated as a template.
-initContainers:
+initContainers: []
   # - name: velero-plugin-for-aws
   #   image: velero/velero-plugin-for-aws:v1.10.0
   #   imagePullPolicy: IfNotPresent
@@ -337,27 +337,27 @@ configuration:
   backupStorageLocation:
     # name is the name of the backup storage location where backups should be stored. If a name is not provided,
     # a backup storage location will be created with the name "default". Optional.
-  - name:
+  - name: ""
     # provider is the name for the backup storage location provider.
-    provider:
+    provider: ""
     # bucket is the name of the bucket to store backups in. Required.
-    bucket:
+    bucket: ""
     # caCert defines a base64 encoded CA bundle to use when verifying TLS connections to the provider. Optional.
-    caCert:
+    caCert: ""
     # prefix is the directory under which all Velero data should be stored within the bucket. Optional.
-    prefix:
+    prefix: ""
     # default indicates this location is the default backup storage location. Optional.
-    default:
+    default: false
     # validationFrequency defines how frequently Velero should validate the object storage. Optional.
-    validationFrequency:
+    validationFrequency: ""
     # accessMode determines if velero can write to this backup storage location. Optional.
     # default to ReadWrite, ReadOnly is used during migrations and restores.
     accessMode: ReadWrite
     credential:
       # name of the secret used by this backupStorageLocation.
-      name:
+      name: ""
       # name of key that contains the secret data to be used.
-      key:
+      key: ""
     # Additional provider-specific configuration. See link above
     # for details of required/optional fields for your provider.
     config: {}
@@ -384,14 +384,14 @@ configuration:
   # See https://velero.io/docs/v1.6/api-types/volumesnapshotlocation/
   volumeSnapshotLocation:
     # name is the name of the volume snapshot location where snapshots are being taken. Required.
-  - name:
+  - name: ""
     # provider is the name for the volume snapshot provider.
-    provider:
+    provider: ""
     credential:
       # name of the secret used by this volumeSnapshotLocation.
-      name:
+      name: ""
       # name of key that contains the secret data to be used.
-      key:
+      key: ""
     # Additional provider-specific configuration. See link above
     # for details of required/optional fields for your provider.
     config: {}
@@ -468,16 +468,16 @@ configuration:
   # Resource requests/limits to specify for the repository-maintenance job. Optional.
   # https://velero.io/docs/v1.14/repository-maintenance/#resource-limitation
   repositoryMaintenanceJob:
-    requests:
+    requests: {}
     #   cpu: 500m
     #   memory: 512Mi
-    limits:
+    limits: {}
     #   cpu: 1000m
     #   memory: 1024Mi
     # Number of latest maintenance jobs to keep for each repository
     latestJobsCount: 3
   # `velero server` default: velero
-  namespace:
+  namespace: ""
   # additional command-line arguments that will be passed to the `velero server`
   # e.g.: extraArgs: ["--foo=bar"]
   extraArgs: []
@@ -521,9 +521,9 @@ rbac:
 serviceAccount:
   server:
     create: true
-    name:
-    annotations:
-    labels:
+    name: ""
+    annotations: {}
+    labels: {}
     imagePullSecrets: []
     # - registrySecretName
     # Configure if API credential for Service Account is automounted.
@@ -538,10 +538,10 @@ credentials:
   # - using workload identity instead of providing the key file. (Azure/GCP only)
   useSecret: true
   # Name of the secret to create if `useSecret` is true and `existingSecret` is empty
-  name:
+  name: ""
   # Name of a pre-existing secret (if any) in the Velero namespace
   # that should be used to get IAM account credentials. Optional.
-  existingSecret:
+  existingSecret: ""
   # Data to be stored in the Velero secret, if `useSecret` is true and `existingSecret` is empty.
   # As of the current Velero release, Velero only uses one secret key/value at a time.
   # The key must be named `cloud`, and the value corresponds to the entire content of your IAM credentials file.
