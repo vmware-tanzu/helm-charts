@@ -49,6 +49,10 @@ spec:
       {{- end }}
     {{- end }}
     spec:
+      {{ with .Values.hostAliases -}}
+      hostAliases:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
     {{- if .Values.image.imagePullSecrets }}
       imagePullSecrets:
       {{- range .Values.image.imagePullSecrets }}
