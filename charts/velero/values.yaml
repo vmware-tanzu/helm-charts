@@ -238,7 +238,14 @@ metrics:
   # service metdata if metrics are enabled
   service:
     annotations: {}
+    type: ClusterIP
     labels: {}
+    nodePort: null
+
+    # External/Internal traffic policy setting (Cluster, Local)
+    # https://kubernetes.io/docs/reference/networking/virtual-ips/#traffic-policies
+    externalTrafficPolicy: ""
+    internalTrafficPolicy: ""
 
   # Pod annotations for Prometheus
   podAnnotations:
