@@ -240,7 +240,13 @@ metrics:
     annotations: {}
     type: ClusterIP
     labels: {}
-    nodePort: null
+
+    # Configure specify cluster IP for service type is ClusterIP
+    # https://kubernetes.io/docs/concepts/services-networking/service/#type-clusterip
+    clusterIP: ""
+    # Configure specify node port for service type is NodePort
+    # https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
+    nodePort: ""
 
     # External/Internal traffic policy setting (Cluster, Local)
     # https://kubernetes.io/docs/reference/networking/virtual-ips/#traffic-policies
