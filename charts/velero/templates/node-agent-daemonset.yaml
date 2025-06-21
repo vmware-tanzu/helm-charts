@@ -49,7 +49,7 @@ spec:
       {{- end }}
     {{- end }}
     spec:
-      {{ with .Values.hostAliases -}}
+      {{- with .Values.nodeAgent.hostAliases }}
       hostAliases:
       {{- toYaml . | nindent 8 }}
       {{- end }}
