@@ -354,9 +354,9 @@ configuration:
     # a backup storage location will be created with the name "default". Optional.
   - name:
     # provider is the name for the backup storage location provider.
-    provider:
+    provider: ""
     # bucket is the name of the bucket to store backups in. Required.
-    bucket:
+    bucket: ""
     # caCert defines a base64 encoded CA bundle to use when verifying TLS connections to the provider. Optional.
     caCert:
     # prefix is the directory under which all Velero data should be stored within the bucket. Optional.
@@ -398,10 +398,11 @@ configuration:
   # Parameters for the VolumeSnapshotLocation(s). Configure multiple by adding other element(s) to the volumeSnapshotLocation slice.
   # See https://velero.io/docs/v1.6/api-types/volumesnapshotlocation/
   volumeSnapshotLocation:
-    # name is the name of the volume snapshot location where snapshots are being taken. Required.
+    # name is the name of the volume snapshot location where snapshots are being taken. If a name is not provided,
+    # a volume snapshot location will be created with the name "default". Optional.
   - name:
     # provider is the name for the volume snapshot provider.
-    provider:
+    provider: ""
     credential:
       # name of the secret used by this volumeSnapshotLocation.
       name:
