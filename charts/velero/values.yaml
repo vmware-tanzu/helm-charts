@@ -296,19 +296,40 @@ metrics:
     # namespace: ""
     # Rules to be deployed
     spec: []
-    # - alert: VeleroBackupPartialFailures
+    # - alert: VeleroBackupFailed
     #   annotations:
-    #     message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} partialy failed backups.
+    #     message: Velero backup {{ $labels.schedule }} has failed
     #   expr: |-
-    #     velero_backup_partial_failure_total{schedule!=""} / velero_backup_attempt_total{schedule!=""} > 0.25
+    #     velero_backup_last_status{schedule!=""} != 1
     #   for: 15m
     #   labels:
     #     severity: warning
-    # - alert: VeleroBackupFailures
+    # - alert: VeleroBackupFailing
     #   annotations:
-    #     message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} failed backups.
+    #     message: Velero backup {{ $labels.schedule }} has been failing for the last 12h
     #   expr: |-
-    #     velero_backup_failure_total{schedule!=""} / velero_backup_attempt_total{schedule!=""} > 0.25
+    #     velero_backup_last_status{schedule!=""} != 1
+    #   for: 12h
+    #   labels:
+    #     severity: critical
+    # - alert: VeleroNoNewBackup
+    #   annotations:
+    #     message: Velero backup {{ $labels.schedule }} has not run successfuly in the last 30h
+    #   expr: |-
+    #     (
+    #     rate(velero_backup_last_successful_timestamp{schedule!=""}[15m]) <=bool 0
+    #     or
+    #     absent(velero_backup_last_successful_timestamp{schedule!=""})
+    #     ) == 1
+    #   for: 30h
+    #   labels:
+    #     severity: critical
+    # - alert: VeleroBackupPartialFailures
+    #   annotations:
+    #     message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} partialy failed backups
+    #   expr: |-
+    #     rate(velero_backup_partial_failure_total{schedule!=""}[25m])
+    #       / rate(velero_backup_attempt_total{schedule!=""}[25m]) > 0.5
     #   for: 15m
     #   labels:
     #     severity: warning
