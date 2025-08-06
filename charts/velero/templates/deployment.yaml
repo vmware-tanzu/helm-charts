@@ -180,7 +180,9 @@ spec:
             - --namespace={{ . }}
             {{- end }}
             {{- with .repositoryMaintenanceJob }}
-            {{- if not .perRepositoryConfig.json }}
+            {{- if and .perRepositoryConfig .perRepositoryConfig.json }}
+            - --repo-maintenance-job-configmap={{ default "velero-repo-maintenance" .perRepositoryConfig.name }}
+            {{- else }}
             {{- with .requests }}
             {{- with .cpu }}
             - --maintenance-job-cpu-request={{ . }}
@@ -200,8 +202,6 @@ spec:
             {{- with .latestJobsCount }}
             - --keep-latest-maintenance-jobs={{ . }}
             {{- end }}
-            {{- else }}
-            - --repo-maintenance-job-configmap={{ default "velero-repo-maintenance" .perRepositoryConfig.name }}
             {{- end }}
             {{- end }}
             {{- with .extraArgs }}

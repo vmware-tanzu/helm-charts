@@ -1,4 +1,4 @@
-{{- if .Values.configuration.repositoryMaintenanceJob.perRepositoryConfig.json }}
+{{- if and .Values.configuration .Values.configuration.repositoryMaintenanceJob .Values.configuration.repositoryMaintenanceJob.perRepositoryConfig .Values.configuration.repositoryMaintenanceJob.perRepositoryConfig.json }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
