@@ -1,0 +1,15 @@
+{{- if .Values.configuration.repositoryMaintenanceJob.perRepositoryConfig.json }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ default "velero-repo-maintenance" .Values.configuration.repositoryMaintenanceJob.perRepositoryConfig.name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: {{ include "velero.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    helm.sh/chart: {{ include "velero.chart" . }}
+data:
+  repo-maintenance-job-config.json: |
+    {{- .Values.configuration.repositoryMaintenanceJob.perRepositoryConfig.json | nindent 4 }}
+{{- end }}

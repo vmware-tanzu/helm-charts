@@ -470,6 +470,20 @@
                         },
                         "latestJobsCount": {
                             "type": "number"
+                        },
+                        "perRepositoryConfig": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "description": "Name of the ConfigMap to create for per-repository maintenance configuration"
+                                },
+                                "json": {
+                                    "type": "string",
+                                    "description": "JSON configuration for repository maintenance jobs as a string"
+                                }
+                            },
+                            "required": []
                         }
                     },
                     "required": []
