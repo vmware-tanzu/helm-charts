@@ -108,24 +108,20 @@ Starting from Velero v1.15, you can configure repository maintenance jobs with d
 
 ### Basic Usage
 
-To enable per-repository maintenance configuration, provide the JSON configuration directly:
+To enable per-repository maintenance configuration, provide repository-specific configurations and provide global configurations that will be applied across all repositories:
 
 ```yaml
 configuration:
   repositoryMaintenanceJob:
-    perRepositoryConfig:
+    repositoryConfigData:
       name: "my-repo-maintenance-config"  # Optional, defaults to "velero-repo-maintenance"
-      json: |
-        {
-          "global": {
-            "podResources": {
-              "cpuRequest": "100m",
-              "cpuLimit": "200m",
-              "memoryRequest": "100Mi",
-              "memoryLimit": "200Mi"
-            }
-          }
-        }
+      global:
+        podResources:
+          cpuRequest: "100m"
+          cpuLimit: "200m"
+          memoryRequest: "100Mi"
+          memoryLimit: "200Mi"
+        keepLatestMaintenanceJobs: 1
 ```
 
 ### Per-Repository Configuration
@@ -137,82 +133,59 @@ For example, if you have a BackupRepository for namespace `prod` using storage l
 ```yaml
 configuration:
   repositoryMaintenanceJob:
-    perRepositoryConfig:
-      json: |
-        {
-          "global": {
-            "podResources": {
-              "cpuRequest": "100m",
-              "cpuLimit": "200m",
-              "memoryRequest": "100Mi",
-              "memoryLimit": "200Mi"
-            }
-          },
-          "prod-s3-backup-kopia": {
-            "podResources": {
-              "cpuRequest": "500m",
-              "cpuLimit": "1000m",
-              "memoryRequest": "512Mi",
-              "memoryLimit": "1024Mi"
-            },
-            "loadAffinity": [
-              {
-                "nodeSelector": {
-                  "matchLabels": {
-                    "dedicated": "backup"
-                  }
-                }
-              }
-            ]
-          }
-        }
+    repositoryConfigData:
+      global:
+        podResources:
+          cpuRequest: "100m"
+          cpuLimit: "200m"
+          memoryRequest: "100Mi"
+          memoryLimit: "200Mi"
+      repositories:
+        "prod-s3-backup-kopia":
+          podResources:
+            cpuRequest: "500m"
+            cpuLimit: "1000m"
+            memoryRequest: "512Mi"
+            memoryLimit: "1024Mi"
+          loadAffinity:
+            - nodeSelector:
+                matchLabels:
+                  dedicated: "backup"
 ```
 
 ### Node Affinity and Priority Class
 
-You can specify node affinity and priority class for maintenance jobs. The JSON format gives you complete flexibility to use any configuration that Velero supports:
+You can specify node affinity and priority class for maintenance jobs:
 
 ```yaml
 configuration:
   repositoryMaintenanceJob:
-    perRepositoryConfig:
-      json: |
-        {
-          "global": {
-            "loadAffinity": [
-              {
-                "nodeSelector": {
-                  "matchExpressions": [
-                    {
-                      "key": "cloud.google.com/machine-family",
-                      "operator": "In",
-                      "values": ["e2"]
-                    }
-                  ]
-                }
-              },
-              {
-                "nodeSelector": {
-                  "matchExpressions": [
-                    {
-                      "key": "topology.kubernetes.io/zone",
-                      "operator": "In",
-                      "values": ["us-central1-a", "us-central1-b", "us-central1-c"]
-                    }
-                  ]
-                }
-              }
-            ],
-            "priorityClassName": "low-priority"
-          }
-        }
+    repositoryConfigData:
+      global:
+        podResources:
+          cpuRequest: "100m"
+          cpuLimit: "200m"
+          memoryRequest: "100Mi"
+          memoryLimit: "200Mi"
+        loadAffinity:
+          - nodeSelector:
+              matchExpressions:
+                - key: "cloud.google.com/machine-family"
+                  operator: "In"
+                  values: ["e2"]
+          - nodeSelector:
+              matchExpressions:
+                - key: "topology.kubernetes.io/zone"
+                  operator: "In"
+                  values: ["us-central1-a", "us-central1-b", "us-central1-c"]
+        priorityClassName: "low-priority"
 ```
 
 **Note**: `priorityClassName` is only supported in the global configuration section and applies to all maintenance jobs.
 
 ### Backward Compatibility
 
-When `perRepositoryConfig.json` is not provided (default), the chart continues to use the legacy global settings:
+When `repositoryConfigData.global` and `repositoryConfigData.repositories` are not provided (default), the chart continues to use the legacy global settings:
 
 ```yaml
 configuration:
@@ -228,7 +201,7 @@ configuration:
 
 Note: The legacy parameters (`--maintenance-job-cpu-request`, `--maintenance-job-mem-request`, `--maintenance-job-cpu-limit`, `--maintenance-job-mem-limit`) are deprecated in Velero v1.15 and will be removed in v1.17.
 
-For more information, see the [Velero Repository Maintenance documentation](https://velero.io/docs/v1.16/repository-maintenance/).
+For more information, see the [Velero Repository Maintenance documentation](https://velero.io/docs/main/repository-maintenance/).
 
 ## Upgrading Velero
 
