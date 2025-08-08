@@ -470,6 +470,80 @@
                         },
                         "latestJobsCount": {
                             "type": "number"
+                        },
+                        "repositoryConfigData": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "description": "Name of the ConfigMap to create for per-repository maintenance configuration"
+                                },
+                                "global": {
+                                    "type": "object",
+                                    "description": "Global configuration applied to all repositories when no specific repository configuration is found",
+                                    "properties": {
+                                        "podResources": {
+                                            "type": "object",
+                                            "properties": {
+                                                "cpuRequest": {"type": "string"},
+                                                "cpuLimit": {"type": "string"},
+                                                "memoryRequest": {"type": "string"},
+                                                "memoryLimit": {"type": "string"}
+                                            }
+                                        },
+                                        "keepLatestMaintenanceJobs": {
+                                            "type": "number"
+                                        },
+                                        "priorityClassName": {
+                                            "type": "string"
+                                        },
+                                        "loadAffinity": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "nodeSelector": {
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "repositories": {
+                                    "type": "object",
+                                    "description": "Repository-specific configurations keyed by repository identifier (namespace-storageLocation-repositoryType)",
+                                    "additionalProperties": {
+                                        "type": "object",
+                                        "properties": {
+                                            "podResources": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "cpuRequest": {"type": "string"},
+                                                    "cpuLimit": {"type": "string"},
+                                                    "memoryRequest": {"type": "string"},
+                                                    "memoryLimit": {"type": "string"}
+                                                }
+                                            },
+                                            "keepLatestMaintenanceJobs": {
+                                                "type": "number"
+                                            },
+                                            "loadAffinity": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "nodeSelector": {
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "required": []
                         }
                     },
                     "required": []
