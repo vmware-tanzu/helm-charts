@@ -75,6 +75,14 @@ resources: {}
   #   cpu: 1000m
   #   memory: 512Mi
 
+# Container resize policy for the Velero deployment.
+# See: https://kubernetes.io/docs/tasks/configure-pod-container/resize-container-resources/
+resizePolicy: []
+  # - resourceName: cpu
+  #   restartPolicy: NotRequired
+  # - resourceName: memory
+  #   restartPolicy: RestartContainer
+
 # Configure hostAliases for Velero deployment. Optional
 # For more information, check: https://kubernetes.io/docs/tasks/network/customize-hosts-file-for-pods/
 hostAliases: []
@@ -663,6 +671,13 @@ nodeAgent:
     # limits:
     #   cpu: 1000m
     #   memory: 1024Mi
+  # Container resize policy for the node-agent daemonset.
+  # See: https://kubernetes.io/docs/tasks/configure-pod-container/resize-container-resources/
+  resizePolicy: []
+    # - resourceName: cpu
+    #   restartPolicy: NotRequired
+    # - resourceName: memory
+    #   restartPolicy: RestartContainer
 
   # Tolerations to use for the node-agent daemonset. Optional.
   tolerations: []
