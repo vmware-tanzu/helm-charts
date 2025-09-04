@@ -52,8 +52,8 @@ spec:
             - /velero
           args:
             - install
-            - --upgrade
             - --crds-only
+            - --apply
           {{- with .Values.upgradeJobResources }}
           resources:
             {{- toYaml . | nindent 12 }}
