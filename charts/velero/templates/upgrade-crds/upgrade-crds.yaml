@@ -49,10 +49,15 @@ spec:
           {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
-            - {{ .Values.upgradeCRDsJob.shellCmd | default "/tmp/sh" }}
+            - /velero
           args:
-            - -c
-            - {{ .Values.upgradeCRDsJob.updateCmd | default "/velero install --crds-only --dry-run -o yaml > /tmp/crds.yaml" }}
+            - install
+            - --crds-only
+            - --dry-run
+            - -o
+            - yaml
+            - >
+            - /tmp/crds.yaml
           {{- with .Values.upgradeJobResources }}
           resources:
             {{- toYaml . | nindent 12 }}
