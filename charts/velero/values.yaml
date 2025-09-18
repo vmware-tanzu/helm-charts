@@ -512,14 +512,6 @@ configuration:
   # Resource requests/limits to specify for the repository-maintenance job. Optional.
   # https://velero.io/docs/v1.14/repository-maintenance/#resource-limitation
   repositoryMaintenanceJob:
-    requests:
-    #   cpu: 500m
-    #   memory: 512Mi
-    limits:
-    #   cpu: 1000m
-    #   memory: 1024Mi
-    # Number of latest maintenance jobs to keep for each repository
-    latestJobsCount: 3
     # Per-repository resource settings ConfigMap
     # This ConfigMap allows specifying different settings for different repositories
     # See: https://velero.io/docs/main/repository-maintenance/
