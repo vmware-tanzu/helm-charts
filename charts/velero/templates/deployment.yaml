@@ -3,7 +3,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "velero.fullname" . }}
+  name: velero
   namespace: {{ .Release.Namespace }}
   {{- with .Values.annotations }}
   annotations:
