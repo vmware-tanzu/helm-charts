@@ -539,7 +539,8 @@ configuration:
       #             operator: "In"
       #             values: ["us-central1-a", "us-central1-b", "us-central1-c"]
       #   priorityClassName: "low-priority"  # Note: priorityClassName is only supported in global configuration
-      global: {}
+      global:
+        keepLatestMaintenanceJobs: 3
       # Repository-specific configurations
       # Repository keys are formed as: "{namespace}-{storageLocation}-{repositoryType}"
       # For example: "default-default-kopia" or "prod-s3-backup-kopia"
