@@ -282,11 +282,16 @@ metrics:
     enabled: false
     annotations: {}
     additionalLabels: {}
-    # ServiceMonitor namespace. Default to Velero namespace.
+    # metrics.nodeAgentPodMonitor.metricRelabelings Specify Metric Relabelings to add to the scrape endpoint
+    # ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#relabelconfig
+    # metricRelabelings: []
+    # metrics.nodeAgentPodMonitor.relabelings [array] Prometheus relabeling rules
+    # relabelings: []
+    # PodMonitor namespace. Default to Velero namespace.
     # namespace:
-    # ServiceMonitor connection scheme. Defaults to HTTP.
+    # PodMonitor connection scheme. Defaults to HTTP.
     # scheme: ""
-    # ServiceMonitor connection tlsConfig. Defaults to {}.
+    # PodMonitor connection tlsConfig. Defaults to {}.
     # tlsConfig: {}
 
   prometheusRule:
