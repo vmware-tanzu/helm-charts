@@ -27,7 +27,7 @@ namespace:
 # enabling node-agent). Required.
 image:
   repository: velero/velero
-  tag: v1.16.2
+  tag: v1.17.0
   # Digest value example: sha256:d238835e151cec91c6a811fe3a89a66d3231d9f64d09e5f3c49552672d271f38.
   # If used, it will take precedence over the image.tag.
   # digest:
@@ -130,7 +130,7 @@ dnsPolicy: ClusterFirst
 # If the value is a string then it is evaluated as a template.
 initContainers:
   # - name: velero-plugin-for-aws
-  #   image: velero/velero-plugin-for-aws:v1.12.2
+  #   image: velero/velero-plugin-for-aws:v1.13.0
   #   imagePullPolicy: IfNotPresent
   #   volumeMounts:
   #     - mountPath: /target
@@ -512,14 +512,6 @@ configuration:
   # Resource requests/limits to specify for the repository-maintenance job. Optional.
   # https://velero.io/docs/v1.14/repository-maintenance/#resource-limitation
   repositoryMaintenanceJob:
-    requests:
-    #   cpu: 500m
-    #   memory: 512Mi
-    limits:
-    #   cpu: 1000m
-    #   memory: 1024Mi
-    # Number of latest maintenance jobs to keep for each repository
-    latestJobsCount: 3
     # Per-repository resource settings ConfigMap
     # This ConfigMap allows specifying different settings for different repositories
     # See: https://velero.io/docs/main/repository-maintenance/
@@ -547,7 +539,8 @@ configuration:
       #             operator: "In"
       #             values: ["us-central1-a", "us-central1-b", "us-central1-c"]
       #   priorityClassName: "low-priority"  # Note: priorityClassName is only supported in global configuration
-      global: {}
+      global:
+        keepLatestMaintenanceJobs: 3
       # Repository-specific configurations
       # Repository keys are formed as: "{namespace}-{storageLocation}-{repositoryType}"
       # For example: "default-default-kopia" or "prod-s3-backup-kopia"
@@ -791,7 +784,7 @@ schedules: {}
 #       velero.io/plugin-config: ""
 #       velero.io/pod-volume-restore: RestoreItemAction
 #     data:
-#       image: velero/velero-restore-helper:v1.10.2
+#       image: velero/velero:v1.17.0
 #       cpuRequest: 200m
 #       memRequest: 128Mi
 #       cpuLimit: 200m

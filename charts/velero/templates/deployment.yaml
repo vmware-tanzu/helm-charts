@@ -3,7 +3,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "velero.fullname" . }}
+  name: velero
   namespace: {{ .Release.Namespace }}
   {{- with .Values.annotations }}
   annotations:
@@ -183,25 +183,6 @@ spec:
             {{- if and .repositoryConfigData (or .repositoryConfigData.global .repositoryConfigData.repositories) }}
             - --repo-maintenance-job-configmap={{ default "velero-repo-maintenance" .repositoryConfigData.name }}
             {{- else }}
-            {{- with .requests }}
-            {{- with .cpu }}
-            - --maintenance-job-cpu-request={{ . }}
-            {{- end }}
-            {{- with .memory }}
-            - --maintenance-job-mem-request={{ . }}
-            {{- end }}
-            {{- end }}
-            {{- with .limits }}
-            {{- with .cpu }}
-            - --maintenance-job-cpu-limit={{ . }}
-            {{- end }}
-            {{- with .memory }}
-            - --maintenance-job-mem-limit={{ . }}
-            {{- end }}
-            {{- end }}
-            {{- with .latestJobsCount }}
-            - --keep-latest-maintenance-jobs={{ . }}
-            {{- end }}
             {{- end }}
             {{- end }}
             {{- with .extraArgs }}
