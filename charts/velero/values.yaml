@@ -628,11 +628,16 @@ credentials:
   # [AWS] https://github.com/vmware-tanzu/velero-plugin-for-aws/blob/main/README.md
   # [GCP] https://github.com/vmware-tanzu/velero-plugin-for-gcp/blob/main/README.md
   # [Azure] https://github.com/vmware-tanzu/velero-plugin-for-microsoft-azure/blob/main/README.md
-  secretContents: {}
-  #  cloud: |
-  #    [default]
-  #    aws_access_key_id=<REDACTED>
-  #    aws_secret_access_key=<REDACTED>
+  extraSecrets: []
+  # - name: velero-repo-credentials
+  #   secretContent:
+  #     repository-password: |-
+  #       <PASSWORD>
+  # - name: velero-backup-s3-credentials
+  #     velero: |-
+  #      [default]
+  #      aws_access_key_id=<REDACTED>
+  #      aws_secret_access_key=<REDACTED>
   # additional key/value pairs to be used as environment variables such as "DIGITALOCEAN_TOKEN: <your-key>". Values will be stored in the secret.
   extraEnvVars: {}
   # Name of a pre-existing secret (if any) in the Velero namespace
