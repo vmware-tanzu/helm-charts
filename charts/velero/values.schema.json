@@ -635,10 +635,9 @@
                 "existingSecret": {
                     "type": ["string", "null"]
                 },
-                "secretContents": {
-                    "type": "object",
-                    "properties": {},
-                    "required": []
+                "extraSecrets": {
+                    "type": "array",
+                    "items": {}
                 },
                 "extraEnvVars": {
                     "type": "object",

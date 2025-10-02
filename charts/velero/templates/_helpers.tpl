@@ -111,8 +111,33 @@ For examples:
 
 
 {{/*
-Calculate the checksum of the credentials secret.
+Calculate the checksums of the credential secrets.
 */}}
-{{- define "chart.config-checksum" -}}
-{{- tpl (print .Values.credentials.secretContents .Values.credentials.extraEnvVars ) $ | sha256sum -}}
-{{- end -}}
+{{- define "chart.secret-checksum" }}
+  {{- range $secret := .Values.credentials.extraSecrets }}
+    {{- if hasKey $secret "secretContent" }}
+      {{- range $key, $value := $secret.secretContent }}
+checksum/secret-{{ $key }}: {{ $value | sha256sum }}
+      {{- end }}
+      {{- range $key, $value := $secret.extraEnvVars }}
+checksum/secret-{{ $key }}: {{ $value | sha256sum }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+
+{{- define "chart.secretEnvVars" }}
+{{- if and .Values.credentials.useSecret (not .Values.credentials.existingSecret) }}
+  {{- range $secret := .Values.credentials.extraSecrets }}
+    {{- if hasKey $secret "extraEnvVars" }}
+      {{- range $key, $value := $secret.extraEnvVars }}
+- name: {{ default "none" $key }}
+  valueFrom:
+    secretKeyRef:
+      name: {{ $secret.name  }}
+      key: {{ default "none" $key }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+{{- end }}
+{{- end }}

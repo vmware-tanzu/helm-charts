@@ -27,6 +27,23 @@ configuration:
     config:
       type: cloud
 
+credentials:
+  useSecret: false
+  extraSecrets:
+  - name: cloud-credentials
+    secretContent:
+      velero: |-
+        [default]
+        aws_access_key_id=aaaaaaaaaaaaaaaaaa
+        aws_secret_access_key=123456ABCDFGHI
+  - name: velero-repo-credentials
+    secretContent:
+      repository-password: |-
+        \>,3C}VK?%s*P]X.k\X-Uc{rEx/*]i>-f`KWb4Vs.A)*P>;Ckd`wpVAY>We
+    extraEnvVars:
+      FOO: bar
+      BAR: foo
+
 schedules:
   mybackup:
     labels:
