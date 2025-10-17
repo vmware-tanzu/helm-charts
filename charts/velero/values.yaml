@@ -321,14 +321,14 @@ metrics:
     #     severity: critical
     # - alert: VeleroNoNewBackup
     #   annotations:
-    #     message: Velero backup {{ $labels.schedule }} has not run successfuly in the last 30h
+    #     message: Velero backup {{ $labels.schedule }} has not run successfully in the last 25h
     #   expr: |-
     #     (
-    #     rate(velero_backup_last_successful_timestamp{schedule!=""}[15m]) <=bool 0
+    #     (time() - velero_backup_last_successful_timestamp{schedule!=""}) >bool (25 * 3600)
     #     or
     #     absent(velero_backup_last_successful_timestamp{schedule!=""})
     #     ) == 1
-    #   for: 30h
+    #   for: 1h
     #   labels:
     #     severity: critical
     # - alert: VeleroBackupPartialFailures
