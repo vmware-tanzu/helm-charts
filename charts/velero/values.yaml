@@ -130,7 +130,7 @@ dnsPolicy: ClusterFirst
 # If the value is a string then it is evaluated as a template.
 initContainers:
   # - name: velero-plugin-for-aws
-  #   image: velero/velero-plugin-for-aws:v1.13.0
+  #   image: velero/velero-plugin-for-aws:v1.13.1
   #   imagePullPolicy: IfNotPresent
   #   volumeMounts:
   #     - mountPath: /target
