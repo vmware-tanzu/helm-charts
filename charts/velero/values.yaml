@@ -27,7 +27,7 @@ namespace:
 # enabling node-agent). Required.
 image:
   repository: velero/velero
-  tag: v1.17.0
+  tag: v1.17.1
   # Digest value example: sha256:d238835e151cec91c6a811fe3a89a66d3231d9f64d09e5f3c49552672d271f38.
   # If used, it will take precedence over the image.tag.
   # digest:
@@ -130,7 +130,7 @@ dnsPolicy: ClusterFirst
 # If the value is a string then it is evaluated as a template.
 initContainers:
   # - name: velero-plugin-for-aws
-  #   image: velero/velero-plugin-for-aws:v1.13.0
+  #   image: velero/velero-plugin-for-aws:v1.13.1
   #   imagePullPolicy: IfNotPresent
   #   volumeMounts:
   #     - mountPath: /target
@@ -789,7 +789,7 @@ schedules: {}
 #       velero.io/plugin-config: ""
 #       velero.io/pod-volume-restore: RestoreItemAction
 #     data:
-#       image: velero/velero:v1.17.0
+#       image: velero/velero:v1.17.1
 #       cpuRequest: 200m
 #       memRequest: 128Mi
 #       cpuLimit: 200m
