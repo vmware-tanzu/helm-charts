@@ -18,7 +18,6 @@ namespace:
 ## End of namespace-related settings.
 ##
 
-
 ##
 ## Configuration settings that directly affect the Velero deployment YAML.
 ##
@@ -27,7 +26,7 @@ namespace:
 # enabling node-agent). Required.
 image:
   repository: velero/velero
-  tag: v1.17.2
+  tag: v1.17.1
   # Digest value example: sha256:d238835e151cec91c6a811fe3a89a66d3231d9f64d09e5f3c49552672d271f38.
   # If used, it will take precedence over the image.tag.
   # digest:
@@ -36,8 +35,8 @@ image:
   imagePullSecrets: []
   # - registrySecretName
 
-nameOverride: ""
-fullnameOverride: ""
+nameOverride: ''
+fullnameOverride: ''
 
 # Annotations to add to the Velero deployment's. Optional.
 #
@@ -152,10 +151,10 @@ containerSecurityContext: {}
 lifecycle: {}
 
 # Pod priority class name to use for the Velero deployment. Optional.
-priorityClassName: ""
+priorityClassName: ''
 
 # Pod runtime class name to use for the Velero deployment. Optional.
-runtimeClassName: ""
+runtimeClassName: ''
 
 # The number of seconds to allow for graceful termination of the pod. Optional.
 terminationGracePeriodSeconds: 3600
@@ -243,19 +242,19 @@ metrics:
 
     # External/Internal traffic policy setting (Cluster, Local)
     # https://kubernetes.io/docs/reference/networking/virtual-ips/#traffic-policies
-    externalTrafficPolicy: ""
-    internalTrafficPolicy: ""
+    externalTrafficPolicy: ''
+    internalTrafficPolicy: ''
 
     # the IP family policy for the metrics Service to be able to configure dual-stack; see [Configure dual-stack](https://kubernetes.io/docs/concepts/services-networking/dual-stack/#services).
-    ipFamilyPolicy: ""
+    ipFamilyPolicy: ''
     # a list of IP families for the metrics Service that should be supported, in the order in which they should be applied to ClusterIP. Can be "IPv4" and/or "IPv6".
     ipFamilies: []
 
   # Pod annotations for Prometheus
   podAnnotations:
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "8085"
-    prometheus.io/path: "/metrics"
+    prometheus.io/scrape: 'true'
+    prometheus.io/port: '8085'
+    prometheus.io/path: '/metrics'
 
   serviceMonitor:
     autodetect: true
@@ -371,7 +370,6 @@ cleanUpCRDs: false
 ## End of deployment-related settings.
 ##
 
-
 ##
 ## Parameters for the `default` BackupStorageLocation and VolumeSnapshotLocation,
 ## and additional server settings.
@@ -382,76 +380,76 @@ configuration:
   backupStorageLocation:
     # name is the name of the backup storage location where backups should be stored. If a name is not provided,
     # a backup storage location will be created with the name "default". Optional.
-  - name:
-    # provider is the name for the backup storage location provider.
-    provider: ""
-    # bucket is the name of the bucket to store backups in. Required.
-    bucket: ""
-    # caCert defines a base64 encoded CA bundle to use when verifying TLS connections to the provider. Optional.
-    caCert:
-    # prefix is the directory under which all Velero data should be stored within the bucket. Optional.
-    prefix:
-    # default indicates this location is the default backup storage location. Optional.
-    default: false
-    # validationFrequency defines how frequently Velero should validate the object storage. Optional.
-    validationFrequency:
-    # accessMode determines if velero can write to this backup storage location. Optional.
-    # default to ReadWrite, ReadOnly is used during migrations and restores.
-    accessMode: ReadWrite
-    credential:
-      # name of the secret used by this backupStorageLocation.
-      name:
-      # name of key that contains the secret data to be used.
-      key:
-    # Additional provider-specific configuration. See link above
-    # for details of required/optional fields for your provider.
-    config: {}
-    #  region:
-    #  s3ForcePathStyle:
-    #  s3Url:
-    #  kmsKeyId:
-    #  resourceGroup:
-    #  The ID of the subscription containing the storage account, if different from the cluster’s subscription. (Azure only)
-    #  subscriptionId:
-    #  storageAccount:
-    #  publicUrl:
-    #  Name of the GCP service account to use for this backup storage location. Specify the
-    #  service account here if you want to use workload identity instead of providing the key file.(GCP only)
-    #  serviceAccount:
-    #  Option to skip certificate validation or not if insecureSkipTLSVerify is set to be true, the client side should set the
-    #  flag. For Velero client Command like velero backup describe, velero backup logs needs to add the flag --insecure-skip-tls-verify
-    #  insecureSkipTLSVerify:
+    - name:
+      # provider is the name for the backup storage location provider.
+      provider: ''
+      # bucket is the name of the bucket to store backups in. Required.
+      bucket: ''
+      # caCert defines a base64 encoded CA bundle to use when verifying TLS connections to the provider. Optional.
+      caCert:
+      # prefix is the directory under which all Velero data should be stored within the bucket. Optional.
+      prefix:
+      # default indicates this location is the default backup storage location. Optional.
+      default: false
+      # validationFrequency defines how frequently Velero should validate the object storage. Optional.
+      validationFrequency:
+      # accessMode determines if velero can write to this backup storage location. Optional.
+      # default to ReadWrite, ReadOnly is used during migrations and restores.
+      accessMode: ReadWrite
+      credential:
+        # name of the secret used by this backupStorageLocation.
+        name:
+        # name of key that contains the secret data to be used.
+        key:
+      # Additional provider-specific configuration. See link above
+      # for details of required/optional fields for your provider.
+      config: {}
+      #  region:
+      #  s3ForcePathStyle:
+      #  s3Url:
+      #  kmsKeyId:
+      #  resourceGroup:
+      #  The ID of the subscription containing the storage account, if different from the cluster’s subscription. (Azure only)
+      #  subscriptionId:
+      #  storageAccount:
+      #  publicUrl:
+      #  Name of the GCP service account to use for this backup storage location. Specify the
+      #  service account here if you want to use workload identity instead of providing the key file.(GCP only)
+      #  serviceAccount:
+      #  Option to skip certificate validation or not if insecureSkipTLSVerify is set to be true, the client side should set the
+      #  flag. For Velero client Command like velero backup describe, velero backup logs needs to add the flag --insecure-skip-tls-verify
+      #  insecureSkipTLSVerify:
 
-    # annotations allows adding arbitrary annotations to this BackupStorageLocation resource. Optional.
-    annotations: {}
+      # annotations allows adding arbitrary annotations to this BackupStorageLocation resource. Optional.
+      annotations: {}
 
   # Parameters for the VolumeSnapshotLocation(s). Configure multiple by adding other element(s) to the volumeSnapshotLocation slice.
   # See https://velero.io/docs/v1.6/api-types/volumesnapshotlocation/
   volumeSnapshotLocation:
     # name is the name of the volume snapshot location where snapshots are being taken. If a name is not provided,
     # a volume snapshot location will be created with the name "default". Optional.
-  - name:
-    # provider is the name for the volume snapshot provider.
-    provider: ""
-    credential:
-      # name of the secret used by this volumeSnapshotLocation.
-      name:
-      # name of key that contains the secret data to be used.
-      key:
-    # Additional provider-specific configuration. See link above
-    # for details of required/optional fields for your provider.
-    config: {}
-  #    region:
-  #    apiTimeout:
-  #    resourceGroup:
-  #    The ID of the subscription where volume snapshots should be stored, if different from the cluster’s subscription. If specified, also requires `configuration.volumeSnapshotLocation.config.resourceGroup`to be set. (Azure only)
-  #    subscriptionId:
-  #    incremental:
-  #    snapshotLocation:
-  #    project:
+    - name:
+      # provider is the name for the volume snapshot provider.
+      provider: ''
+      credential:
+        # name of the secret used by this volumeSnapshotLocation.
+        name:
+        # name of key that contains the secret data to be used.
+        key:
+      # Additional provider-specific configuration. See link above
+      # for details of required/optional fields for your provider.
+      config: {}
+      #    region:
+      #    apiTimeout:
+      #    resourceGroup:
+      #    The ID of the subscription where volume snapshots should be stored, if different from the cluster’s subscription. If specified, also requires `configuration.volumeSnapshotLocation.config.resourceGroup`to be set. (Azure only)
+      #    subscriptionId:
+      #    incremental:
+      #    snapshotLocation:
+      #    project:
 
-    # annotations allows adding arbitrary annotations to this VolumeSnapshotLocation resource. Optional.
-    annotations: {}
+      # annotations allows adding arbitrary annotations to this VolumeSnapshotLocation resource. Optional.
+      annotations: {}
 
   # These are server-level settings passed as CLI flags to the `velero server` command. Velero
   # uses default values if they're not passed in, so they only need to be explicitly specified
@@ -519,7 +517,7 @@ configuration:
     # See: https://velero.io/docs/main/repository-maintenance/
     repositoryConfigData:
       # Name of the ConfigMap to create. If not provided, will use "velero-repo-maintenance"
-      name: "velero-repo-maintenance"
+      name: 'velero-repo-maintenance'
       # Global configuration applied to all repositories
       # This configuration is used when no specific repository configuration is found
       # global:
@@ -584,7 +582,6 @@ configuration:
 ## End of backup/snapshot location settings.
 ##
 
-
 ##
 ## Settings for additional Velero resources.
 ##
@@ -640,7 +637,7 @@ credentials:
   # Name of a pre-existing secret (if any) in the Velero namespace
   # that will be used to load environment variables into velero and node-agent.
   # Secret should be in format - https://kubernetes.io/docs/concepts/configuration/secret/#use-case-as-container-environment-variables
-  extraSecretRef: ""
+  extraSecretRef: ''
 
 # Whether to create backupstoragelocation crd, if false => do not create a default backup location
 backupsEnabled: true
@@ -654,9 +651,9 @@ nodeAgent:
   podVolumePath: /var/lib/kubelet/pods
   pluginVolumePath: /var/lib/kubelet/plugins
   # Pod priority class name to use for the node-agent daemonset. Optional.
-  priorityClassName: ""
+  priorityClassName: ''
   # Pod runtime class name to use for the node-agent daemonset. Optional.
-  runtimeClassName: ""
+  runtimeClassName: ''
   # Resource requests/limits to specify for the node-agent daemonset deployment. Optional.
   # https://velero.io/docs/v1.6/customize-installation/#customize-resource-requests-and-limits
   resources: {}
@@ -780,7 +777,7 @@ schedules: {}
 # Velero ConfigMaps.
 # Eg:
 # configMaps:
-    # See: https://velero.io/docs/v1.11/file-system-backup/
+# See: https://velero.io/docs/v1.11/file-system-backup/
 #   fs-restore-action-config:
 #     labels:
 #       velero.io/plugin-config: ""
@@ -801,7 +798,6 @@ schedules: {}
 #         runAsUser: 1001
 #         runAsGroup: 999
 configMaps: {}
-
 ##
 ## End of additional Velero resource settings.
 ##
