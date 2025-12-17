@@ -78,12 +78,14 @@ spec:
           secret:
             secretName: {{ include "velero.secretName" . }}
         {{- end }}
+        {{- if not (.Values.nodeAgent.disableHostPath) }}
         - name: host-pods
           hostPath:
             path: {{ .Values.nodeAgent.podVolumePath }}
         - name: host-plugins
           hostPath:
             path: {{ .Values.nodeAgent.pluginVolumePath | default "/var/lib/kubelet/plugins" }}
+        {{- end }}
         {{- if .Values.nodeAgent.useScratchEmptyDir }}
         - name: scratch
           emptyDir: {}
@@ -132,12 +134,14 @@ spec:
             - name: cloud-credentials
               mountPath: /credentials
             {{- end }}
+            {{- if not (.Values.nodeAgent.disableHostPath) }}
             - name: host-pods
               mountPath: /host_pods
               mountPropagation: HostToContainer
             - name: host-plugins
               mountPath: /host_plugins
               mountPropagation: HostToContainer
+            {{- end }}
             {{- if .Values.nodeAgent.useScratchEmptyDir }}
             - name: scratch
               mountPath: /scratch
