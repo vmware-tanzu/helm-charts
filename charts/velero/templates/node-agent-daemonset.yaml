@@ -134,12 +134,14 @@ spec:
             - name: cloud-credentials
               mountPath: /credentials
             {{- end }}
+            {{- if not (.Values.nodeAgent.disableHostPath) }}
             - name: host-pods
               mountPath: /host_pods
               mountPropagation: HostToContainer
             - name: host-plugins
               mountPath: /host_plugins
               mountPropagation: HostToContainer
+            {{- end }}
             {{- if .Values.nodeAgent.useScratchEmptyDir }}
             - name: scratch
               mountPath: /scratch
