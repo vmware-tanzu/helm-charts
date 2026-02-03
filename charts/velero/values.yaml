@@ -39,7 +39,10 @@ image:
 nameOverride: ""
 fullnameOverride: ""
 
-# Annotations to add to the Velero deployment's. Optional.
+# Annotations to add to only Velero deployment pod. Optional.
+veleroAnnotations: {}
+
+# Annotations to add to all Velero deployment's (the deployment and daemonset pods). Optional.
 #
 # If you are using reloader use the following annotation with your VELERO_SECRET_NAME
 annotations: {}
