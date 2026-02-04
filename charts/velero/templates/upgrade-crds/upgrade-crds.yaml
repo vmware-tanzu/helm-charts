@@ -44,10 +44,8 @@ spec:
         - name: kubectl
           {{- if .Values.kubectl.image.digest }}
           image: "{{ .Values.kubectl.image.repository }}@{{ .Values.kubectl.image.digest }}"
-          {{- else if .Values.kubectl.image.tag }}
-          image: "{{ .Values.kubectl.image.repository }}:{{ .Values.kubectl.image.tag }}"
           {{- else }}
-          image: "{{ .Values.kubectl.image.repository }}:{{ template "chart.KubernetesVersion" . }}"
+          image: "{{ .Values.kubectl.image.repository }}:{{ include "velero.kubectlImageTag" . }}"
           {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:

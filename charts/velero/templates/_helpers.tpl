@@ -116,3 +116,16 @@ Calculate the checksum of the credentials secret.
 {{- define "chart.config-checksum" -}}
 {{- tpl (print .Values.credentials.secretContents .Values.credentials.extraEnvVars ) $ | sha256sum -}}
 {{- end -}}
+{{/*
+Kubectl image tag
+- If user explicitly sets kubectl.image.tag → use as-is
+- Otherwise infer from Kubernetes version and prefix with 'v'
+- Use Major.Minor inferred version and append '.0'
+*/}}
+{{- define "velero.kubectlImageTag" -}}
+{{- if .Values.kubectl.image.tag -}}
+{{- .Values.kubectl.image.tag -}}
+{{- else -}}
+{{- printf "v%s.0" (template "chart.KubernetesVersion" .) -}}
+{{- end -}}
+{{- end -}}
