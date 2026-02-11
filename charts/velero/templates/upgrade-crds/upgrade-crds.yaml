@@ -1,6 +1,7 @@
 {{- if .Values.upgradeCRDs }}
 {{/* 'securityContext' got renamed to 'podSecurityContext', merge both dicts into one for backward compatibility */}}
 {{- $podSecurityContext := merge (.Values.podSecurityContext | default dict) (.Values.securityContext | default dict) -}}
+{{- $upgradeCRDsJob := .Values.upgradeCRDsJob | default dict -}}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -19,7 +20,7 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  backoffLimit: 3
+  backoffLimit: {{ default 3 $upgradeCRDsJob.backoffLimit }}
   template:
     metadata:
       name: velero-upgrade-crds

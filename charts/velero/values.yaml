@@ -14,6 +14,11 @@ namespace:
     # pod-security.kubernetes.io/warn: privileged
     # pod-security.kubernetes.io/warn-version: latest
 
+labelNamespaceJob:
+  # Specifies the number of retries before marking the label namespace job as failed.
+  # See: https://kubernetes.io/docs/concepts/workloads/controllers/job/#pod-backoff-failure-policy
+  backoffLimit: 3
+
 ##
 ## End of namespace-related settings.
 ##
@@ -100,6 +105,9 @@ upgradeJobResources: {}
 #     cpu: 100m
 #     memory: 256Mi
 upgradeCRDsJob:
+  # Specifies the number of retries before marking the upgrade CRDs job as failed.
+  # See: https://kubernetes.io/docs/concepts/workloads/controllers/job/#pod-backoff-failure-policy
+  backoffLimit: 3
   # Extra volumes for the Upgrade CRDs Job. Optional.
   extraVolumes: []
   # Extra volumeMounts for the Upgrade CRDs Job. Optional.
@@ -369,6 +377,11 @@ upgradeCRDs: true
 # This job is meant primarily for cleaning up CRDs on CI systems.
 # Using this on production systems, especially those that have multiple releases of Velero, will be destructive.
 cleanUpCRDs: false
+
+cleanUpCRDsJob:
+  # Specifies the number of retries before marking the cleanup CRDs job as failed.
+  # See: https://kubernetes.io/docs/concepts/workloads/controllers/job/#pod-backoff-failure-policy
+  backoffLimit: 3
 
 ##
 ## End of deployment-related settings.
