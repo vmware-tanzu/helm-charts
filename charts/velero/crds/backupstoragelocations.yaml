@@ -23,8 +23,8 @@ spec:
       jsonPath: .status.phase
       name: Phase
       type: string
-    - description: LastValidationTime is the last time the backup store location
-        was validated
+    - description: LastValidationTime is the last time the backup store location was
+        validated
       jsonPath: .status.lastValidationTime
       name: Last Validated
       type: date
@@ -59,8 +59,8 @@ spec:
           metadata:
             type: object
           spec:
-            description: BackupStorageLocationSpec defines the desired state of
-              a Velero BackupStorageLocation
+            description: BackupStorageLocationSpec defines the desired state of a
+              Velero BackupStorageLocation
             properties:
               accessMode:
                 description: AccessMode defines the permissions for the backup storage
@@ -84,8 +84,8 @@ spec:
                   to be used with this location
                 properties:
                   key:
-                    description: The key of the secret to select from.  Must be
-                      a valid secret key.
+                    description: The key of the secret to select from.  Must be a
+                      valid secret key.
                     type: string
                   name:
                     default: ""
@@ -139,8 +139,8 @@ spec:
             - provider
             type: object
           status:
-            description: BackupStorageLocationStatus defines the observed state
-              of BackupStorageLocation
+            description: BackupStorageLocationStatus defines the observed state of
+              BackupStorageLocation
             properties:
               accessMode:
                 description: |-
