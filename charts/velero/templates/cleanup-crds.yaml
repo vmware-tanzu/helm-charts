@@ -3,6 +3,7 @@
 # Using this on production systems, especially those that have multiple releases of Velero, will be destructive.
 {{/* 'securityContext' got renamed to 'podSecurityContext', merge both dicts into one for backward compatibility */}}
 {{- $podSecurityContext := merge (.Values.podSecurityContext | default dict) (.Values.securityContext | default dict) -}}
+{{- $cleanUpCRDsJob := .Values.cleanUpCRDsJob | default dict -}}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -17,7 +18,7 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
     helm.sh/chart: {{ include "velero.chart" . }}
 spec:
-  backoffLimit: 3
+  backoffLimit: {{ default 3 $cleanUpCRDsJob.backoffLimit }}
   template:
     metadata:
       name: velero-cleanup-crds
