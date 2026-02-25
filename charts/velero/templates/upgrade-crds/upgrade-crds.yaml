@@ -20,7 +20,7 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  backoffLimit: {{ default 3 $upgradeCRDsJob.backoffLimit }}
+  backoffLimit: {{ $upgradeCRDsJob.backoffLimit }}
   template:
     metadata:
       name: velero-upgrade-crds
