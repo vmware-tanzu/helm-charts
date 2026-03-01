@@ -1,5 +1,6 @@
 {{- if .Values.namespace }}
 {{- if gt (len .Values.namespace.labels) 0 }}
+{{- $labelNamespaceJob := .Values.labelNamespaceJob | default dict -}}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -43,6 +44,6 @@ spec:
       volumes:
       {{- toYaml .Values.kubectl.extraVolumes | nindent 6 }}
       {{- end }}
-  backoffLimit: 3
+  backoffLimit: {{ default 3 $labelNamespaceJob.backoffLimit }}
 {{- end }}
 {{- end }}
