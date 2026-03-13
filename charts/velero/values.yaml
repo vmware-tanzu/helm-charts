@@ -461,17 +461,17 @@ configuration:
   # here if using a non-default value. The `velero server` default values are shown in the
   # comments below.
   # --------------------
-  # `velero server` default: kopia
+  # `velero server` default: restic
   uploaderType:
   # `velero server` default: 1m
   backupSyncPeriod:
   # `velero server` default: 4h
   fsBackupTimeout:
-  # `velero server` default: 30
+  # `velero server` default: 100
   clientBurst:
   # `velero server` default: 500
   clientPageSize:
-  # `velero server` default: 20.0
+  # `velero server` default: 100.0
   clientQPS:
   # Name of the default backup storage location. Default: default
   defaultBackupStorageLocation:
