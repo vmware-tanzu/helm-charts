@@ -49,7 +49,7 @@ Specify the necessary values using the --set key=value[,key=value] argument to h
 helm install velero vmware-tanzu/velero \
 --namespace <YOUR NAMESPACE> \
 --create-namespace \
---set-file credentials.secretContents.cloud=<FULL PATH TO FILE> \
+--set-file credentials.extraSecrets.secretContent[0].cloud=<FULL PATH TO FILE> \
 --set configuration.backupStorageLocation[0].name=<BACKUP STORAGE LOCATION NAME> \
 --set configuration.backupStorageLocation[0].provider=<PROVIDER NAME> \
 --set configuration.backupStorageLocation[0].bucket=<BUCKET NAME> \
@@ -92,6 +92,28 @@ If a value needs to be added or changed, you may do so with the `upgrade` comman
 helm upgrade vmware-tanzu/velero <RELEASE NAME> --reuse-values --set configuration.backupStorageLocation[0].provider=<NEW PROVIDER>
 ```
 ## Upgrading Chart
+
+### Upgrading to 12.0.0
+
+The old key `secretContents` is now replaced by the array `extraSecrets`, so you can configure multiple secret manifests.
+
+The new syntax looks like this:
+
+```yaml
+credentials:
+  useSecret: true
+  extraSecrets:
+  - name: cloud-credentials
+    secretContent:
+      velero: |-
+        [default]
+        aws_access_key_id=aaaaaaaaaaaaaaaaaa
+        aws_secret_access_key=123456ABCDFGHI
+  - name: velero-repo-credentials
+    secretContent:
+      repository-password: |-
+        \>,3C}VK?%s*P]X.k\X-Uc{rEx/*]i>-f`KWb4Vs.A)*P>;Ckd`wpVAY>We
+```
 
 ### Upgrading to 7.0.0
 
@@ -278,5 +300,22 @@ Note: when you uninstall the Velero server, all backups remain untouched.
 ```bash
 helm uninstall <RELEASE NAME> -n <YOUR NAMESPACE>
 ```
-### Note
+## Notes
+
+### Change the Default Restic Password
+
+⚠️ Warning: The restic password is set to `static-passw0rd` by default. For better security, set up a secret with your own password.
+
+```yaml
+credentials:
+  useSecret: true
+  extraSecrets:
+  - name: velero-repo-credentials
+    secretContent:
+      repository-password: |-
+        \>,3C}VK?%s*P]X.k\X-Uc{rEx/*]i>-f`KWb4Vs.A)*P>;Ckd`wpVAY>We
+```
+
+### Velero Chart v3.0.0 Drops Backward Compatibility with Restic-Only Configurations
+
 Since from velero v1.10.0, it has supported both Restic and Kopia to do file-system level backup and restore, some configuration that contains the keyword Restic is not suitable anymore, which means from chart version 3.0.0 is not backward compatible, and we've done a configure filed name validation.
