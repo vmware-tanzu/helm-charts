@@ -112,6 +112,9 @@ spec:
           args:
             - node-agent
             - server
+          {{- with .Values.nodeAgent.nodeAgentConfigMap }}
+            - --node-agent-configmap={{ . }}
+          {{- end }}
           {{- with .Values.configuration }}
             {{- with .features }}
             - --features={{ . }}

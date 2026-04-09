@@ -654,6 +654,12 @@ snapshotsEnabled: true
 deployNodeAgent: false
 
 nodeAgent:
+  # Optional ConfigMap name for node-agent data-path configuration (e.g. podLabels for
+  # data mover and PVB/PVR hosting pods). When non-empty, adds --node-agent-configmap to
+  # the node-agent container. Requires Velero v1.18+ (see vmware-tanzu/velero#9452).
+  # Leave empty to omit the flag.
+  nodeAgentConfigMap: ""
+
   # Disables Host Path volumes for node-agent.
   disableHostPath: false
   podVolumePath: /var/lib/kubelet/pods

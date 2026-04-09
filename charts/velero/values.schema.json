@@ -673,6 +673,9 @@
                 "runtimeClassName": {
                     "type": "string"
                 },
+                "nodeAgentConfigMap": {
+                    "type": "string"
+                },
                 "resources": {
                     "type": "object",
                     "properties": {},
