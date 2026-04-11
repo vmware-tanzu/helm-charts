@@ -382,6 +382,9 @@
                             "validationFrequency": {
                                 "type": ["string", "null"]
                             },
+                            "backupSyncPeriod": {
+                                "type": ["string", "null"]
+                            },
                             "accessMode": {
                                 "type": ["string", "null"]
                             },

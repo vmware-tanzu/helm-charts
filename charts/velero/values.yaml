@@ -398,6 +398,8 @@ configuration:
     default: false
     # validationFrequency defines how frequently Velero should validate the object storage. Optional.
     validationFrequency:
+    # backupSyncPeriod defines how frequently Velero should synchronize backups in object storage. Optional.
+    backupSyncPeriod:
     # accessMode determines if velero can write to this backup storage location. Optional.
     # default to ReadWrite, ReadOnly is used during migrations and restores.
     accessMode: ReadWrite

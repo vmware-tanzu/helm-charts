@@ -37,6 +37,9 @@ spec:
   {{- with .validationFrequency }}
   validationFrequency: {{ . }}
   {{- end }}
+  {{- with .backupSyncPeriod }}
+  backupSyncPeriod: {{ . }}
+  {{- end }}
   objectStorage:
     bucket: {{ .bucket | quote }}
     {{- with .prefix }}
