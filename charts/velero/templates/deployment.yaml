@@ -28,6 +28,7 @@ spec:
     type: Recreate
   selector:
     matchLabels:
+      name: velero
       app.kubernetes.io/instance: {{ .Release.Name }}
       app.kubernetes.io/name: {{ include "velero.name" . }}
   template:
