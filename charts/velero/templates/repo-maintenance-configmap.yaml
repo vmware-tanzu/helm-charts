@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ default "velero-repo-maintenance" .Values.configuration.repositoryMaintenanceJob.repositoryConfigData.name }}
+  name: {{ default (printf "%s-repo-maintenance" (include "velero.fullname" .)) .Values.configuration.repositoryMaintenanceJob.repositoryConfigData.name }}
   namespace: {{ .Release.Namespace }}
   labels:
     app.kubernetes.io/name: {{ include "velero.name" . }}

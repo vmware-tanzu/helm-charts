@@ -3,7 +3,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: velero
+  name: {{ include "velero.fullname" . }}
   namespace: {{ .Release.Namespace }}
   {{- with .Values.annotations }}
   annotations:
@@ -181,7 +181,7 @@ spec:
             {{- end }}
             {{- with .repositoryMaintenanceJob }}
             {{- if and .repositoryConfigData (or .repositoryConfigData.global .repositoryConfigData.repositories) }}
-            - --repo-maintenance-job-configmap={{ default "velero-repo-maintenance" .repositoryConfigData.name }}
+            - --repo-maintenance-job-configmap={{ default (printf "%s-repo-maintenance" (include "velero.fullname" $)) .repositoryConfigData.name }}
             {{- else }}
             {{- end }}
             {{- end }}
