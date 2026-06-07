@@ -22,7 +22,6 @@ spec:
   backoffLimit: 3
   template:
     metadata:
-      name: velero-cleanup-crds
       {{- with .Values.kubectl.labels }}
       labels:
         {{- toYaml . | nindent 8 }}

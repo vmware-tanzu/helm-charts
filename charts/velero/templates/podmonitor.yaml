@@ -2,7 +2,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
-  name: node-agent
+  name: {{ include "velero.fullname" . }}-node-agent
   {{- if .Values.metrics.nodeAgentPodMonitor.namespace }}
   namespace: {{ .Values.metrics.nodeAgentPodMonitor.namespace }}
   {{- end }}
