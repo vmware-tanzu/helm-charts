@@ -192,7 +192,7 @@ spec:
           {{- with .Values.nodeAgent.extraEnvVars }}
           {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- if .Values.lifecycle }}
+          {{- if .Values.nodeAgent.lifecycle }}
           lifecycle: {{ toYaml .Values.nodeAgent.lifecycle | nindent 12 }}
           {{- end }}
           securityContext:
