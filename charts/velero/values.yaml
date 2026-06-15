@@ -360,7 +360,7 @@ kubectl:
   labels: {}
   # Extra volumes for the upgrade/cleanup job. Optional.
   extraVolumes: []
-  # Extra volumeMounts for the upgrade/cleanup job.. Optional.
+  # Extra volumeMounts for the upgrade/cleanup job. Optional.
   extraVolumeMounts: []
 
 # This job upgrades the CRDs.
