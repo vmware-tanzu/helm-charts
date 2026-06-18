@@ -199,6 +199,19 @@ nodeSelector: {}
 # DNS configuration to use for the Velero deployment. Optional.
 dnsConfig: {}
 
+# Pod Disruption Budget for the Velero deployment. Optional.
+# Velero runs a single replica with a Recreate strategy by default, so this is
+# disabled by default. Enable it when running Velero with multiple replicas.
+podDisruptionBudget:
+  enabled: false
+  # minAvailable and maxUnavailable are mutually exclusive; set only one.
+  minAvailable: 1
+  maxUnavailable: ""
+  # See https://kubernetes.io/docs/tasks/run-application/configure-pdb/
+  # unhealthyPodEvictionPolicy: IfHealthyBudget
+  annotations: {}
+  labels: {}
+
 # Extra volumes for the Velero deployment. Optional.
 extraVolumes: []
 
