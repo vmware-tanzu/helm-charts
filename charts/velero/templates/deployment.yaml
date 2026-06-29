@@ -217,6 +217,13 @@ spec:
           volumeMounts:
             - name: plugins
               mountPath: /plugins
+            {{- range $plugin := .Values.plugins }}
+            {{- $name := include "velero.pluginName" (dict "plugin" $plugin) }}
+            - name: plugin-{{ $name }}
+              mountPath: /plugins/{{ $name }}
+              subPath: {{ default (printf "plugins/%s" $name) $plugin.subPath }}
+              readOnly: true
+            {{- end }}
             {{- if .Values.credentials.useSecret }}
             - name: cloud-credentials
               mountPath: /credentials
@@ -292,6 +299,14 @@ spec:
         {{- end }}
         - name: plugins
           emptyDir: {}
+        {{- range $plugin := .Values.plugins }}
+        - name: plugin-{{ include "velero.pluginName" (dict "plugin" $plugin) }}
+          image:
+            reference: {{ $plugin.image }}
+            {{- with $plugin.pullPolicy }}
+            pullPolicy: {{ . }}
+            {{- end }}
+        {{- end }}
         - name: scratch
           emptyDir: {}
         {{- if .Values.containerSecurityContext.readOnlyRootFilesystem }}
