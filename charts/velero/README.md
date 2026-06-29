@@ -80,6 +80,32 @@ If a value needs to be added or changed, you may do so with the `upgrade` comman
 helm upgrade <RELEASE NAME> vmware-tanzu/velero --namespace <YOUR NAMESPACE> --reuse-values --set configuration.backupStorageLocation[0].provider=<NEW PROVIDER>
 ```
 
+##### Deploying plugins with Image Volumes
+
+Instead of copying each plugin binary with an init container, plugins can be
+mounted directly from their OCI image using [Image Volumes](https://kubernetes.io/docs/concepts/storage/volumes/#image)
+via the `plugins` value:
+
+```yaml
+plugins:
+  - image: velero/velero-plugin-for-aws:v1.13.1
+  - image: velero/velero-plugin-for-csi:v0.7.1
+```
+
+The plugin binary is mounted read-only under the plugin directory, where Velero
+discovers it. By default the binary is taken from `plugins/<name>` inside the
+image (the convention used by the Velero plugin images); override `subPath` per
+plugin if the binary lives elsewhere, or point it at a directory to expose
+several binaries from one image. Compared to `initContainers`, this avoids the
+sequential init container startup, removes the per-plugin CPU/memory tuning,
+and works with distroless plugin images (no `cp` or shell required).
+
+This requires the `ImageVolume` feature with `subPath` support, i.e. Kubernetes
+>= 1.33 (beta, enabled by default), and a container runtime that supports image
+volumes (e.g. containerd >= 2.1, CRI-O >= 1.33). `plugins` and `initContainers`
+can be combined, and at least one plugin provider must be supplied through
+either of them.
+
 #### Using Helm 2
 
 We're no longer supporting Helm v2 since it was deprecated in November 2020.
