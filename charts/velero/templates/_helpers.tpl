@@ -126,6 +126,20 @@ mount sub-directory under the plugin directory.
 {{- end -}}
 
 {{/*
+Validate that the target cluster supports the plugin deployment method.
+Mounting a plugin binary from an image volume via `subPath` requires the
+`ImageVolume` feature with subPath support, i.e. Kubernetes >= 1.33.
+When rendering offline, pass `--kube-version` to override the detected version.
+*/}}
+{{- define "velero.validatePlugins" -}}
+{{- if .Values.plugins -}}
+{{- if not (semverCompare ">=1.33.0-0" .Capabilities.KubeVersion.Version) -}}
+{{- fail (printf "velero: `plugins` mounts plugin binaries from image volumes via subPath, which requires Kubernetes >= 1.33, but the target cluster is %s. Use `initContainers` instead, or pass --kube-version when rendering offline." .Capabilities.KubeVersion.Version) -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Calculate the checksum of the credentials secret.
 */}}
 {{- define "chart.config-checksum" -}}

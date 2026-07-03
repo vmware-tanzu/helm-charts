@@ -1,3 +1,4 @@
+{{- include "velero.validatePlugins" . -}}
 {{/* 'securityContext' got renamed to 'podSecurityContext', merge both dicts into one for backward compatibility */}}
 {{- $podSecurityContext := merge (.Values.podSecurityContext | default dict) (.Values.securityContext | default dict) -}}
 apiVersion: apps/v1
