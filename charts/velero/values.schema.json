@@ -108,6 +108,27 @@
             "type": ["array", "string", "null"],
             "items": {}
         },
+        "plugins": {
+            "type": ["array", "null"],
+            "items": {
+                "type": "object",
+                "properties": {
+                    "image": {
+                        "type": "string"
+                    },
+                    "pullPolicy": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "subPath": {
+                        "type": "string"
+                    }
+                },
+                "required": ["image"]
+            }
+        },
         "podSecurityContext": {
             "type": "object",
             "properties": {},

@@ -106,6 +106,40 @@ Kubernetes version
 {{- end -}}
 
 {{/*
+Derive a normalized name for a plugin mounted as an image volume.
+Input: a dict with key "plugin" (one entry of .Values.plugins).
+Uses the explicit `name` if provided, otherwise the image name (the last path
+component of the reference, stripped of any tag and digest). The result is
+sanitized to a DNS-1123 label so it can be used as a volume name and as a
+mount sub-directory under the plugin directory.
+*/}}
+{{- define "velero.pluginName" -}}
+{{- $plugin := .plugin -}}
+{{- if $plugin.name -}}
+{{- $plugin.name -}}
+{{- else -}}
+{{- $ref := splitList "@" $plugin.image | first -}}
+{{- $lastComponent := splitList "/" $ref | last -}}
+{{- $name := splitList ":" $lastComponent | first -}}
+{{- $name | lower | replace "_" "-" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Validate that the target cluster supports the plugin deployment method.
+Mounting a plugin binary from an image volume via `subPath` requires the
+`ImageVolume` feature with subPath support, i.e. Kubernetes >= 1.33.
+When rendering offline, pass `--kube-version` to override the detected version.
+*/}}
+{{- define "velero.validatePlugins" -}}
+{{- if .Values.plugins -}}
+{{- if not (semverCompare ">=1.33.0-0" .Capabilities.KubeVersion.Version) -}}
+{{- fail (printf "velero: `plugins` mounts plugin binaries from image volumes via subPath, which requires Kubernetes >= 1.33, but the target cluster is %s. Use `initContainers` instead, or pass --kube-version when rendering offline." .Capabilities.KubeVersion.Version) -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Calculate the checksum of the credentials secret.
 */}}
 {{- define "chart.config-checksum" -}}
