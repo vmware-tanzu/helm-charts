@@ -1,0 +1,84 @@
+{{- if or (not (hasKey .Values.rbac "aggregate")) .Values.rbac.aggregate }}
+{{- /*
+  Aggregating ClusterRoles so the builtin view/edit/admin roles cover the velero.io CRDs.
+  edit and admin do not inherit view, so the read role carries all three aggregate labels and is defined once.
+  The write role carries the edit and admin labels.
+  DownloadRequest is edit/admin only: the controller writes a presigned download URL to its status.
+  It is therefore kept out of the read role. It has its own read and write roles, both labelled edit and admin.
+  The downloadrequests-restricted-view role is deliberately NOT labelled aggregate-to-view.
+*/}}
+{{- $userManaged := list "backups" "restores" "schedules" "deletebackuprequests" "serverstatusrequests" "backupstoragelocations" "volumesnapshotlocations" }}
+{{- $controllerManaged := list "backuprepositories" "podvolumebackups" "podvolumerestores" "datauploads" "datadownloads" }}
+{{- $sensitive := list "downloadrequests" }}
+{{- $readVerbs := list "get" "list" "watch" }}
+{{- $writeVerbs := list "create" "update" "patch" "delete" "deletecollection" }}
+{{- $commonLabels := dict "app.kubernetes.io/name" (include "velero.name" $) "app.kubernetes.io/instance" $.Release.Name "app.kubernetes.io/managed-by" $.Release.Service "helm.sh/chart" (include "velero.chart" $) }}
+{{- $roles := list
+  (dict "suffix" "view" "tiers" (list "view" "edit" "admin"))
+  (dict "suffix" "edit" "tiers" (list "edit" "admin"))
+  (dict "suffix" "downloadrequests-restricted-view" "tiers" (list "edit" "admin"))
+  (dict "suffix" "downloadrequests-edit" "tiers" (list "edit" "admin"))
+}}
+{{- range $role := $roles }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "velero.fullname" $ }}-aggregate-to-{{ $role.suffix }}
+  labels:
+  {{- range $tier := $role.tiers }}
+    rbac.authorization.k8s.io/aggregate-to-{{ $tier }}: "true"
+  {{- end }}
+  {{- range $k, $v := $commonLabels }}
+    {{ $k }}: {{ $v | quote }}
+  {{- end }}
+rules:
+{{- if eq $role.suffix "view" }}
+- apiGroups:
+    - velero.io
+  resources:
+  {{- range concat $userManaged $controllerManaged }}
+    - {{ . }}
+    - {{ . }}/status
+  {{- end }}
+  verbs:
+  {{- range $readVerbs }}
+    - {{ . }}
+  {{- end }}
+{{- else if eq $role.suffix "edit" }}
+- apiGroups:
+    - velero.io
+  resources:
+  {{- range $userManaged }}
+    - {{ . }}
+  {{- end }}
+  verbs:
+  {{- range $writeVerbs }}
+    - {{ . }}
+  {{- end }}
+{{- else if eq $role.suffix "downloadrequests-restricted-view" }}
+- apiGroups:
+    - velero.io
+  resources:
+  {{- range $sensitive }}
+    - {{ . }}
+    - {{ . }}/status
+  {{- end }}
+  verbs:
+  {{- range $readVerbs }}
+    - {{ . }}
+  {{- end }}
+{{- else }}
+- apiGroups:
+    - velero.io
+  resources:
+  {{- range $sensitive }}
+    - {{ . }}
+  {{- end }}
+  verbs:
+  {{- range $writeVerbs }}
+    - {{ . }}
+  {{- end }}
+{{- end }}
+{{- end }}
+{{- end }}

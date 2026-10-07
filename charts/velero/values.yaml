@@ -614,6 +614,10 @@ rbac:
   clusterAdministrator: true
   # Name of the ClusterRole.
   clusterAdministratorName: cluster-admin
+  # Whether to create ClusterRoles aggregated into the builtin view, edit and admin ClusterRoles for the velero.io CRDs.
+  # DownloadRequest (its status holds a presigned download URL) is only aggregated into edit and admin.
+  # Independent of rbac.create: the server Role is governed by rbac.create, the aggregation ClusterRoles only by this value.
+  aggregate: true
 
 # Information about the Kubernetes service account Velero uses.
 serviceAccount:
