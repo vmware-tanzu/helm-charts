@@ -574,6 +574,9 @@
                 },
                 "clusterAdministratorName": {
                     "type": "string"
+                },
+                "aggregate": {
+                    "type": "boolean"
                 }
             },
             "required": [
