@@ -280,7 +280,7 @@ metrics:
     additionalLabels: {}
 
     # metrics.serviceMonitor.metricRelabelings Specify Metric Relabelings to add to the scrape endpoint
-    # ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#relabelconfig
+    # ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.RelabelConfig
     # metricRelabelings: []
     # metrics.serviceMonitor.relabelings [array] Prometheus relabeling rules
     # relabelings: []
@@ -296,7 +296,7 @@ metrics:
     annotations: {}
     additionalLabels: {}
     # metrics.nodeAgentPodMonitor.metricRelabelings Specify Metric Relabelings to add to the scrape endpoint
-    # ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#relabelconfig
+    # ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.RelabelConfig
     # metricRelabelings: []
     # metrics.nodeAgentPodMonitor.relabelings [array] Prometheus relabeling rules
     # relabelings: []

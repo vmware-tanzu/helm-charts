@@ -24,7 +24,7 @@ When installing using the Helm chart, the provider's credential information will
 
 ### Azure resources
 
-When using the Azure plug-in, requests and limits must be set. See https://github.com/vmware-tanzu/velero/issues/3234 and https://github.com/vmware-tanzu/helm-charts/issues/469 for details.
+When using the Azure plug-in, requests and limits must be set. See https://github.com/velero-io/velero/issues/3234 and https://github.com/vmware-tanzu/helm-charts/issues/469 for details.
 
 ### Installing
 
