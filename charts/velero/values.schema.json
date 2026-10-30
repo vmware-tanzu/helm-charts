@@ -372,6 +372,21 @@
                             },
                             "caCert": {
                                 "type": ["string", "null"]
+                             },
+                            "caCertRef": {
+                                "type": ["object", "null"],
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "key": {
+                                        "type": "string"
+                                    },
+                                    "optional": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "required": []                           
                             },
                             "prefix": {
                                 "type": ["string", "null"]
