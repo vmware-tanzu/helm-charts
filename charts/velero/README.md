@@ -16,7 +16,7 @@ Kubernetes v1.16+, because this helm chart uses CustomResourceDefinition `apiext
 
 ### Velero version
 
-This helm chart installs Velero version v1.16 https://velero.io/docs/v1.16/. See the [#Upgrading](#upgrading) section for information on how to upgrade from other versions.
+This helm chart installs Velero version v1.18 https://velero.io/docs/v1.18/. See the [#Upgrading](#upgrading) section for information on how to upgrade from other versions.
 
 ### Provider credentials
 
@@ -204,6 +204,14 @@ Note: The legacy parameters (`--maintenance-job-cpu-request`, `--maintenance-job
 For more information, see the [Velero Repository Maintenance documentation](https://velero.io/docs/main/repository-maintenance/).
 
 ## Upgrading Velero
+
+### Upgrading to v1.18
+
+The [instructions found here](https://velero.io/docs/v1.18/upgrade-to-1.18/) will assist you in upgrading from version v1.17.x to v1.18.
+
+### Upgrading to v1.17
+
+The [instructions found here](https://velero.io/docs/v1.17/upgrade-to-1.17/) will assist you in upgrading from version v1.16.x to v1.17.
 
 ### Upgrading to v1.16
 
