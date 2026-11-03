@@ -239,6 +239,11 @@ spec:
                 fieldRef:
                   apiVersion: v1
                   fieldPath: metadata.namespace
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.name
             - name: LD_LIBRARY_PATH
               value: /plugins
           {{- if .Values.credentials.useSecret }}
