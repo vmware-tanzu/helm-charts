@@ -25,7 +25,7 @@ spec:
 {{- if $schedule.useOwnerReferencesInBackup }}
   useOwnerReferencesInBackup: {{ $schedule.useOwnerReferencesInBackup }}
 {{- end }}
-{{- if $schedule.skipImmediately }}
+{{- if not (kindIs "invalid" $schedule.skipImmediately) }}
   skipImmediately: {{ $schedule.skipImmediately }}
 {{- end }}
   schedule: {{ $schedule.schedule | quote }}
