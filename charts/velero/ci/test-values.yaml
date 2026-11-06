@@ -33,6 +33,7 @@ schedules:
     labels:
       myenv: foo
     schedule: "0 0 * * *"
+    skipImmediately: false
     template:
       ttl: "240h"
       includedNamespaces:
