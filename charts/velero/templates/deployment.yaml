@@ -161,7 +161,11 @@ spec:
             - --restore-only
             {{- end }}
             {{- with .restoreResourcePriorities }}
+            {{- if kindIs "slice" . }}
+            - --restore-resource-priorities={{ join "," . }}
+            {{- else }}
             - --restore-resource-priorities={{ . }}
+            {{- end }}
             {{- end }}
             {{- with .storeValidationFrequency }}
             - --store-validation-frequency={{ . }}
@@ -239,6 +243,11 @@ spec:
                 fieldRef:
                   apiVersion: v1
                   fieldPath: metadata.namespace
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.name
             - name: LD_LIBRARY_PATH
               value: /plugins
           {{- if .Values.credentials.useSecret }}

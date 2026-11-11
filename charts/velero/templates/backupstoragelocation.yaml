@@ -49,6 +49,10 @@ spec:
     {{- with .caCert }}
     caCert: {{ . }}
     {{- end }}
+    {{- with .caCertRef }}
+    caCertRef:
+       {{- toYaml . | nindent 6 }}
+    {{- end }}
 {{- with .config }}
   config:
 {{- range $key, $value := . }}
