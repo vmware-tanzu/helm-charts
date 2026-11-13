@@ -136,6 +136,34 @@ initContainers:
   #     - mountPath: /target
   #       name: plugins
 
+# Plugins to add to the Velero deployment using Kubernetes Image Volumes
+# (https://kubernetes.io/docs/concepts/storage/volumes/#image), as an
+# alternative to `initContainers`. Each plugin's binary is mounted read-only
+# from its OCI image into the plugin directory, so there is no sequential init
+# container startup and it works with distroless plugin images (no `cp`/shell
+# required).
+#
+# Requires the `ImageVolume` feature with `subPath` support, i.e. Kubernetes
+# >= 1.33 (beta, enabled by default), and a container runtime that supports
+# image volumes (e.g. containerd >= 2.1, CRI-O >= 1.33).
+#
+# At least one plugin provider image is required, supplied through either
+# `initContainers` or `plugins`. The two mechanisms can be combined.
+plugins: []
+  # - image: velero/velero-plugin-for-aws:v1.13.1
+  #   # Image pull policy for the plugin image volume. Optional, defaults to the
+  #   # cluster default for the resolved reference (Always for tags, IfNotPresent
+  #   # for digests).
+  #   pullPolicy: IfNotPresent
+  #   # Name used for the generated volume and as the mount target under the
+  #   # plugin directory. Optional, defaults to the image name (the last path
+  #   # component without tag/digest). Must be unique across plugins.
+  #   name: velero-plugin-for-aws
+  #   # Path of the plugin binary inside the image, mounted read-only into the
+  #   # plugin directory. Optional, defaults to `plugins/<name>`. Set it to a
+  #   # directory to expose several binaries shipped by the same image.
+  #   subPath: plugins/velero-plugin-for-aws
+
 # SecurityContext to use for the Velero deployment. Optional.
 # Set fsGroup for `AWS IAM Roles for Service Accounts`
 # see more informations at: https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html
